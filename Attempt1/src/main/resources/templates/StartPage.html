@@ -4,20 +4,39 @@
     <meta charset="UTF-8">
     <title>Hola mundo</title>
     <style>
+        div{
+            background-color : white;
+            height : 60px;
+        }
+        ul.prueba li{
+            display : inline;
+            color : black;
+            padding-right : 0.5em;
+            padding-left : 0.5em;
+        }
         p{
             color : white;
         }
-        ul{
+        li{
+            color : white;
+        }
+        h1{
             color : white;
         }
     </style>
 </head>
-<body bgcolor="black">
-    <p>Los items disponibles en nuestra tienda son:</p>
-    <ul>
-        {{#items}}
-        <li>{{.}}</li>
-        {{/items}}
+<center><body bgcolor="black">
+<div>
+    <ul class="prueba">
+        <li><a href="/">MainPage</a></li>
+        <li><a href="/usr">MyUser</a></li>
+        <li>Prueba1</li>
+        <li>Prueba2</li>
     </ul>
-</body>
+</div>
+    <h1>Los items disponibles en nuestra tienda son:</h1>
+    {{#items}}
+    <p><a href="/item?item={{-index}}">{{nombre}} [{{precio}}€]</a></p>
+    {{/items}}
+</body></center>
 </html>

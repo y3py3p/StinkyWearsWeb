@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{#item}}{{nombre}}{{/item}}</title>
+    <style>
+    p{
+        color : white;
+    }
+    h1{
+        color : white;
+    }
+    div{
+        background-color : white;
+        height : 60px;
+    }
+    ul.prueba li{
+        display : inline;
+        color : black;
+        padding-right : 0.5em;
+        padding-left : 0.5em;
+    }
+    </style>
+</head>
+<center><body bgcolor="black">
+<div>
+    <ul class="prueba">
+        <li><a href="/">MainPage</a></li>
+        <li><a href="/usr">MyUser</a></li>
+        <li>Prueba1</li>
+        <li>Prueba2</li>
+    </ul>
+</div>
+{{#item}}
+    <h1>{{nombre}}</h1>
+    <p>Estado: {{estado}}<br>Talla: {{talla}}<br>Precio: {{precio}}€</p><br>
+{{/item}}
+</body></center>
+</html>

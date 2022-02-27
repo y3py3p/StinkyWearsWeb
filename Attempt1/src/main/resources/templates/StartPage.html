@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hola mundo</title>
+    <style>
+        p{
+            color : white;
+        }
+        ul{
+            color : white;
+        }
+    </style>
+</head>
+<body bgcolor="black">
+    <p>Los items disponibles en nuestra tienda son:</p>
+    <ul>
+        {{#items}}
+        <li>{{.}}</li>
+        {{/items}}
+    </ul>
+</body>
+</html>

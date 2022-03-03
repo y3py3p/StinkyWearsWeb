@@ -11,7 +11,6 @@ public class Item{
     private int stock=0;
     private static long lastId=1;
 
-
     public Item(String nombre, String talla, String estado,float precio) {
         this.nombre = nombre;
         this.talla = talla;

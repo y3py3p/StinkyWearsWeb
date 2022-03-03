@@ -23,6 +23,7 @@ public class ControllerBasic {
         items.add(new Item("Sujetador Mujer", "92B", "Hecho mierda", 25));
     }
 
+
     @GetMapping("")
     public String homePage(Model model) {
         model.addAttribute("items", items);

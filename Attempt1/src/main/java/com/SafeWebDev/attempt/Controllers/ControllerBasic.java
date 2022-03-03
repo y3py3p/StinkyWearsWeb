@@ -35,11 +35,11 @@ public class ControllerBasic {
         return "ItemPage";
     }
 
-    @GetMapping("/usr/{num}")
-    public String usrPage(Model model, @PathVariable int num) {
+    @GetMapping("/usr")
+    public String usrPage(/*Model model, @PathVariable int num*/) {
 
-        User user = usuarios.get(num);
-        model.addAttribute("user", user);
+        //User user = usuarios.get(num);
+        //model.addAttribute("user", user);
         return "UsrPage";
     }
 

@@ -3,24 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Log in</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <p>Inicia sesión</p>
 
-    <form>
-        <label for="inputUser">Usuario:</label>
+    <section class="form-register">
+        <h4>Inicia sesion</h4>
+        <input class="controls" type="email" name="email" id="email" placeholder="Introduce tu correo">
+        <input class="controls" type="password" name="password" id="password" placeholder="Introduce tu contraseña">
+        <button class="buttons" type="submit"><a href="/usr">Sign in</a></button>
         <br>
-        <input type="text" id="inputUser" placeholder="usuario">
-        <br><br>
-        <label for="inputPassword">Contraseña:</label>
-        <br>
-        <input type="password" id="inputPassword" placeholder="password">
-        <br>
-        <br>
-        <button type="submit"><a href="/usr">Log in</a></button>
-        <br>
-
-    </form>
-    <a href="/createAccount">¿No tienes cuenta? Registrate</a>
+        <a href="/createAccount" style="margin-left:50px; background:#1423D5; color: white">¿No tienes cuenta? Registrate</a>
+    </section>
 </body>
 </html>

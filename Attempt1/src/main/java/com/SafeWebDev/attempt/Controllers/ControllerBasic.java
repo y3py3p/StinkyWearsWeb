@@ -3,17 +3,18 @@ package com.SafeWebDev.attempt.Controllers;
 import com.SafeWebDev.attempt.Models.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ControllerBasic {
 
     List<Item> items = new ArrayList<Item>();
+    Map<Long, User> usuarios = new HashMap<>();
 
     public ControllerBasic() {
         items.add(new Item("Boxers Hombre", "XXL", "Desgastado, dado de sí y manchado", 10));
@@ -34,8 +35,11 @@ public class ControllerBasic {
         return "ItemPage";
     }
 
-    @GetMapping("/usr")
-    public String usrPage() {
+    @GetMapping("/usr/{num}")
+    public String usrPage(Model model, @PathVariable int num) {
+
+        User user = usuarios.get(num);
+        model.addAttribute("user", user);
         return "UsrPage";
     }
 
@@ -46,6 +50,9 @@ public class ControllerBasic {
 
     @GetMapping("/createAccount")
     public String createAccount(){
+
+        //usuarios.put(user.getId(), user);
+
         return "CreateAccount";
     }
 }

@@ -21,6 +21,7 @@ public class ControllerBasic {
         items.add(new Item("Bragas Mujer", "XL", "Desgastado, sucio", 15));
         items.add(new Item("Calcetin Blanco", "L", "Con agujeros, olor a esmegma", 35));
         items.add(new Item("Sujetador Mujer", "92B", "Hecho mierda", 25));
+
     }
 
 

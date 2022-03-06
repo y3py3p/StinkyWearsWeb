@@ -39,11 +39,14 @@ public class ControllerBasic {
     }
 
     @GetMapping("/usr")
-    public String usrPage(/*Model model, @PathVariable int num*/) {
-
-        //User user = usuarios.get(num);
-        //model.addAttribute("user", user);
+    public String usrPage(Model model) {
         return "UsrPage";
+    }
+
+    @PostMapping("/item/new")
+    public String addItem(Model model,Item item){
+        items.add(item);
+        return "ItemAdded";
     }
 
     @GetMapping("/login")

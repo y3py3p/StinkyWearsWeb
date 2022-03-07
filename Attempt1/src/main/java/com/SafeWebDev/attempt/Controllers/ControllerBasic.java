@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,18 +32,22 @@ public class ControllerBasic {
         return "StartPage";
     }
 
-    @GetMapping("/item")
-    public String itemPage(Model model, @RequestParam int item) {
-        model.addAttribute("item", items.get(item - 1));
+    @GetMapping("/item/{id}")
+    public String itemPage(Model model, @PathVariable int id) {
+        model.addAttribute("item", items.get(id - 1));
         return "ItemPage";
     }
 
     @GetMapping("/usr")
-    public String usrPage(/*Model model, @PathVariable int num*/) {
-
-        //User user = usuarios.get(num);
-        //model.addAttribute("user", user);
+    public String usrPage(Model model) {
         return "UsrPage";
+    }
+
+    @PostMapping("/item/new")
+    public String addItem(Model model,Item item){
+        items.add(item);
+
+        return "ItemAdded";
     }
 
     @GetMapping("/login")

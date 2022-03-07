@@ -9,6 +9,7 @@ public class User {
     private boolean premium;
     private String direccion;
     private String datosBancarios;
+    private Carrito carrito;
     private long id;
     private static long lastId = 1;
 

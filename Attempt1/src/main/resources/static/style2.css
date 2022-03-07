@@ -1,0 +1,140 @@
+body{
+    font-family: Comic Sans MS, Candara, Arial;
+}
+
+nav{
+    background: #D3CCA5;
+    color: black;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+
+}
+
+nav ul li{
+    display:inline;
+    text-align: center;
+    padding-right : 0.5em;
+    padding-left : 0.5em;
+}
+
+footer{
+    background: #795A2D;
+    color: #B0C400;
+    text-align: center;
+    height: 20px;
+    line-height: 20px;
+}
+
+a:visited{
+    color: #795A2D;
+}
+
+a:link{
+    color: #795A2D;
+}
+
+a:hover {
+    color: #B0C400;
+}
+
+#descripcion{
+    float: left;
+    text-align: center;
+    width: 100%;
+    background: #795A2D;
+    min-height: 300px;
+    color: white;
+}
+
+#contacto{
+    float: left;
+    width: 100%;
+    background: #D3CCA5;
+    min-height: 100px;
+    padding: 40px;
+    color: black;
+}
+
+#usrimg{
+    float: left;
+    width: calc(20% - 100px);
+    background: #795A2D;
+    min-height: 300px;
+    padding: 50px;
+}
+
+#usrinfo{
+    float: left;
+    width: calc(80% - 80px);
+    background: #D5DE2E;
+    min-height: 320px;
+    padding: 40px;
+}
+
+#usrinfo h2{
+    text-align: center;
+    color: #795A2D;
+    /*estilo d titulos*/
+}
+
+#infoitem{
+    background: #B0C400;
+    padding: 40px;
+    text-align: center;
+}
+
+.article h2{
+    text-align: center;
+    /*añadir color fuente y eso */
+}
+
+.article p{
+    text-align: center;
+    /*añadir color fuente y eso */
+}
+
+.clearfix{
+    clear: both;
+}
+
+
+
+/*
+nav{
+    background-color : white;
+    height : 60px;
+    line-height: 35px;
+    text-align: center;
+
+}
+nav ul li{
+    float: left;
+    margin: 10px;
+}
+
+#descripcion{
+    text-align: center;
+    background: black;
+    min-height: 500px;
+    padding: 40px;
+    color: white;
+}
+
+ul.prueba li{
+    display : inline;
+    color : black;
+    padding-right : 0.5em;
+    padding-left : 0.5em;
+}
+p{
+    color : white;
+}
+li{
+    color : white;
+}
+h1{
+    color : white;
+}
+
+ */

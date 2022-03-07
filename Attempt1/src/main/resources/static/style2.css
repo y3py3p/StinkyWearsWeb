@@ -1,5 +1,5 @@
 body{
-    font-family: Comic Sans MS, Candara, Arial;
+    font-family: comic Sans, Candara, Arial;
 }
 
 nav{
@@ -84,6 +84,21 @@ a:hover {
     text-align: center;
 }
 
+#form-register{
+    background:#B0C400;
+    color:#795A2D;
+}
+
+#form-register h2{
+    text-align: center;
+}
+
+#form-register h4{
+    padding-left: 300px;
+    text-align: left;
+}
+
+
 .article h2{
     text-align: center;
     /*añadir color fuente y eso */
@@ -98,43 +113,13 @@ a:hover {
     clear: both;
 }
 
-
-
-/*
-nav{
-    background-color : white;
-    height : 60px;
-    line-height: 35px;
-    text-align: center;
-
-}
-nav ul li{
-    float: left;
-    margin: 10px;
+.buttons{
+    background: #C3BC95;
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
 }
 
-#descripcion{
-    text-align: center;
-    background: black;
-    min-height: 500px;
-    padding: 40px;
-    color: white;
+.buttons:hover {
+    background: #795A2D;
 }
-
-ul.prueba li{
-    display : inline;
-    color : black;
-    padding-right : 0.5em;
-    padding-left : 0.5em;
-}
-p{
-    color : white;
-}
-li{
-    color : white;
-}
-h1{
-    color : white;
-}
-
- */

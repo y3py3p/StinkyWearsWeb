@@ -3,17 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Registrarse</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css">
 </head>
 <body>
+<nav>
+    <!-- <img alt="logo" height="60px" src=""/> -->
+    <ul>
+        <li><a href="/"> MainPage </a></li>
+        <li><a href="/items"> Items </a></li>
+        <li><a href="/usr"> MyUser </a></li>
+        <li><a href="/login"> LogIn </a></li>
+    </ul>
+</nav>
+<div class="clearfix"></div>
 
-<section class="form-register">
-    <h4>Registrate</h4>
-    <input class="controls" type="text" name="nombre" id="nombre" placeholder="Introduce tu nombre y apellidos">
-    <input class="controls" type="email" name="email" id="email" placeholder="Introduce tu correo">
-    <input class="controls" type="password" name="password" id="password" placeholder="Introduce tu contraseña">
-    <input class="controls" type="text" name="direccion" id="direccion" placeholder="Introduce tu direccion">
-    <button class="buttons" type="submit"><a href="/usr">Sign in</a></button>
-</section>
+<section id="form-register">
+    <h2>Rellene los campos para crear su cuenta</h2>
+    <h4> Nombre y apellidos:<br/>
+        <input class="controls" type="text" name="nombre" id="nombre" placeholder="-"></h4>
+    <h4> Correo:<br/>
+        <input class="controls" type="email" name="email" id="email" placeholder="-"></h4>
+    <h4> Contraseña:<br/>
+        <input class="controls" type="password" name="password" id="password" placeholder="********"></h4>
+    <h4> Dirección:<br/>
+        <input class="controls" type="text" name="direccion" id="direccion" placeholder="-"></h4>
+    <br/>
+    <h2><button class="buttons" type="submit"><a href="/usr">Sign in</a></button></h2>
+    <section>
+
+        <div class="clearfix"></div>
+        <footer>
+            StinkyWear &copy; 2022
+        </footer>
 </body>
 </html>

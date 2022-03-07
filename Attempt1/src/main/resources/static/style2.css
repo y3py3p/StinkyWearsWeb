@@ -98,6 +98,11 @@ a:hover {
     text-align: left;
 }
 
+#troste{
+    text-align:center;
+    color: #523213;
+    min-height: 700px;
+}
 
 .article h2{
     text-align: center;

@@ -1,42 +1,78 @@
 <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Stinky Wear </title>
+    <link rel="stylesheet" href="style2.css"/>
+</head>
+<body>
+<nav>
+    <!-- <img alt="logo" height="60px" src=""/> -->
+    <ul>
+        <li><a href="/">MainPage</a></li>
+        <li><a href="/items">Items</a></li>
+
+        <li><a href="/usr">MyUser</a></li>
+        <li><a href="/login">LogIn</a></li>
+        <li><a href="/carrito"> Carrito </a></li>
+    </ul>
+</nav>
+
+<div class="clearfix"></div>
+
+<section id="descripcion">
+    <article class="cositas">
+        <h2> ñamñam </h2>
+        <p> ñma </p>
+    </article>
+</section>
+
+<div class="clearfix"></div>
+
+<section id="contacto">
+    <p> cosas d contacto </p>
+</section>
+
+<div class="clearfix"></div>
+
+<footer>
+    StinkyWear &copy; 2022
+</footer>
+</body>
+</html>
+
+
+<!--
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Main Page</title>
-    <style>
-        div{
-            background-color : white;
-            height : 60px;
-        }
-        ul.prueba li{
-            display : inline;
-            color : black;
-            padding-right : 0.5em;
-            padding-left : 0.5em;
-        }
-        p{
-            color : white;
-        }
-        li{
-            color : white;
-        }
-        h1{
-            color : white;
-        }
-    </style>
+    <title>Stinky Wear</title>
+    <link rel="stylesheet" href="style2.css">
 </head>
 <center><body bgcolor="black">
-<div>
+<nav>
     <ul class="prueba">
         <li><a href="/">MainPage</a></li>
         <li><a href="/usr">MyUser</a></li>
         <li><a href="/login">Log in</a> </li>
         <li>Prueba2</li>
     </ul>
-</div>
+</nav>
+<section id="descripcion">
+    <p>*cositas*</p>
+</section>
     <h1>Los items disponibles en nuestra tienda son:</h1>
     {{#items}}
     <p><a href="/item?item={{-index}}">{{nombre}} [{{precio}}€]</a></p>
     {{/items}}
 </body></center>
 </html>
+-->
+
+</section>
+<h1>Los items disponibles en nuestra tienda son:</h1>
+{{#items}}
+<p><a href="/item?item={{-index}}">{{nombre}} [{{precio}}€]</a></p>
+{{/items}}
+</body>

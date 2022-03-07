@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Lista de items</title>
+    <title>{{#item}}{{nombre}}{{/item}}</title>
+    <link rel="stylesheet" href="style2.css">
+
 </head>
-<body>
+<center><body bgcolor="black">
 <div>
     <ul class="prueba">
         <li><a href="/">MainPage</a></li>
@@ -13,11 +15,8 @@
         <li>Prueba2</li>
     </ul>
 </div>
-<h1>Los items disponibles en nuestra tienda son:</h1>
-    {{#items}}
-        <p><a href="/item/{{-index}}">{{nombre}} [{{precio}}€]</a></p>
-    {{/items}}
-    <br>
-    <a href="/item/{-index}">Añadir Item</a>
-</body>
+<h1>Su item se ha añadido a su carrito</h1>
+<br>
+<a href="/">Volver a la pagina principal</a>
+</body></center>
 </html>

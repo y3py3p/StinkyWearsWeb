@@ -1,6 +1,12 @@
 package com.SafeWebDev.attempt.Models;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.*;
+
+@Data
+@NoArgsConstructor
 
 public class Item{
     private long id;
@@ -18,9 +24,6 @@ public class Item{
         this.precio=precio;
         id=lastId;
         lastId++;
-    }
-    public Item(){
-
     }
 
     public String getNombre() {

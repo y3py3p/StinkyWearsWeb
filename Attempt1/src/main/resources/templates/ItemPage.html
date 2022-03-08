@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{{#item}}{{nombre}}{{/item}}</title>
-    <link rel="stylesheet" href="style2.css"/>
+    <link rel="stylesheet" href="alternate.css"/>
 </head>
 <body>
 <nav>
@@ -18,22 +18,18 @@
 </nav>
 
 <div class="clearfix"></div>
-<section id="infoitem">
-    {{#item}}
-    <h1>{{nombre}}</h1>
-    <p>Estado: {{estado}}<br>Talla: {{talla}}<br>Precio: {{precio}}€</p><br>
-    {{/item}}
-
     <section id="infoitem">
         {{#item}}
             <h1>{{nombre}}</h1>
             <p>Estado: {{estado}}<br>Talla: {{talla}}<br>Precio: {{precio}}€</p><br>
         <a href="/carrito/{{id}}">Añadir al carrito</a>
         {{/item}}
+    </section>
+<!--
         <p><form>
             <input type="Submit" value="Añadir al carrito"/>
         </form></p>
-
+-->
 
 
 <div class="clearfix"></div>

@@ -34,6 +34,33 @@ public class User {
         this.usuario = usuario;
         this.password = password;
     }
+    public User(){
+
+    }
+
+    public boolean sameUser(User user){
+        return this.usuario.equals(user.usuario);
+    }
+    public boolean samePassword(User user){
+        return this.password.equals(user.password);
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public boolean carritoContains(Item item){
         if(carrito.contains(item)){
             return true;
@@ -48,9 +75,5 @@ public class User {
 
     public long getId() {
         return id;
-    }
-
-    public String getUsuario() {
-        return usuario;
     }
 }

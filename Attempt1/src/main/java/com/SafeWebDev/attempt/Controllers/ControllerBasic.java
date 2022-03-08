@@ -57,7 +57,6 @@ public class ControllerBasic {
     @PostMapping("/item/new")
     public String addItem(Model model,Item item){
         items.add(item);
-
         return "ItemAdded";
     }
     @GetMapping("/items")

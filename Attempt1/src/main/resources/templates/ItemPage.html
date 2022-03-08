@@ -3,42 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>{{#item}}{{nombre}}{{/item}}</title>
-    <link rel="stylesheet" href="style2.css"/>
+    <link rel="stylesheet" href="alternate.css"/>
 </head>
 <body>
 <nav>
-    <!-- <img alt="logo" height="60px" src=""/> -->
-    <ul>
-        <li><a href="/"> MainPage </a></li>
-        <li><a href="/items"> Items </a></li>
-        <li><a href="/usr"> MyUser </a></li>
-        <li><a href="/login"> LogIn </a></li>
-        <li><a href="/carrito"> Carrito </a></li>
-    </ul>
+  <!-- <img alt="logo" height="60px" src=""/> -->
+  <ul>
+    <li><a href="/"> MainPage </a></li>
+    <li><a href="/items"> Items </a></li>
+    <li><a href="/usr"> MyUser </a></li>
+    <li><a href="/login"> LogIn </a></li>
+    <li><a href="/carrito"> Carrito </a></li>
+  </ul>
 </nav>
 
 <div class="clearfix"></div>
 <section id="infoitem">
-    {{#item}}
-    <h1>{{nombre}}</h1>
-    <p>Estado: {{estado}}<br>Talla: {{talla}}<br>Precio: {{precio}}€</p><br>
-    {{/item}}
+  {{#item}}
+  <h1>{{nombre}}</h1>
+  <p>Estado: {{estado}}<br>Talla: {{talla}}<br>Precio: {{precio}}€</p><br/>
+  {{/item}}
+  <p><button class="buttons" type="submit"><a href="/carrito">Añadir al carrito</a></button></p>
+</section>
 
-    <section id="infoitem">
-        {{#item}}
-            <h1>{{nombre}}</h1>
-            <p>Estado: {{estado}}<br>Talla: {{talla}}<br>Precio: {{precio}}€</p><br>
-        <a href="/carrito/{{id}}">Añadir al carrito</a>
-        {{/item}}
-        <p><form>
-            <input type="Submit" value="Añadir al carrito"/>
-        </form></p>
 
 
 
 <div class="clearfix"></div>
 <footer>
-    StinkyWear &copy; 2022
+  StinkyWear &copy; 2022
 </footer>
 </body>
 

@@ -1,5 +1,5 @@
 body{
-    font-family: comic Sans, Candara, Arial;
+    font-family: Comic Sans MS, Candara, Arial, Candara, Arial;
 }
 
 nav{
@@ -123,6 +123,15 @@ a:hover {
     text-align: right;
     background: #D3CCA5;
 }
+
+#itemAdded{
+    text-align: center;
+}
+
+#itemAdded h2{
+    color: #523213
+}
+
 /*
 .article h2{
     text-align: center;

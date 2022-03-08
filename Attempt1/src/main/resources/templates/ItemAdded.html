@@ -3,36 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>{{#item}}{{nombre}}{{/item}}</title>
-    <style>
-    p{
-        color : white;
-    }
-    h1{
-        color : white;
-    }
-    div{
-        background-color : white;
-        height : 60px;
-    }
-    ul.prueba li{
-        display : inline;
-        color : black;
-        padding-right : 0.5em;
-        padding-left : 0.5em;
-    }
-    </style>
+    <link rel="stylesheet" href="style2.css"/>
 </head>
-<center><body bgcolor="black">
-<div>
-    <ul class="prueba">
-        <li><a href="/">MainPage</a></li>
-        <li><a href="/usr">MyUser</a></li>
-        <li>Prueba1</li>
-        <li>Prueba2</li>
+<nav>
+    <!-- <img alt="logo" height="60px" src=""/> -->
+    <ul>
+        <li><a href="/"> MainPage </a></li>
+        <li><a href="/items"> Items </a></li>
+        <li><a href="/usr"> MyUser </a></li>
+        <li><a href="/login"> LogIn </a></li>
+        <li><a href="/carrito"> Carrito </a></li>
     </ul>
-</div>
-<h1>Su item ha sido añadido a nuestro listado</h1>
-<br>
-<a href="/">Volver a la pagina principal</a>
-</body></center>
+</nav>
+<section id="itemAdded">
+    <h2>Su item ha sido añadido a nuestro listado</h2>
+    <img width="200px" src="https://static.wikia.nocookie.net/el_random/images/9/98/Shrek.png/revision/latest?cb=20200510164459&path-prefix=es"><br/>
+    <p><a href="/">Volver a la pagina principal</a></p>
+</section>
+<div class="clearfix"></div>
+<footer>
+    StinkyWear &copy; 2022
+</footer>
+</body>
 </html>

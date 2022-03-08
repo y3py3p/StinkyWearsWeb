@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import java.util.*;
 
 @Data
-@NoArgsConstructor
 
 public class Item{
     private long id;
@@ -25,6 +24,11 @@ public class Item{
         id=lastId;
         lastId++;
     }
+
+    public Item(){
+
+    }
+
 
     public String getNombre() {
         return nombre;

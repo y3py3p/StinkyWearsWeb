@@ -120,8 +120,8 @@ a:hover {
 
 .buttons{
     background: #C3BC95;
-    -webkit-border-radius: 28;
-    -moz-border-radius: 28;
+    -webkit-border-radius: 28px;
+    -moz-border-radius: 28px;
     border-radius: 28px;
 }
 

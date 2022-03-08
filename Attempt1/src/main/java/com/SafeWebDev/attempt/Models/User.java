@@ -34,6 +34,13 @@ public class User {
         this.usuario = usuario;
         this.password = password;
     }
+    public boolean carritoContains(Item item){
+        if(carrito.contains(item)){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     public void addCarrito(Item item){
         carrito.add(item);

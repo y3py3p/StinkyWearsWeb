@@ -11,8 +11,8 @@ import java.util.*;
 @Controller
 public class ControllerBasic {
 
-    List<Item> items = new ArrayList<Item>();
-    List<User> usuarios = new ArrayList<User>();
+    private List<Item> items=new ArrayList<Item>();
+    private List<User> usuarios = new ArrayList<User>();
     User usuarioActual;
 
     public ControllerBasic() {
@@ -64,8 +64,12 @@ public class ControllerBasic {
 
     @GetMapping("/carrito/{id}")
     public String addCarrito(Model model, @PathVariable int id){
-        usuarioActual.addCarrito(items.get(id-1));
-        return "CarritoAdded";
+        if(!usuarioActual.carritoContains(items.get(id-1))){
+            usuarioActual.addCarrito(items.get(id-1));
+            return "CarritoAdded";
+        }else{
+            return "CarritoAlreadyContains";
+        }
     }
 
 

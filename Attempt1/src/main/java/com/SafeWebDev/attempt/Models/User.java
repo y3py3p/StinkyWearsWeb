@@ -1,5 +1,8 @@
 package com.SafeWebDev.attempt.Models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
 
     private String usuario;
@@ -9,9 +12,13 @@ public class User {
     private boolean premium;
     private String direccion;
     private String datosBancarios;
-    private Carrito carrito;
+    private List<Item> carrito = new ArrayList<>();
     private long id;
     private static long lastId = 1;
+
+    public List<Item> getCarrito() {
+        return carrito;
+    }
 
     public User(String usuario, String correo, String password, String direccion, String nombre) {
         this.usuario = usuario;
@@ -26,6 +33,10 @@ public class User {
     public User(String usuario, String password){
         this.usuario = usuario;
         this.password = password;
+    }
+
+    public void addCarrito(Item item){
+        carrito.add(item);
     }
 
     public long getId() {

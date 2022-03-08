@@ -2,24 +2,26 @@
     margin:0;
     padding:0;
     box-sizing: border-box;
-    background:#000000;
+    background:#795a2d;;
+    font-family: Comic Sans MS, Candara;
 }
 
 .form-register{
     width: 400px;
-    background: #1423D5;
+    background: #B0C400;
     padding: 30px;
     margin: auto;
     margin-top: 100px;
     border:1px solid black;
     border-radius: 15px;
-    color: white;
+    color: #795A2D;
 }
 
 .form-register h4{
     font-size: 20px;
     margin-bottom: 20px;
-    background: #1423D5;
+    background: #B0C400;
+    color:#795A2D;
 
 }
 
@@ -30,8 +32,7 @@
     padding: 10px;
     border-radius: 15px;
     margin-bottom: 16px;
-    border: 1px solid #1f53c5;
-    font-family: 'calibri';
+    border: 1px solid #523213;
     font-size: 18px;
 }
 
@@ -39,15 +40,15 @@
     width:100px;
     padding: 9px;
     margin-left: 100px;
-    color: white;
-    background: #14D53D;
+    color: #B0C400;
+    background: #795A2D;
     border-radius: 15px;
 
 }
 
 .buttons a{
-    background: #14D53D;
-    color: white;
+    background: #795A2D;
+    color: #B0C400;
 }
 
 /*

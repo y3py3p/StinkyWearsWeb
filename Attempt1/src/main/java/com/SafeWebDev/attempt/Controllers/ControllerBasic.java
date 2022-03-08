@@ -22,7 +22,7 @@ public class ControllerBasic {
         items.add(new Item("Sujetador Mujer", "92B", "Hecho mierda", 25));
         usuarios.add(new User("No estas logueado, inicia sesión o registrate","neutro"));
         usuarios.add(new User("Usuario temporal","deez"));
-        //usuarioActual = usuarios.get(1);
+        usuarioActual = usuarios.get(1);
     }
 
 
@@ -44,7 +44,6 @@ public class ControllerBasic {
 
     @GetMapping("/usr")
     public String usrPage(Model model) {
-        //model.addAttribute("user",usuarios.get(0));
         if(usuarioActual == null){
             model.addAttribute("user", usuarios.get(0));
             model.addAttribute("login", "LogIn");

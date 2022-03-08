@@ -24,7 +24,7 @@ public class ItemHolder {
         return items;
     }
 
-    public org.assertj.core.internal.bytebuddy.dynamic.DynamicType.Builder.RecordComponentDefinition.Optional<Item> getById(long id){
+    /*public org.assertj.core.internal.bytebuddy.dynamic.DynamicType.Builder.RecordComponentDefinition.Optional<Item> getById(long id){
         return (DynamicType.Builder.RecordComponentDefinition.Optional<Item>) items.get(id);
-    }
+    }*/
 }

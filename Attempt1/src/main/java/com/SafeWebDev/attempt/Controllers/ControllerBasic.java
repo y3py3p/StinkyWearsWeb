@@ -22,13 +22,16 @@ public class ControllerBasic {
         items.add(new Item("Sujetador Mujer", "92B", "Hecho mierda", 25));
         usuarios.add(new User("Usuario temporal","deez"));
         usuarioActual = usuarios.get(0);
-        /*usuarioActual.addCarrito(items.get(0));
-        usuarioActual.addCarrito(items.get(1));*/
     }
 
 
     @GetMapping("")
     public String homePage(Model model) {
+        if(usuarioActual == null){
+            model.addAttribute("login", "LogIn");
+        }else{
+            model.addAttribute("login", "");
+        }
         return "StartPage";
     }
 

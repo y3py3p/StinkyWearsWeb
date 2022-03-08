@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style2.css"/>
 </head>
 <body>
-    <nav>
+    <div>
     <!-- <img alt="logo" height="60px" src=""/> -->
         <ul>
             <li><a href="/"> MainPage </a></li>
@@ -15,7 +15,7 @@
             <li><a href="/login"> LogIn </a></li>
             <li><a href="/carrito"> Carrito </a></li>
         </ul>
-    </nav>
+    </div>
 
 <div class="clearfix"></div>
 
@@ -23,10 +23,12 @@
         {{#item}}
             <h1>{{nombre}}</h1>
             <p>Estado: {{estado}}<br>Talla: {{talla}}<br>Precio: {{precio}}€</p><br>
+        <a href="/carrito/{{id}}">Añadir al carrito</a>
         {{/item}}
-        <p><form>
+        <!--<p><form>
             <input type="Submit" value="Añadir al carrito"/>
-        </form></p>
+        </form></p>-->
+
     </section>
 
 <div class="clearfix"></div>

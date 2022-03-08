@@ -13,6 +13,7 @@ public class ControllerBasic {
 
     List<Item> items = new ArrayList<Item>();
     List<User> usuarios = new ArrayList<User>();
+    User usuarioActual;
 
     public ControllerBasic() {
         items.add(new Item("Boxers Hombre", "XXL", "Desgastado, dado de sí y manchado", 10));
@@ -20,6 +21,9 @@ public class ControllerBasic {
         items.add(new Item("Calcetin Blanco", "L", "Con agujeros, olor a esmegma", 35));
         items.add(new Item("Sujetador Mujer", "92B", "Hecho mierda", 25));
         usuarios.add(new User("Usuario temporal","deez"));
+        usuarioActual = usuarios.get(0);
+        /*usuarioActual.addCarrito(items.get(0));
+        usuarioActual.addCarrito(items.get(1));*/
     }
 
 
@@ -52,6 +56,19 @@ public class ControllerBasic {
         return "ListaItems";
     }
 
+    @GetMapping("/carrito")
+    public String carrito(Model model){
+        model.addAttribute("carrito", usuarioActual.getCarrito());
+        return "Carrito";
+    }
+
+    @GetMapping("/carrito/{id}")
+    public String addCarrito(Model model, @PathVariable int id){
+        usuarioActual.addCarrito(items.get(id-1));
+        return "CarritoAdded";
+    }
+
+
     @GetMapping("/login")
     public String logIn(){
         return "LogIn";
@@ -59,9 +76,6 @@ public class ControllerBasic {
 
     @GetMapping("/createAccount")
     public String createAccount(){
-
-        //usuarios.put(user.getId(), user);
-
         return "CreateAccount";
 
     }

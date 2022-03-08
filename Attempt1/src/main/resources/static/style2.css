@@ -1,5 +1,5 @@
 body{
-    font-family: comic Sans, Candara, Arial;
+    font-family: Comic Sans MS, Candara, Arial, Candara, Arial;
 }
 
 nav{
@@ -24,6 +24,10 @@ footer{
     text-align: center;
     height: 20px;
     line-height: 20px;
+}
+
+h2{
+    text-align: center;
 }
 
 a:visited{
@@ -73,7 +77,7 @@ a:hover {
 }
 
 #usrinfo h2{
-    text-align: center;
+    /*text-align: center;*/
     color: #795A2D;
     /*estilo d titulos*/
 }
@@ -88,11 +92,11 @@ a:hover {
     background:#B0C400;
     color:#795A2D;
 }
-
+/*
 #form-register h2{
     text-align: center;
 }
-
+*/
 #form-register h4{
     padding-left: 300px;
     text-align: left;
@@ -104,11 +108,36 @@ a:hover {
     min-height: 700px;
 }
 
-.article h2{
-    text-align: center;
-    /*añadir color fuente y eso */
+#listaItems{
+    padding-left: 80px;
+    border-top: 2px solid #795A2D;
+    background: #D3CCA5;
+    min-height: 300px;
 }
 
+#listaItems h2{
+    color: #523213
+}
+
+#ShrekTeVigila{
+    text-align: right;
+    background: #D3CCA5;
+}
+
+#itemAdded{
+    text-align: center;
+}
+
+#itemAdded h2{
+    color: #523213
+}
+
+/*
+.article h2{
+    text-align: center;
+    /*añadir color fuente y eso
+}
+*/
 .article p{
     text-align: center;
     /*añadir color fuente y eso */
@@ -120,8 +149,6 @@ a:hover {
 
 .buttons{
     background: #C3BC95;
-    -webkit-border-radius: 28px;
-    -moz-border-radius: 28px;
     border-radius: 28px;
 }
 

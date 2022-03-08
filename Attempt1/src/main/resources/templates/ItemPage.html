@@ -6,18 +6,23 @@
     <link rel="stylesheet" href="style2.css"/>
 </head>
 <body>
-    <div>
+<nav>
     <!-- <img alt="logo" height="60px" src=""/> -->
-        <ul>
-            <li><a href="/"> MainPage </a></li>
-            <li><a href="/items"> Items </a></li>
-            <li><a href="/usr"> MyUser </a></li>
-            <li><a href="/login"> LogIn </a></li>
-            <li><a href="/carrito"> Carrito </a></li>
-        </ul>
-    </div>
+    <ul>
+        <li><a href="/"> MainPage </a></li>
+        <li><a href="/items"> Items </a></li>
+        <li><a href="/usr"> MyUser </a></li>
+        <li><a href="/login"> LogIn </a></li>
+        <li><a href="/carrito"> Carrito </a></li>
+    </ul>
+</nav>
 
 <div class="clearfix"></div>
+<section id="infoitem">
+    {{#item}}
+    <h1>{{nombre}}</h1>
+    <p>Estado: {{estado}}<br>Talla: {{talla}}<br>Precio: {{precio}}€</p><br>
+    {{/item}}
 
     <section id="infoitem">
         {{#item}}
@@ -29,12 +34,12 @@
             <input type="Submit" value="Añadir al carrito"/>
         </form></p>
 
-    </section>
+
 
 <div class="clearfix"></div>
-
-    <footer>
-        StinkyWear &copy; 2022
-    </footer>
+<footer>
+    StinkyWear &copy; 2022
+</footer>
 </body>
+
 </html>

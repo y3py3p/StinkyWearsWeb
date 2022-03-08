@@ -7,7 +7,7 @@
 </head>
 <body>
     <nav>
-    <!-- <img alt="logo" height="60px" src=""/> -->
+        <!-- <img alt="logo" height="60px" src=""/> -->
         <ul>
             <li><a href="/"> MainPage </a></li>
             <li><a href="/items"> Items </a></li>
@@ -16,21 +16,15 @@
             <li><a href="/carrito"> Carrito </a></li>
         </ul>
     </nav>
-
 <div class="clearfix"></div>
-
     <section id="infoitem">
         {{#item}}
             <h1>{{nombre}}</h1>
             <p>Estado: {{estado}}<br>Talla: {{talla}}<br>Precio: {{precio}}€</p><br>
         {{/item}}
-        <p><form>
-            <input type="Submit" value="Añadir al carrito"/>
-        </form></p>
+            <p><form><input type="Submit" value="Añadir al carrito"/></form></p>
     </section>
-
 <div class="clearfix"></div>
-
     <footer>
         StinkyWear &copy; 2022
     </footer>

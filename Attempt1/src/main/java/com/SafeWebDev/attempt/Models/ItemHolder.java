@@ -28,9 +28,6 @@ public class ItemHolder {
         return items;
     }
 
-    /*public List<Item> getItems(){
-        return items;
-    }*/
 
     public Item getById(long id){
         return items.get(id);

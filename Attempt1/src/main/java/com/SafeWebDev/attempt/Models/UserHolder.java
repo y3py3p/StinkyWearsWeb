@@ -10,19 +10,10 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class UserHolder {
 
-    private Map<Long, User> usuarios = new ConcurrentHashMap<>();
-    private List<Item> carrito = new ArrayList<>();
+    private Map<Long, User> usuarios = new ConcurrentHashMap<Long,User>();
     private User usuarioActual = new User("Usuario temporal","deez");
-
-    public List<Item> getCarrito(){
-        return carrito;
-    }
 
     public User getUsuarioActual() {
         return usuarioActual;
-    }
-
-    public void setCarrito(Item item){
-        carrito.add(item);
     }
 }

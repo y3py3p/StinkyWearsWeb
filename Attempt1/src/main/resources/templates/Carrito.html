@@ -1,7 +1,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Carrito</title>
-    <link rel="stylesheet" href="style2.css"/>
+    <link rel="stylesheet" href="http://localhost:8080/alternate.css"/>
 </head>
 <body>
     <nav>                             <!-- navigation bar -->
@@ -11,14 +11,14 @@
             <li><a href="/items"> Items </a></li>
             <li><a href="/usr"> MyUser </a></li>
             <li><a href="/login"> LogIn </a></li>
-            <li><a href="/carrito"> Cart </a></li>
         </ul>
     </nav>
-    <section id="listaItems">       <!-- it'll list the items added to your cart -->
+    <section id="listaItems"><center>     <!-- it'll list the items added to your cart -->
         <h2>Tienes en tu carro:</h2>
         {{#carrito}}
-        <p><a href="/item/{{-index}}">{{nombre}} {{precio}}</a> </p>
+        <p><a href="/item/{{-index}}">{{nombre}} [{{precio}}€]</a> </p>
         {{/carrito}}
+    </center>
     </section>
 <div class="clearfix"></div>
     <footer>

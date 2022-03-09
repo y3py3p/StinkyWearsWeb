@@ -13,21 +13,23 @@
             <li><a href="/items"> Items </a></li>
             <li><a href="/usr"> MyUser </a></li>
             <li><a href="/login"> LogIn </a></li>
-            <li><a href="/carrito"> Cart </a></li>
+            <li><a href="/cart"> Cart </a></li>
         </ul>
     </nav>
 <div class="clearfix"></div>
     <section id="listaItems">           <!-- will print out all the availale items -->
         <h2>Los items disponibles en nuestra tienda son:</h2>
+        <center>
         {{#items}}
         <p><a href="/item/{{-index}}">{{nombre}} [{{precio}}€]</a></p>
         {{/items}}
-        <br/>
+        <br/><br/>
         <p>Te gustaría subir tu propia ropa? Haz click <a href="NewItem.html">AQUÍ</a> para añadir un nuevo tiem </p>  <!-- it'll redirect you to /newItem, where you can add your own item-->
+        </center>
     </section>
 <div class="clearfix"></div>
     <section id="ShrekTeVigila">
-        <img width="200px" src="img/ShrekTeVigila">        <!--just Shrek watching you browse items-->
+        <img width="200px" src="img/ShrekTeVigila.png">        <!--just Shrek watching you browse items-->
     </section>
     <footer>
         StinkyWear &copy; 2022

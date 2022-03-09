@@ -1,0 +1,189 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+    font-family: Comic Sans MS, Candara, Arial, Candara, Arial;
+}
+
+#sidebar {
+    position: fixed;
+    width: 200px;
+    height: 100%;
+    background: #D3CCA5;
+    left: -200px;
+    transition: all 350ms linear;
+}
+
+#sidebar.active {
+    left: 0px;
+}
+
+#sidebar ul li {
+    color: rgba(230, 230, 230, .9);
+    list-style: none;
+    padding: 15px 10px;
+    border-bottom: 1px solid rgba(100, 100, 100, .3);
+    text-align: center;
+}
+
+.logo {
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+    max-width: 150px;
+}
+
+#sidebar .toggle-btn {
+    position: absolute;
+    left: 230px;
+    top: 20px;
+    cursor: pointer;
+}
+
+#sidebar .toggle-btn span {
+    display: block;
+    width: 40px;
+    text-align: center;
+    font-size: 30px;
+    border: 3px solid #000;
+}
+
+footer{
+    background: #795A2D;
+    color: #B0C400;
+    text-align: center;
+    height: 20px;
+    line-height: 20px;
+}
+
+h2{
+    text-align: center;
+}
+
+a:visited{
+    color: #795A2D;
+}
+
+a:link{
+    color: #795A2D;
+}
+
+a:hover {
+    color: #B0C400;
+}
+
+#descripcion{
+    float: left;
+    text-align: center;
+    width: 100%;
+    background: #795A2D;
+    min-height: 300px;
+    color: white;
+}
+
+#contacto{
+    float: left;
+    width: 100%;
+    background: #D3CCA5;
+    min-height: 100px;
+    padding: 40px;
+    color: black;
+}
+
+#usrimg{
+    float: left;
+    width: calc(20% - 100px);
+    background: #795A2D;
+    min-height: 300px;
+    padding: 50px;
+}
+
+#usrinfo{
+    float: left;
+    width: calc(80% - 80px);
+    background: #D5DE2E;
+    min-height: 320px;
+    padding: 40px;
+}
+
+#usrinfo h2{
+    /*text-align: center;*/
+    color: #795A2D;
+    /*estilo d titulos*/
+}
+
+#infoitem{
+    background: #B0C400;
+    padding: 40px;
+    text-align: center;
+}
+
+#form-register{
+    background:#B0C400;
+    color:#795A2D;
+}
+/*
+#form-register h2{
+    text-align: center;
+}
+*/
+#form-register h4{
+    padding-left: 300px;
+    text-align: left;
+}
+
+#troste{
+    text-align:center;
+    color: #523213;
+    min-height: 700px;
+}
+
+#listaItems{
+    padding-left: 80px;
+    border-top: 2px solid #795A2D;
+    background: #D3CCA5;
+    min-height: 300px;
+}
+
+#listaItems h2{
+    color: #523213
+}
+
+#ShrekTeVigila{
+    text-align: right;
+    background: #D3CCA5;
+}
+
+#itemAdded{
+    text-align: center;
+}
+
+#itemAdded h2{
+    color: #523213
+}
+
+/*
+.article h2{
+    text-align: center;
+    /*añadir color fuente y eso
+}
+*/
+.article p{
+    text-align: center;
+    /*añadir color fuente y eso */
+}
+
+.clearfix{
+    clear: both;
+}
+
+.buttons{
+    background: #C3BC95;
+    border-radius: 28px;
+}
+
+.buttons:hover {
+    background: #795A2D;
+}

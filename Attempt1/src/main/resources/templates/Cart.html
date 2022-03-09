@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{#item}}{{nombre}}{{/item}}</title>
+    <title>Carrito</title>
     <link rel="stylesheet" href="http://localhost:8080/main.css"/>
     <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
 </head>
@@ -22,16 +20,17 @@
     </ul>
 
 </div>
-    <section id="itemAdded">
-        <h2>Su item ha sido añadido a nuestro listado</h2>              <!--msg-->
-        <img width="200px" alt="happy shrek" src="http://localhost:8080/img/img.png"><br/>    <!--happy shrek img cause you added an item-->
-        <p><a href="/">Volver a la pagina principal</a></p>             <!--will lead you back to the main page-->
+    <section id="listaItems"><center>     <!-- it'll list the items added to your cart -->
+        <h2>Tienes en tu carro:</h2>
+        {{#cart}}
+        <p><a href="/item/{{-index}}">{{name}} [{{price}}€]</a> </p>
+        {{/cart}}
+    </center>
     </section>
 <div class="clearfix"></div>
     <footer>
         StinkyWear &copy; 2022
     </footer>
-    <script src="lateralBar.js"></script>
-
+<script src="lateralBar.js"></script>
 </body>
 </html>

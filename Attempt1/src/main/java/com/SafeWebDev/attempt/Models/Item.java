@@ -9,17 +9,17 @@ import java.util.*;
 
 public class Item{
     private long id;
-    private String nombre;
-    private String talla;
-    private String estado;
-    private float precio;
+    private String name;
+    private String size;
+    private String state;
+    private float price;
     private int stock=0;
 
-    public Item(String nombre, String talla, String estado,float precio) {
-        this.nombre = nombre;
-        this.talla = talla;
-        this.estado = estado;
-        this.precio=precio;
+    public Item(String name, String size, String state,float price) {
+        this.name = name;
+        this.size = size;
+        this.state = state;
+        this.price=price;
     }
 
     public Item(){
@@ -30,45 +30,45 @@ public class Item{
         this.id=id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getname() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setname(String name) {
+        this.name = name;
     }
 
-    public String getTalla() {
-        return talla;
+    public String getsize() {
+        return size;
     }
 
-    public void setTalla(String talla) {
-        this.talla = talla;
+    public void setsize(String size) {
+        this.size = size;
     }
 
-    public String getEstado() {
-        return estado;
+    public String getstate() {
+        return state;
     }
 
-    public float getPrecio() {
-        return precio;
+    public float getprice() {
+        return price;
     }
 
-    public void setPrecio(float precio) {
-        this.precio = precio;
+    public void setprice(float price) {
+        this.price = price;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setstate(String state) {
+        this.state = state;
     }
 
     @Override
     public String toString() {
         return "Item{" +
                 "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", talla='" + talla + '\'' +
-                ", estado='" + estado + '\'' +
+                ", name='" + name + '\'' +
+                ", size='" + size + '\'' +
+                ", state='" + state + '\'' +
                 ", stock='" + stock + '\'' +
                 '}';
     }

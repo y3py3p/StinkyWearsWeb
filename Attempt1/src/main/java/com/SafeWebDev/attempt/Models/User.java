@@ -14,7 +14,6 @@ public class User {
     private String datosBancarios;
     private List<Item> carrito = new ArrayList<>();
     private long id;
-    private static long lastId = 1;
 
     public List<Item> getCarrito() {
         return carrito;
@@ -26,8 +25,6 @@ public class User {
         this.password = password;
         this.direccion = direccion;
         this.nombre = nombre;
-        this.id = lastId;
-        lastId++;
     }
 
     public User(String usuario, String password){
@@ -75,5 +72,8 @@ public class User {
 
     public long getId() {
         return id;
+    }
+    public void setId(long id){
+        this.id=id;
     }
 }

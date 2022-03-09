@@ -2,23 +2,22 @@ body{
     font-family: Comic Sans MS, Candara, Arial, Candara, Arial;
 }
 
-nav{
+nav{                            /* defines the navigation bar style */
     background: #D3CCA5;
     color: black;
     height: 60px;
     line-height: 60px;
     text-align: center;
-
 }
 
-nav ul li{
+nav ul li{                      /* style of the elements/directories from the nav bar */
     display:inline;
     text-align: center;
     padding-right : 0.5em;
     padding-left : 0.5em;
 }
 
-footer{
+footer{                         /* defines the style of the footer */
     background: #795A2D;
     color: #B0C400;
     text-align: center;
@@ -26,19 +25,17 @@ footer{
     line-height: 20px;
 }
 
-h2{
+h2{                             /* all the <h2>text</h2> will be centered */
     text-align: center;
 }
 
-a:visited{
+a:link{                         /* links will be brownish */
     color: #795A2D;
 }
-
-a:link{
+a:visited{                      /* they'll stay brown even when you visit the link (won't turn purple as it usually does) */
     color: #795A2D;
 }
-
-a:hover {
+a:hover {                       /* they'll turn light green if you put the mouse on top of it */
     color: #B0C400;
 }
 
@@ -132,12 +129,6 @@ a:hover {
     color: #523213
 }
 
-/*
-.article h2{
-    text-align: center;
-    /*añadir color fuente y eso
-}
-*/
 .article p{
     text-align: center;
     /*añadir color fuente y eso */
@@ -147,11 +138,11 @@ a:hover {
     clear: both;
 }
 
-.buttons{
+.buttons{                       /* buttons are light brown with rounded borders */
     background: #C3BC95;
     border-radius: 28px;
 }
 
-.buttons:hover {
+.buttons:hover {                /* when touched by the mouse, they'll turn dark brown */
     background: #795A2D;
 }

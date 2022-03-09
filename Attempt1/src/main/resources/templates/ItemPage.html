@@ -2,26 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{#item}}{{nombre}}{{/item}}</title>
-    <link rel="stylesheet" href="http://localhost:8080/alternate.css"/>
+    <title>{{#item}}{{name}}{{/item}}</title>
+    <link rel="stylesheet" href="http://localhost:8080/main.css"/>
   <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
 </head>
 <body>
-  <nav>           <!--nav bar -->
-    <!-- <img alt="logo" height="60px" src=""/> -->
-    <ul>
-      <li><a href="/"> MainPage </a></li>
-      <li><a href="/items"> Items </a></li>
-      <li><a href="/usr"> MyUser </a></li>
-      <li><a href="/login"> LogIn </a></li>
-      <li><a href="/cart"> Cart </a></li>
-    </ul>
-  </nav>
+<div id="sidebar">
+  <div class="toggle-btn">
+    <span>&#9776</span>
+  </div>
+  <!-- nav bar -->
+  <ul>
+    <li><img src="img/ouuushrek.png" alt="Logo Fazt" class="logo"> </li>
+    <li><a href="/">MainPage</a></li>
+    <li><a href="/items">Items</a></li>
+    <li><a href="/usr">MyUser</a></li>
+    <li><a href="/login">login</a></li>
+    <li><a href="/cart"> Carrito </a></li>
+  </ul>
+
+</div>
 <div class="clearfix"></div>
   <section id="infoitem">                 <!--will print the objects' available info-->
     {{#item}}
-    <h1>{{nombre}}</h1>
-    <p>Estado: {{estado}}<br>Talla: {{talla}}<br>Precio: {{precio}}€</p><br/>
+    <h1>{{name}}</h1>
+    <p>Estado: {{state}}<br>Talla: {{size}}<br>Precio: {{price}}€</p><br/>
     <p><button class="buttons" type="submit"><a href="/cart/{{id}}">Añadir al carrito</a></button></p>  <!-- will add the item to the shopping cart. It'll also redirect you to the carts' page-->
     {{/item}}
   </section>
@@ -29,6 +34,8 @@
   <footer>
     StinkyWear &copy; 2022
   </footer>
+  <script src="lateralBar.js"></script>
+
 </body>
 
 </html>

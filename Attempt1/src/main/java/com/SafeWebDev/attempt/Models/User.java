@@ -6,29 +6,29 @@ import java.util.List;
 public class User {
 
     private String user;
-    private String correo;
+    private String email;
     private String password;
-    private String nombre;
+    private String name;
     private boolean premium;
-    private String direccion;
-    private String datosBancarios;
-    private List<Item> carrito = new ArrayList<>();
+    private String address;
+    private String bankData;
+    private List<Item> cart = new ArrayList<>();
     private long id;
 
-    public List<Item> getCarrito() {
-        return carrito;
+    public List<Item> getCart() {
+        return cart;
     }
 
-    public User(String usuario, String correo, String password, String direccion, String nombre) {
-        this.user = usuario;
-        this.correo = correo;
+    public User(String user, String correo, String password, String address, String name) {
+        this.user = user;
+        this.email = correo;
         this.password = password;
-        this.direccion = direccion;
-        this.nombre = nombre;
+        this.address = address;
+        this.name = name;
     }
 
-    public User(String usuario, String password){
-        this.user = usuario;
+    public User(String user, String password){
+        this.user = user;
         this.password = password;
     }
     public User(){
@@ -38,6 +38,7 @@ public class User {
     public boolean sameUser(User user){
         return this.user.equals(user.user);
     }
+
     public boolean samePassword(User user){
         return this.password.equals(user.password);
     }
@@ -59,7 +60,7 @@ public class User {
     }
 
     public boolean carritoContains(Item item){
-        if(carrito.contains(item)){
+        if(cart.contains(item)){
             return true;
         }else{
             return false;
@@ -67,13 +68,15 @@ public class User {
     }
 
     public void addCarrito(Item item){
-        carrito.add(item);
+        cart.add(item);
     }
 
     public long getId() {
         return id;
     }
+
     public void setId(long id){
         this.id=id;
     }
+
 }

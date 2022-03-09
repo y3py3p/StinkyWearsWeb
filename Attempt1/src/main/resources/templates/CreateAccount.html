@@ -3,20 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
-    <link rel="stylesheet" href="http://localhost:8080/alternate.css">
+    <link rel="stylesheet" href="http://localhost:8080/main.css">
     <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
 </head>
 <body>
-    <nav>           <!-- nav bar -->
-        <!-- <img alt="logo" height="60px" src=""/> -->
-        <ul>
-            <li><a href="/"> MainPage </a></li>
-            <li><a href="/items"> Items </a></li>
-            <li><a href="/usr"> MyUser </a></li>
-            <li><a href="/login"> LogIn </a></li>
-            <li><a href="/cart"> Cart </a></li>
-        </ul>
-    </nav>
+<div id="sidebar">
+    <div class="toggle-btn">
+        <span>&#9776</span>
+    </div>
+    <!-- nav bar -->
+    <ul>
+        <li><img src="img/ouuushrek.png" alt="Logo Fazt" class="logo"> </li>
+        <li><a href="/">MainPage</a></li>
+        <li><a href="/items">Items</a></li>
+        <li><a href="/usr">MyUser</a></li>
+        <li><a href="/login">login</a></li>
+        <li><a href="/cart"> Carrito </a></li>
+    </ul>
+
+</div>
 <div class="clearfix"></div>
 
     <section id="form-register">        <!-- registration form -->
@@ -36,5 +41,6 @@
     <footer>
         StinkyWear &copy; 2022
     </footer>
+    <script src="lateralBar.js"></script>
 </body>
 </html>

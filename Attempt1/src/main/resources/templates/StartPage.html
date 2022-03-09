@@ -4,19 +4,25 @@
 <head>
     <meta charset="utf-8" />
     <title>Stinky Wear </title>
-    <link rel="stylesheet" href="http://localhost:8080/alternate.css"/>
+    <link rel="stylesheet" href="main.css"/>
     <link rel="icon" type="image/png" href="img/ouuushrek.png"/>
 </head>
 <body>
-    <nav>                               <!-- nav bar -->
+    <div id="sidebar">
+        <div class="toggle-btn">
+            <span>&#9776</span>
+        </div>
+                                  <!-- nav bar -->
         <ul>
+            <li><img src="img/ouuushrek.png" alt="Logo Fazt" class="logo"> </li>
             <li><a href="/">MainPage</a></li>
             <li><a href="/items">Items</a></li>
             <li><a href="/usr">MyUser</a></li>
-            <li><a href="/login">{{login}}</a></li>
+            <li><a href="/login">login</a></li>
             <li><a href="/cart"> Carrito </a></li>
         </ul>
-    </nav>
+
+    </div>
 <div class="clearfix"></div>
     <section id="descripcion">          <!--this section includes the logo and slogan-->
         <article class="cositas">
@@ -32,5 +38,6 @@
     <footer>
         StinkyWear &copy; 2022
     </footer>
+    <script src="lateralBar.js"></script>
 </body>
 </html>

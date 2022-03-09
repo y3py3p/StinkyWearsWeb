@@ -1,5 +1,6 @@
-package com.SafeWebDev.attempt.Models;
+package com.SafeWebDev.attempt.Models.Holders;
 
+import com.SafeWebDev.attempt.Models.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,10 +24,13 @@ public class UserHolder {
     public User getUsuarioActual() {
         return usuarioActual;
     }
+
     public void setCurrentUser(User user){
         this.usuarioActual=user;
     }
+
     public User getUsrbyId(long id){
         return usuarios.get(id);
     }
+
 }

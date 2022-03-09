@@ -16,4 +16,7 @@ public class UserHolder {
     public User getUsuarioActual() {
         return usuarioActual;
     }
+    public void setCurrentUser(User user){
+        this.usuarioActual=user;
+    }
 }

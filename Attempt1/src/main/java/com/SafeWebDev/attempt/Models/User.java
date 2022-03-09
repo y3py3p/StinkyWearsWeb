@@ -5,7 +5,7 @@ import java.util.List;
 
 public class User {
 
-    private String usuario;
+    private String user;
     private String correo;
     private String password;
     private String nombre;
@@ -21,7 +21,7 @@ public class User {
     }
 
     public User(String usuario, String correo, String password, String direccion, String nombre) {
-        this.usuario = usuario;
+        this.user = usuario;
         this.correo = correo;
         this.password = password;
         this.direccion = direccion;
@@ -31,7 +31,7 @@ public class User {
     }
 
     public User(String usuario, String password){
-        this.usuario = usuario;
+        this.user = usuario;
         this.password = password;
     }
     public User(){
@@ -39,18 +39,18 @@ public class User {
     }
 
     public boolean sameUser(User user){
-        return this.usuario.equals(user.usuario);
+        return this.user.equals(user.user);
     }
     public boolean samePassword(User user){
         return this.password.equals(user.password);
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String getUser() {
+        return user;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getPassword() {

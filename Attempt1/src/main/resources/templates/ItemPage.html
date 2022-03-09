@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>{{#item}}{{nombre}}{{/item}}</title>
-    <link rel="stylesheet" href="alternate.css"/>
-  <link rel="icon" type="image/png" href="img/ouuushrek.png">
+    <link rel="stylesheet" href="http://localhost:8080/alternate.css"/>
+  <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
 </head>
 <body>
   <nav>           <!--nav bar -->
@@ -14,7 +14,7 @@
       <li><a href="/items"> Items </a></li>
       <li><a href="/usr"> MyUser </a></li>
       <li><a href="/login"> LogIn </a></li>
-      <li><a href="/carrito"> Cart </a></li>
+      <li><a href="/cart"> Cart </a></li>
     </ul>
   </nav>
 <div class="clearfix"></div>
@@ -23,7 +23,7 @@
     <h1>{{nombre}}</h1>
     <p>Estado: {{estado}}<br>Talla: {{talla}}<br>Precio: {{precio}}€</p><br/>
     {{/item}}
-    <p><button class="buttons" type="submit"><a href="/carrito">Añadir al carrito</a></button></p>  <!-- will add the item to the shopping cart. It'll also redirect you to the carts' page-->
+    <p><button class="buttons" type="submit"><a href="/cart">Añadir al carrito</a></button></p>  <!-- will add the item to the shopping cart. It'll also redirect you to the carts' page-->
   </section>
 <div class="clearfix"></div>
   <footer>

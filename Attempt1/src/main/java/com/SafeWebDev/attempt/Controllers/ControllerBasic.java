@@ -1,6 +1,7 @@
 package com.SafeWebDev.attempt.Controllers;
 
 import com.SafeWebDev.attempt.Models.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,10 @@ public class ControllerBasic {
 
     private List<Item> items=new ArrayList<Item>();
     private List<User> usuarios = new ArrayList<User>();
-    User usuarioActual;
+    @Autowired
+    ItemHolder itemHolder=new ItemHolder();
+    @Autowired
+    UserHolder userHolder=new UserHolder();
 
     public ControllerBasic() {
         items.add(new Item("Boxers Hombre", "XXL", "Desgastado, dado de sí y manchado", 10));
@@ -21,13 +25,13 @@ public class ControllerBasic {
         items.add(new Item("Sujetador Mujer", "92B", "Hecho mierda", 25));
         usuarios.add(new User("No estas logueado, inicia sesión o registrate","neutro"));
         usuarios.add(new User("Usuario temporal","deez"));
-        usuarioActual = usuarios.get(1);
+        userHolder.setCurrentUser(usuarios.get(1));
     }
 
 
     @GetMapping("")
     public String homePage(Model model) {
-        if(usuarioActual == null){
+        if(userHolder.getUsuarioActual() == null){
             model.addAttribute("login", "LogIn");
         }else{
             model.addAttribute("login", "");
@@ -43,7 +47,7 @@ public class ControllerBasic {
 
     @GetMapping("/usr")
     public String usrPage(Model model) {
-        if(usuarioActual == null){
+        if(userHolder.getUsuarioActual() == null){
             model.addAttribute("user", usuarios.get(0));
             model.addAttribute("login", "LogIn");
         }else{
@@ -66,14 +70,14 @@ public class ControllerBasic {
 
     @GetMapping("/cart")
     public String carrito(Model model){
-        model.addAttribute("carrito", usuarioActual.getCarrito());
+        model.addAttribute("carrito", userHolder.getUsuarioActual().getCarrito());
         return "Carrito";
     }
 
     @GetMapping("/cart/{id}")
     public String addCarrito(Model model, @PathVariable int id){
-        if(!usuarioActual.carritoContains(items.get(id-1))){
-            usuarioActual.addCarrito(items.get(id-1));
+        if(!userHolder.getUsuarioActual().carritoContains(items.get(id-1))){
+            userHolder.getUsuarioActual().addCarrito(items.get(id-1));
             return "CartAdded";
         }else{
             return "CartAlreadyContains";

@@ -18,7 +18,8 @@ import java.util.Map;
 public class ItemRESTController {
 
     @Autowired
-    private ItemHolder itemHolder;
+    private ItemHolder itemHolder=new ItemHolder();
+    @Autowired
     private UserHolder userHolder = new UserHolder();
 
 

@@ -1,10 +1,7 @@
 package com.SafeWebDev.attempt.Controllers;
 
 
-import com.SafeWebDev.attempt.Models.Item;
-import com.SafeWebDev.attempt.Models.ItemHolder;
-import com.SafeWebDev.attempt.Models.User;
-import com.SafeWebDev.attempt.Models.UserHolder;
+import com.SafeWebDev.attempt.Models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +18,8 @@ public class ItemRESTController {
     private ItemHolder itemHolder=new ItemHolder();
     @Autowired
     private UserHolder userHolder = new UserHolder();
+
+    private GeneralHolder generalHolder=new GeneralHolder();
 
 
     @GetMapping("/api/see")

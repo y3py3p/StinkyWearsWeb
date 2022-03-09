@@ -15,11 +15,10 @@ public class ItemHolder {
     private Map<Long, Item> items = new ConcurrentHashMap<>();
     private AtomicLong lastID = new AtomicLong();
 
-    public Item addItem(Item item){
+    public void addItem(Item item){
         long id = lastID.incrementAndGet();
         item.setId(id);
         items.put(id, item);
-        return item;
     }
 
     public Map<Long, Item> getItems() {

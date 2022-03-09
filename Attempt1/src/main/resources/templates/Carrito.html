@@ -4,25 +4,25 @@
     <link rel="stylesheet" href="style2.css"/>
 </head>
 <body>
-<nav>
-    <!-- <img alt="logo" height="60px" src=""/> -->
-    <ul>
-        <li><a href="/"> MainPage </a></li>
-        <li><a href="/items"> Items </a></li>
-        <li><a href="/usr"> MyUser </a></li>
-        <li><a href="/login"> LogIn </a></li>
-        <li><a href="/carrito"> Carrito </a></li>
-    </ul>
-</nav>
-<section id="listaItems">
-    <h2>Tienes en tu carro:</h2>
-    {{#carrito}}
-    <p><a href="/item/{{-index}}">{{nombre}} {{precio}}</a> </p>
-    {{/carrito}}
-</section>
+    <nav>                             <!-- navigation bar -->
+        <!-- <img alt="logo" height="60px" src=""/> -->
+        <ul>
+            <li><a href="/"> MainPage </a></li>
+            <li><a href="/items"> Items </a></li>
+            <li><a href="/usr"> MyUser </a></li>
+            <li><a href="/login"> LogIn </a></li>
+            <li><a href="/carrito"> Cart </a></li>
+        </ul>
+    </nav>
+    <section id="listaItems">       <!-- it'll list the items added to your cart -->
+        <h2>Tienes en tu carro:</h2>
+        {{#carrito}}
+        <p><a href="/item/{{-index}}">{{nombre}} {{precio}}</a> </p>
+        {{/carrito}}
+    </section>
 <div class="clearfix"></div>
-<footer>
-    StinkyWear &copy; 2022
-</footer>
+    <footer>
+        StinkyWear &copy; 2022
+    </footer>
 </body>
 </html>

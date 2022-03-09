@@ -6,14 +6,17 @@
     <link rel="stylesheet" href="loginstyle.css">
 </head>
 <body>
-
-    <section class="form-register">
+    <section class="form-register">            <!-- registration fomr -->
         <h4>Inicia sesion</h4>
-        <input class="controls" type="usuario" name="usuario" id="usuario" placeholder="Introduce tu correo">
+        <input class="controls" type="email" name="email" id="email" placeholder="Introduce tu correo">
         <input class="controls" type="password" name="password" id="password" placeholder="Introduce tu contraseña">
-        <button class="buttons" type="submit"><a href="/usr/new">Sign in</a></button>
+        <button class="buttons" type="submit"><a href="/usr">Sign in</a></button>       <!-- this button will submit your info-->
         <br>
-        <a href="/createAccount" style="margin-left:50px; background:#1423D5; color: white">¿No tienes cuenta? Registrate</a>
+        <a href="/createAccount" style="margin-left:50px; background:#B0C400; color: white">¿No tienes cuenta? Registrate</a>  <!-- will redirect you to /createAccount-->
     </section>
+<br/>
+<section class="return">
+    <p><a href="/">Volver a la página principal</a></p>         <!-- will redirect you to the main page-->
+</section>
 </body>
 </html>

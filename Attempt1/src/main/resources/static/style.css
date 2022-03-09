@@ -50,8 +50,14 @@
     background: #795A2D;
     color: #B0C400;
 }
-
 /*
+#return a{
+    color: #B0C400;
+    padding-right: 80px;
+    text-align: left;
+}
+
+
 .form-register a{
     background: #1423D5;
     color: white;

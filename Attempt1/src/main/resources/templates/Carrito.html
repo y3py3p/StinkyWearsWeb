@@ -1,24 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Carrito</title>
+    <link rel="stylesheet" href="http://localhost:8080/alternate.css"/>
 </head>
 <body>
-<nav>
-    <!-- <img alt="logo" height="60px" src=""/> -->
-    <ul>
-        <li><a href="/"> MainPage </a></li>
-        <li><a href="/items"> Items </a></li>
-        <li><a href="/usr"> MyUser </a></li>
-        <li><a href="/login"> LogIn </a></li>
-        <li><a href="/carrito"> Carrito </a></li>
-    </ul>
-</nav>
-<h1>Tienes en tu carro:</h1>
-    {{#carrito}}
-        <p><a href="/item/{{-index}}">{{nombre}} {{precio}}</a> </p>
-    {{/carrito}}
-
+    <nav>                             <!-- navigation bar -->
+        <!-- <img alt="logo" height="60px" src=""/> -->
+        <ul>
+            <li><a href="/"> MainPage </a></li>
+            <li><a href="/items"> Items </a></li>
+            <li><a href="/usr"> MyUser </a></li>
+            <li><a href="/login"> LogIn </a></li>
+        </ul>
+    </nav>
+    <section id="listaItems"><center>     <!-- it'll list the items added to your cart -->
+        <h2>Tienes en tu carro:</h2>
+        {{#carrito}}
+        <p><a href="/item/{{-index}}">{{nombre}} [{{precio}}€]</a> </p>
+        {{/carrito}}
+    </center>
+    </section>
+<div class="clearfix"></div>
+    <footer>
+        StinkyWear &copy; 2022
+    </footer>
 </body>
 </html>

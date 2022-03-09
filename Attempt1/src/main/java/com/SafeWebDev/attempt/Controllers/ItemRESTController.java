@@ -57,6 +57,6 @@ public class ItemRESTController {
 
     @GetMapping("/api/seeCarrito")
     public List<Item> seeCarrito(){
-        return userHolder.getCarrito();
+        return userHolder.getUsuarioActual().getCarrito();
     }
 }

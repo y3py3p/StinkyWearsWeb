@@ -6,6 +6,12 @@
     font-family: Comic Sans MS, Candara, Arial;
 }
 
+.return p{
+    color: #B0C400;
+    padding-right: 80px;
+    text-align: right;
+}
+
 .form-register{
     width: 400px;
     background: #B0C400;
@@ -14,19 +20,30 @@
     margin-top: 100px;
     border:1px solid black;
     border-radius: 15px;
-    color: #795A2D;
+
+    color: #B0C400;
 }
 
-.form-register h4{
-    font-size: 20px;
-    margin-bottom: 20px;
+.form-refister h4{
     background: #B0C400;
-    color:#795A2D;
+    color: #795A2D;
+    padding: 30px;
+    text-align: left;
+}
 
+a:visited{
+    color: white;
+}
+
+a:link{
+    color: white;
+}
+
+a:hover {
+    color: white;
 }
 
 .controls{
-
     width: 100%;
     background: #24303c;
     padding: 10px;
@@ -50,6 +67,8 @@
     background: #795A2D;
     color: #B0C400;
 }
+
+
 
 /*
 .form-register a{

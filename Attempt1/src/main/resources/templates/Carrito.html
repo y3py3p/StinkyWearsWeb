@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Carrito</title>
+    <link rel="stylesheet" href="style2.css"/>
 </head>
 <body>
 <nav>
@@ -15,10 +14,15 @@
         <li><a href="/carrito"> Carrito </a></li>
     </ul>
 </nav>
-<h1>Tienes en tu carro:</h1>
+<section id="listaItems">
+    <h2>Tienes en tu carro:</h2>
     {{#carrito}}
-        <p><a href="/item/{{-index}}">{{nombre}} {{precio}}</a> </p>
+    <p><a href="/item/{{-index}}">{{nombre}} {{precio}}</a> </p>
     {{/carrito}}
-
+</section>
+<div class="clearfix"></div>
+<footer>
+    StinkyWear &copy; 2022
+</footer>
 </body>
 </html>

@@ -32,16 +32,16 @@ public class ControllerBasic {
         return "StartPage";
     }
 
+    @GetMapping("/items")   //it'll redirect you to ItemsList.html, where you can see every product aviable
+    public String listaItems(Model model){
+        model.addAttribute("items", generalHolder.getItems().values());
+        return "ItemsList";
+    }
+
     @GetMapping("/item/{id}")   //it'll redirect you to ItemPage.html, where you can see the info of one item
     public String itemPage(Model model, @PathVariable long id) {
         model.addAttribute("item", generalHolder.getItemId(id));
         return "ItemPage";
-    }
-
-    @GetMapping("/usr") //it'll redirect you to UsrPage.html with your usr info (right now just the admin user)
-    public String usrPage(Model model) {
-        model.addAttribute("user", generalHolder.getCurrentUser());
-        return "UsrPage";
     }
 
     @PostMapping("/item/new")   //it'll redirect you to ItemAdded.html after adding an item to our general List
@@ -49,16 +49,24 @@ public class ControllerBasic {
         generalHolder.addItem(item);
         return "ItemAdded";
     }
+
     @GetMapping("/item/del/{id}")
-    public String deleteItem(@PathVariable int id){
-        generalHolder.getCurrentUser().delCart(id);
+    public String deleteItem(@PathVariable long id){
+        generalHolder.getCurrentUser().delCart(generalHolder.getItemId(id));
         return "ItemDeleted";
 
     }
-    @GetMapping("/items")   //it'll redirect you to ItemsList.html, where you can see every product aviable
-    public String listaItems(Model model){
-        model.addAttribute("items", generalHolder.getItems().values());
-        return "ItemsList";
+
+    @PostMapping("/item/edit/{id}")
+    public String editItem(Model model, Item item, @PathVariable long id){
+        generalHolder.getItemId(id).editItem(item);
+        return "ItemEdited";
+    }
+
+    @GetMapping("/usr") //it'll redirect you to UsrPage.html with your usr info (right now just the admin user)
+    public String usrPage(Model model) {
+        model.addAttribute("user", generalHolder.getCurrentUser());
+        return "UsrPage";
     }
 
     @GetMapping("/cart")    //it'll redirect you to Cart.html, with your cart info

@@ -49,6 +49,12 @@ public class ControllerBasic {
         generalHolder.addItem(item);
         return "ItemAdded";
     }
+    @GetMapping("/item/del/{id}")
+    public String deleteItem(@PathVariable int id){
+        generalHolder.getCurrentUser().delCart(id);
+        return "ItemDeleted";
+
+    }
     @GetMapping("/items")   //it'll redirect you to ItemsList.html, where you can see every product aviable
     public String listaItems(Model model){
         model.addAttribute("items", generalHolder.getItems().values());
@@ -64,7 +70,7 @@ public class ControllerBasic {
     @GetMapping("/cart/{id}")   //it'll redirect you to CartAdded.html or CartAlreadyContains.html
     public String addCarrito(Model model, @PathVariable long id){
         if(!generalHolder.getCurrentUser().carritoContains(generalHolder.getItemId(id))){
-            generalHolder.getCurrentUser().addCarrito(generalHolder.getItemId(id));
+            generalHolder.getCurrentUser().addCart(generalHolder.getItemId(id));
             return "CartAdded"; //you added the item to your cart
         }else{
             return "CartAlreadyContains";   //you already have the item in your cart

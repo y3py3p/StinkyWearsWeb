@@ -11,6 +11,10 @@ public class GeneralHolder {
     private ItemHolder itemholder=new ItemHolder();
     private UserHolder userholder=new UserHolder();
 
+    public GeneralHolder(){
+        setCurrentUser(new User("Usuario temporal","deez"));
+    }
+
     public User getCurrentUser(){
         return userholder.getCurrentUser();
     }
@@ -37,6 +41,14 @@ public class GeneralHolder {
 
     public Map<Long,Item> getItems(){
         return itemholder.getItems();
+    }
+
+    public boolean logedIn(){
+        return userholder.getCurrentUser() != null;
+    }
+
+    public boolean containsItem(long id){
+        return itemholder.containsItem(id);
     }
 
 }

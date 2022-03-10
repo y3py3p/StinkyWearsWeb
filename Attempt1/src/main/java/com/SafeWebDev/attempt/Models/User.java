@@ -2,6 +2,8 @@ package com.SafeWebDev.attempt.Models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class User {
 
@@ -15,9 +17,6 @@ public class User {
     private List<Item> cart = new ArrayList<>();
     private long id;
 
-    public List<Item> getCart() {
-        return cart;
-    }
 
     public User(String user, String correo, String password, String address, String name) {
         this.user = user;
@@ -33,6 +32,10 @@ public class User {
     }
     public User(){
 
+    }
+
+    public List<Item> getCart() {
+        return cart;
     }
 
     public boolean sameUser(User user){
@@ -71,8 +74,8 @@ public class User {
         cart.add(item);
     }
 
-    public void delCart(int id){
-        cart.remove(id-1);
+    public void delCart(Item item){
+        cart.remove(item);
     }
 
     public long getId() {

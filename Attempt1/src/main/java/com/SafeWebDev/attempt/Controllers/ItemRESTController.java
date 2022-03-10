@@ -47,7 +47,7 @@ public class ItemRESTController {
     public ResponseEntity<Item> addCarrito(@PathVariable long id){
 
         User user = generalHolder.getCurrentUser();
-        user.addCarrito(generalHolder.getItemId(id));
+        user.addCart(generalHolder.getItemId(id));
         return new ResponseEntity<Item>(generalHolder.getItemId(id), HttpStatus.ACCEPTED);
     }
 

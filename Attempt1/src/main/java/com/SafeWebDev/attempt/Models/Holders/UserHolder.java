@@ -19,6 +19,7 @@ public class UserHolder {
         user.setId(id);
         users.put(id, user);
     }
+
     public User getCurrentUser() {
         return currentUser;
     }

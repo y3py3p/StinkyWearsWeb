@@ -1,13 +1,13 @@
+                                                    /* Applied everywhere */
 * {
     margin: 0;
     padding: 0;
 }
-
 body{
-    font-family: Comic Sans MS, Candara, Arial, Candara, serif;
+    font-family: Comic Sans MS, Candara, Arial, serif;
     background-image: url("http://localhost:8080/img/ShrekSwamp.png");
 }
-
+                                                    /* sidebar */
 #sidebar {
     position: fixed;
     width: 200px;
@@ -17,11 +17,9 @@ body{
     transition: all 350ms linear;
     border-bottom: 1px solid #795A2D;
 }
-
 #sidebar.active {
     left: 0;
 }
-
 #sidebar ul li {
     color: rgba(230, 230, 230, .9);
     list-style: none;
@@ -29,30 +27,25 @@ body{
     border-top: 1px solid #795A2D;
     text-align: center;
 }
-
 #sidebar ul li:hover{
     background: #523213;
     color: #B0C400;
 }
-
 .logo {
     border-radius: 50%;
     display: block;
     margin: 0 auto;
     max-width: 150px;
 }
-
 #sidebar .toggle-btn {
     position: absolute;
     left: 230px;
     top: 20px;
     cursor: pointer;
 }
-
 #sidebar .toggle-btn span:hover{
     color: #B0C400;
 }
-
 #sidebar .toggle-btn span {
     display: block;
     width: 40px;
@@ -61,7 +54,7 @@ body{
     border: 3px solid #D3CCA5;
     color: #795A2D;
 }
-
+                                                    /* footer */
 footer{
     background: #795A2D;
     color: #B0C400;
@@ -70,44 +63,40 @@ footer{
     line-height: 20px;
     font-size: 12px;
 }
-
+                                                    /* headers */
 h2{
     text-align: center;
     padding: 40px;
     color: #523213;
 }
-
+                                                    /* links */
 a:visited{
     color: #523213;
 }
-
 a:link{
     color: #795A2D;
 }
-
 a:hover {
     color: #B0C400;
 }
-
-#descripcion{
+                                                    /* StartPage */
+#description{
     text-align: center;
     width: 100%;
     background: #795A2D;
     min-height: 300px;
 }
-
-#descripcion img{
-    padding: 0px;
+#description img{
+    padding: 0;
 }
-
-#contacto{
+#contact{
     background: #D3CCA5;
     min-height: 70px;
     padding: 40px;
     color:#795A2D;
     text-align: center;
 }
-
+                                                    /* UsrPage */
 #usrimg{
     float: left;
     width: calc(20% - 100px);
@@ -115,7 +104,6 @@ a:hover {
     min-height: 300px;
     padding: 50px;
 }
-
 #usrinfo{
     float: left;
     width: calc(80% - 80px);
@@ -123,7 +111,6 @@ a:hover {
     min-height: 320px;
     padding: 40px;
 }
-
 #infoitem{
     background: #B0C400;
     padding: 40px;
@@ -131,24 +118,21 @@ a:hover {
     border-top: 2px solid #795A2D
 }
 
-#form-register {
-    background: #B0C400;
-    color: #795A2D;
-}
-
-#form-register h4{
-    padding-left: 300px;
-    text-align: left;
-}
-
-#listaItems{
+                                                    /* ItemsList */
+#itemList{
     padding-left: 80px;
     border-top: 2px solid #795A2D;
     background: #D3CCA5;
     height: calc(100vh - 200px);
     text-align: center;
 }
-
+#ShrekIsWatching{
+    text-align: right;
+    background: #D3CCA5;
+    vertical-align: bottom;
+    border-bottom: #795A2D;
+}
+                                                     /* Cart */
 #cart{
     padding-left: 80px;
     border-top: 2px solid #795A2D;
@@ -156,51 +140,49 @@ a:hover {
     height: calc(85vh + 1px);
     text-align: center;
 }
-
-#ShrekTeVigila{
-    text-align: right;
-    background: #D3CCA5;
-    vertical-align: bottom;
-    border-bottom: #795A2D;
-}
-
+                                                    /* ItemAdded */
 #itemAdded{
     text-align: center;
     background:#D3CCA5;
     border-top: #795A2D;
     min-height: calc(85vh + 1px);
 }
-
+                                                    /* error/notification (ItemDeleted ItemAdded CartAlreadyContains CartAdded Error) */
 .msg{
     text-align:center;
     color: #523213;
     background: #D3CCA5;
     height: 100vh;
 }
-
-.article p{
-    text-align: center;
+                                                    /* forms (LohIn NewItem CreateAccount) */
+.form-register {
+    background: #B0C400;
+    color: #795A2D;
 }
-
-.clearfix{
-    clear: both;
+.form-register h4{
+    padding-left: 300px;
+    text-align: left;
 }
-
+input::placeholder {
+    font-family: "Comic Sans MS", serif;
+}
+                                                    /* all buttons */
 .buttons{
     background: #C3BC95;
     border-radius: 28px;
     width: 60px;
     height: 30px;
 }
-
 .buttons:hover {
     background: #795A2D;
 }
-
+                                                    /* all headers */
 .header{
     background: #D3CCA5;
     height: 85px;
 }
-input::placeholder {
-    font-family: "Comic Sans MS", serif;
+                                                    /* used to separate sections */
+.clearfix{
+    clear: both;
 }
+

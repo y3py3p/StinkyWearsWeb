@@ -67,6 +67,7 @@ footer{
     text-align: center;
     height: 20px;
     line-height: 20px;
+    font-size: 12px;
 }
 
 h2{
@@ -88,21 +89,22 @@ a:hover {
 }
 
 #descripcion{
-    float: left;
     text-align: center;
     width: 100%;
     background: #795A2D;
     min-height: 300px;
-    color: white;
+}
+
+#descripcion img{
+    padding: 0px;
 }
 
 #contacto{
-    float: left;
-    width: 100%;
     background: #D3CCA5;
-    min-height: 100px;
+    min-height: 70px;
     padding: 40px;
-    color: black;
+    color:#795A2D;
+    text-align: center;
 }
 
 #usrimg{

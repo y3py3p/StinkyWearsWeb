@@ -3,41 +3,48 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Stinky Wear </title>
-    <link rel="stylesheet" href="main.css"/>
-    <link rel="icon" type="image/png" href="img/ouuushrek.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Stinky Style</title>
+    <link rel="stylesheet" href="http://localhost:8080/main.css"/>
+    <link rel="stylesheet" href="cursor.css"/>
+    <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png"/>
 </head>
 <body>
-    <div id="sidebar">
-        <div class="toggle-btn">
-            <span>&#9776</span>
+    <section class="header">
+        <div id="sidebar">                          <!-- side nav bar -->
+            <div class="toggle-btn">
+                <span>&#9776</span>
+            </div>
+            <ul>
+                <img src="http://localhost:8080/img/ouuushrek.png" alt="Logo Fazt" class="logo"> <br/>
+                <li><a href="/">MainPage</a></li>
+                <li><a href="/items">Items</a></li>
+                <li><a href="/usr">MyUser</a></li>
+                <li><a href="/login">login</a></li>
+                <li><a href="/cart"> Carrito </a></li>
+            </ul>
         </div>
-                                  <!-- nav bar -->
-        <ul>
-            <li><img src="img/ouuushrek.png" alt="Logo Fazt" class="logo"> </li>
-            <li><a href="/">MainPage</a></li>
-            <li><a href="/items">Items</a></li>
-            <li><a href="/usr">MyUser</a></li>
-            <li><a href="/login">login</a></li>
-            <li><a href="/cart"> Carrito </a></li>
-        </ul>
+    </section>
+<div class="clearfix"></div>
 
-    </div>
-<div class="clearfix"></div>
-    <section id="descripcion">          <!--this section includes the logo and slogan-->
-        <article class="cositas">
-            <h2> ñamñam </h2>
-            <p> ñma </p>
-        </article>
+    <section id="descripcion">          <!--this section includes the logo-->
+        <br/><br/>
+            <img width="1100" src="http://localhost:8080/img/stinkystyle.png" alt="logo" />
     </section>
+
 <div class="clearfix"></div>
-    <section id="contacto">             <!--this section includes our contact info-->
-        <p> cosas d contacto </p>
+
+    <section id="contacto">            <!--this section includes our contact info-->
+        <br/>
+        <p>A Shrek le haría mucha ilusión que compres algo. No le decepciones >:(</p>
     </section>
+
 <div class="clearfix"></div>
     <footer>
         StinkyWear &copy; 2022
     </footer>
+    <script src="cursor.js"></script>
     <script src="lateralBar.js"></script>
 </body>
 </html>

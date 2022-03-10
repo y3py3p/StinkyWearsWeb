@@ -2,7 +2,7 @@ package com.SafeWebDev.attempt.Controllers;
 
 
 import com.SafeWebDev.attempt.Models.*;
-import com.SafeWebDev.attempt.Models.Holders.GeneralHolder;
+import com.SafeWebDev.attempt.Models.Holders.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,9 +30,9 @@ public class ItemRESTController {
 
         Item item = generalHolder.getItemId(id);
         if(item != null){
-            return ResponseEntity.ok().body(item);
+            return new ResponseEntity<Item>(item,HttpStatus.ACCEPTED);
         }else{
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity<Item>(HttpStatus.NOT_FOUND);
         }
     }
 

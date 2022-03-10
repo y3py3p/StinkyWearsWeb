@@ -44,10 +44,16 @@ public class ControllerBasic {
         return "UsrPage";
     }
 
-    @PostMapping("/item/new")   //it'll redirect you to ItemAdded.html after adding an item to your cart
+    @PostMapping("/item/new")   //it'll redirect you to ItemAdded.html after adding an item to our general List
     public String addItem(Model model,Item item){
         generalHolder.addItem(item);
         return "ItemAdded";
+    }
+    @GetMapping("/item/del/{id}")
+    public String deleteItem(@PathVariable int id){
+        generalHolder.getCurrentUser().delCart(id);
+        return "ItemDeleted";
+
     }
     @GetMapping("/items")   //it'll redirect you to ItemsList.html, where you can see every product aviable
     public String listaItems(Model model){
@@ -55,7 +61,7 @@ public class ControllerBasic {
         return "ItemsList";
     }
 
-    @GetMapping("/cart")    //it'll redirect you to Cart.html, your cart info
+    @GetMapping("/cart")    //it'll redirect you to Cart.html, with your cart info
     public String carrito(Model model){
         model.addAttribute("cart", generalHolder.getCurrentUser().getCart());
         return "Cart";

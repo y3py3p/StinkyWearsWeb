@@ -7,35 +7,35 @@
   <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
 </head>
 <body>
-<div id="sidebar">
-  <div class="toggle-btn">
-    <span>&#9776</span>
-  </div>
-  <!-- nav bar -->
-  <ul>
-    <li><img src="img/ouuushrek.png" alt="Logo Fazt" class="logo"> </li>
-    <li><a href="/">MainPage</a></li>
-    <li><a href="/items">Items</a></li>
-    <li><a href="/usr">MyUser</a></li>
-    <li><a href="/login">login</a></li>
-    <li><a href="/cart"> Carrito </a></li>
-  </ul>
-
-</div>
+  <section class="header">
+    <div id="sidebar">
+      <div class="toggle-btn">
+        <span>&#9776</span>
+      </div>
+      <!-- nav bar -->
+      <ul>
+        <img src="http://localhost:8080/img/ouuushrek.png" alt="Logo Fazt" class="logo"><br/>
+        <li><a href="/">MainPage</a></li>
+        <li><a href="/items">Items</a></li>
+        <li><a href="/usr">MyUser</a></li>
+        <li><a href="/login">login</a></li>
+        <li><a href="/cart"> Carrito </a></li>
+      </ul>
+    </div>
+  </section>
 <div class="clearfix"></div>
   <section id="infoitem">                 <!--will print the objects' available info-->
     {{#item}}
-    <h1>{{name}}</h1>
-    <p>Estado: {{state}}<br>Talla: {{size}}<br>Precio: {{price}}€</p><br/>
-    <p><button class="buttons" type="submit"><a href="/cart/{{id}}">Añadir al carrito</a></button></p>  <!-- will add the item to the shopping cart. It'll also redirect you to the carts' page-->
+    <h1>{{name}}</h1><br/>
+    <p>Estado: {{condition}}<br>Talla: {{size}}<br>Precio: {{price}}€</p><br/>
+    <p><button class="buttons" type="submit"><a href="/cart/{{id}}">Añadir</a></button></p>  <!-- will add the item to the shopping cart. It'll also redirect you to the carts' page-->
     {{/item}}
   </section>
 <div class="clearfix"></div>
   <footer>
     StinkyWear &copy; 2022
   </footer>
-  <script src="lateralBar.js"></script>
-
+<script src="http://localhost:8080/lateralBar.js"></script>
 </body>
 
 </html>

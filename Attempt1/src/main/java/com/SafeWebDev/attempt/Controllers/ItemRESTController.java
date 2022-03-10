@@ -12,19 +12,20 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/api")
 public class ItemRESTController {
 
     @Autowired
     private GeneralHolder generalHolder=new GeneralHolder();
 
 
-    @GetMapping("/api/see")
+    @GetMapping("/see")
     public Map<Long, Item> getItems(){
 
         return generalHolder.getItems();
     }
 
-    @GetMapping("/api/see/{id}")
+    @GetMapping("/see/{id}")
     public ResponseEntity<Item> getById(@PathVariable long id){
 
         Item item = generalHolder.getItemId(id);
@@ -35,7 +36,7 @@ public class ItemRESTController {
         }
     }
 
-    @PostMapping("/api/addItem")
+    @PostMapping("/addItem")
     public ResponseEntity<Item> add(@RequestBody Item item){
 
         generalHolder.addItem(item);
@@ -43,20 +44,27 @@ public class ItemRESTController {
         return new ResponseEntity<Item>(item, HttpStatus.CREATED);
     }
 
-    @PostMapping("/api/addCarrito/{id}")
-    public ResponseEntity<Item> addCarrito(@PathVariable long id){
+    @GetMapping("/addCart/{id}")
+    public ResponseEntity<List<Item>> addCart(@PathVariable long id){
 
         User user = generalHolder.getCurrentUser();
         user.addCart(generalHolder.getItemId(id));
-        return new ResponseEntity<Item>(generalHolder.getItemId(id), HttpStatus.ACCEPTED);
+        return new ResponseEntity<List<Item>>(generalHolder.getCurrentUser().getCart(), HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/api/seeCarrito")
-    public List<Item> seeCarrito(){
+    @GetMapping("/seeCart")
+    public List<Item> seeCart(){
         return generalHolder.getCurrentUser().getCart();
     }
 
-    @GetMapping("/api/usr")
+    @GetMapping("/removeCart/{id}")
+    public ResponseEntity<List<Item>> removeCart(@PathVariable int id){
+
+        generalHolder.getCurrentUser().delCart(id);
+        return new ResponseEntity<List<Item>>(generalHolder.getCurrentUser().getCart(), HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/usr")
     public User seeUser(){
 
         return generalHolder.getCurrentUser();

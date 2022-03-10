@@ -67,8 +67,12 @@ public class User {
         }
     }
 
-    public void addCarrito(Item item){
+    public void addCart(Item item){
         cart.add(item);
+    }
+
+    public void delCart(int id){
+        cart.remove(id-1);
     }
 
     public long getId() {

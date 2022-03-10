@@ -1,9 +1,8 @@
-/* estilo del cursor */
-
 body {
     margin: 0;
     height: 100vh;
-    /*cursor: none;*/
+    cursor: none;
+    background: white;
 }
 
 .cursor {							/*circulo finito*/

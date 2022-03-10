@@ -1,0 +1,68 @@
+/* estilo del cursor */
+
+body {
+    margin: 0;
+    height: 100vh;
+    /*cursor: none;*/
+}
+
+.cursor {							/*circulo finito*/
+    width: 20px;
+    height: 20px;
+    border: 1px solid #523513;
+    border-radius: 50%;
+    position: absolute;
+    transition-duration: 200ms;					/*para q siga el raton con un poco de retraso*/
+    transition-timing-function: ease-out;
+    animation: ThinCricleMotion .5s infinite alternate;	/*va a alternar d un estado a otro*/
+    pointer-events: none;
+}
+
+.cursor::after {					/*circulo grande*/
+    content: "";
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    border: 8px solid #B0C400;
+    border-radius: 50%;
+    opacity: .5;
+    top: -8px;
+    left: -8px;
+    animation: ThickCircleMotion .5s infinite alternate;		/*tmb alternara d un estado a otro*/
+}
+
+@keyframes ThinCircleMotion {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(.7);
+    }
+}
+
+@keyframes ThickCircleMotion {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(.4);
+    }
+}
+
+@keyframes click {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+.expand {
+    animation: click .5s forwards;
+    border: 0.01em solid #523213;
+}

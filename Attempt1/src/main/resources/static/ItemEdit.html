@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar item</title>
+    <link rel="stylesheet" href="http://localhost:8080/main.css">
+    <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
+    <audio src="img/todountemazo.mp3" autoplay loop></audio>
+</head>
+<body>
+<section class="header">
+    <div id="sidebar">              <!-- side nav bar -->
+        <div class="toggle-btn">
+            <span>&#9776</span>
+        </div>
+        <ul>
+            <img src="http://localhost:8080/img/ouuushrek.png" alt="Logo Fazt" class="logo"> <br/>
+            <li><a href="/">MainPage</a></li>
+            <li><a href="/items">Items</a></li>
+            <li><a href="/usr">MyUser</a></li>
+            <li><a href="/login">login</a></li>
+            <li><a href="/cart"> Carrito </a></li>
+        </ul>
+    </div>
+</section>
+<div class="clearfix"></div>
+<section id="form-register">
+    <h2>Rellene los campos para editar el item:</h2>        <!-- will collect all the info needed in order to create/add a new item -->
+    <form action="item/edit/{id}" method="post">
+        <h4> Nombre:<br/>
+            <input type="text" name="name" placeholder="Nombre"></h4>     <!-- type its name (txt)-->
+        <h4> Talla:<br/>
+            <select name="size">                                           <!-- select a size -->
+                <option value="XS"> XS </option>
+                <option value="S"> S </option>
+                <option value="M"> M </option>
+                <option value="L"> L </option>
+                <option value="XL"> XL </option>
+                <option value="XXL"> XXL </option>
+            </select></h4>
+        <h4> Estado<br/>                                                <!-- type its condition (txt) -->
+            <input type="text" name="condition" placeholder="-"></h4>
+        <h4> Precio:<br/>
+            <input type="number" name="price" placeholder="-"></h4>        <!-- type its price (number) -->
+        <h2><input  type="submit" value="Enviar"/></h2>>              <!-- click to submit the info -->
+    </form>
+</section>
+<div class="clearfix"></div>
+<footer>
+    StinkyWear &copy; 2022
+</footer>
+<script src="lateralBar.js"></script>
+</body>
+</html>

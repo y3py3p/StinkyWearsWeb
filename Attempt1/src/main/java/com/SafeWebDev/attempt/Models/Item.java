@@ -59,6 +59,13 @@ public class Item{
         this.condition = state;
     }
 
+    public void editItem(Item item){
+        setname(item.name);
+        setsize(item.size);
+        setCondition(item.condition);
+        setprice(item.price);
+    }
+
     @Override
     public String toString() {
         return "Item{" +

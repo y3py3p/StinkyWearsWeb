@@ -1,10 +1,8 @@
 package com.SafeWebDev.attempt.Models.Holders;
 
-import com.SafeWebDev.attempt.Models.User;
+import com.SafeWebDev.attempt.Models.*;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -12,25 +10,25 @@ import java.util.concurrent.atomic.AtomicLong;
 @Service
 public class UserHolder {
 
-    private Map<Long, User> usuarios = new ConcurrentHashMap<Long,User>();
+    private Map<Long, User> users = new ConcurrentHashMap<Long,User>();
     private AtomicLong lastId=new AtomicLong();
-    private User usuarioActual = new User("Usuario temporal","deez");
+    private User currentUser ;
 
     public void addUser(User user){
         long id = lastId.incrementAndGet();
         user.setId(id);
-        usuarios.put(id, user);
+        users.put(id, user);
     }
-    public User getUsuarioActual() {
-        return usuarioActual;
+    public User getCurrentUser() {
+        return currentUser;
     }
 
     public void setCurrentUser(User user){
-        this.usuarioActual=user;
+        currentUser =user;
     }
 
     public User getUsrbyId(long id){
-        return usuarios.get(id);
+        return users.get(id);
     }
 
 }

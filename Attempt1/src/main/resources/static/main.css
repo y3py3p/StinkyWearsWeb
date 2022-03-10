@@ -61,6 +61,7 @@ footer{
 
 h2{
     text-align: center;
+    padding: 40px;
 }
 
 a:visited{
@@ -183,6 +184,8 @@ a:hover {
 .buttons{
     background: #C3BC95;
     border-radius: 28px;
+    width: 60px;
+    height: 30px;
 }
 
 .buttons:hover {

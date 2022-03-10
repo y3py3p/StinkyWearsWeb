@@ -27,7 +27,7 @@
   <section id="infoitem">                 <!--will print the objects' available info-->
     {{#item}}
     <h1>{{name}}</h1><br/>
-    <p>Estado: {{state}}<br>Talla: {{size}}<br>Precio: {{price}}€</p><br/>
+    <p>Estado: {{condition}}<br>Talla: {{size}}<br>Precio: {{price}}€</p><br/>
     <p><button class="buttons" type="submit"><a href="/cart/{{id}}">Añadir</a></button></p>  <!-- will add the item to the shopping cart. It'll also redirect you to the carts' page-->
     {{/item}}
   </section>

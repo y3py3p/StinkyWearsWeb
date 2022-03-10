@@ -1,9 +1,6 @@
 package com.SafeWebDev.attempt.Models;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.*;
 
 @Data
 
@@ -11,14 +8,14 @@ public class Item{
     private long id;
     private String name;
     private String size;
-    private String state;
+    private String condition;
     private float price;
     private int stock=0;
 
     public Item(String name, String size, String state,float price) {
         this.name = name;
         this.size = size;
-        this.state = state;
+        this.condition = state;
         this.price=price;
     }
 
@@ -47,7 +44,7 @@ public class Item{
     }
 
     public String getstate() {
-        return state;
+        return condition;
     }
 
     public float getprice() {
@@ -59,7 +56,7 @@ public class Item{
     }
 
     public void setstate(String state) {
-        this.state = state;
+        this.condition = state;
     }
 
     @Override
@@ -68,7 +65,7 @@ public class Item{
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", size='" + size + '\'' +
-                ", state='" + state + '\'' +
+                ", state='" + condition + '\'' +
                 ", stock='" + stock + '\'' +
                 '}';
     }

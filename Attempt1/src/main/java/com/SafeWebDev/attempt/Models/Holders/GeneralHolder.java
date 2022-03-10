@@ -1,7 +1,6 @@
 package com.SafeWebDev.attempt.Models.Holders;
 
-import com.SafeWebDev.attempt.Models.Item;
-import com.SafeWebDev.attempt.Models.User;
+import com.SafeWebDev.attempt.Models.*;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -13,7 +12,7 @@ public class GeneralHolder {
     private UserHolder userholder=new UserHolder();
 
     public User getCurrentUser(){
-        return userholder.getUsuarioActual();
+        return userholder.getCurrentUser();
     }
 
     public void setCurrentUser(User user){

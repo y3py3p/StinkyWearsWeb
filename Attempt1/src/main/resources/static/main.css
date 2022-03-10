@@ -1,10 +1,10 @@
 * {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 body{
-    font-family: Comic Sans MS, Candara, Arial, Candara, Arial;
+    font-family: Comic Sans MS, Candara, Arial, Candara, serif;
 }
 
 #sidebar {
@@ -18,7 +18,7 @@ body{
 }
 
 #sidebar.active {
-    left: 0px;
+    left: 0;
 }
 
 #sidebar ul li {
@@ -33,6 +33,7 @@ body{
     background: #523213;
     color: #B0C400;
 }
+
 .logo {
     border-radius: 50%;
     display: block;
@@ -71,10 +72,11 @@ footer{
 h2{
     text-align: center;
     padding: 40px;
+    color: #523213;
 }
 
 a:visited{
-    color: #795A2D;
+    color: #523213;
 }
 
 a:link{
@@ -119,12 +121,6 @@ a:hover {
     padding: 40px;
 }
 
-#usrinfo h2{
-    /*text-align: center;*/
-    color: #795A2D;
-    /*estilo d titulos*/
-}
-
 #infoitem{
     background: #B0C400;
     padding: 40px;
@@ -132,24 +128,14 @@ a:hover {
     border-top: 2px solid #795A2D
 }
 
-#form-register{
-    background:#B0C400;
-    color:#795A2D;
+#form-register {
+    background: #B0C400;
+    color: #795A2D;
 }
-/*
-#form-register h2{
-    text-align: center;
-}
-*/
+
 #form-register h4{
     padding-left: 300px;
     text-align: left;
-}
-
-#troste{
-    text-align:center;
-    color: #523213;
-    min-height: 700px;
 }
 
 #listaItems{
@@ -158,10 +144,6 @@ a:hover {
     background: #D3CCA5;
     min-height: 300px;
     text-align: center;
-}
-
-#listaItems h2{
-    color: #523213
 }
 
 #ShrekTeVigila{
@@ -174,16 +156,12 @@ a:hover {
     text-align: center;
 }
 
-#itemAdded h2{
-    color: #523213
+.msg{
+    text-align:center;
+    color: #523213;
+    min-height: 700px;
 }
 
-/*
-.article h2{
-    text-align: center;
-    /*añadir color fuente y eso
-}
-*/
 .article p{
     text-align: center;
     /*añadir color fuente y eso */
@@ -209,5 +187,5 @@ a:hover {
     height: 85px;
 }
 input::placeholder {
-    font-family: "Comic Sans MS";
+    font-family: "Comic Sans MS", serif;
 }

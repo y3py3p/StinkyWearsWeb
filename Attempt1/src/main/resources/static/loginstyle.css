@@ -1,15 +1,15 @@
 *{
-    margin:0;
-    padding:0;
     box-sizing: border-box;
-    background:#795a2d;;
     font-family: Comic Sans MS, Candara, Arial;
-}
 
-.return p{
+}
+body{
+    background-image: url("http://localhost:8080/img/ShrekSwamp.png");
+}
+.return a{
     color: #B0C400;
-    padding-right: 80px;
-    text-align: right;
+    padding: 80px;
+    text-align: center;
 }
 
 .form-register{
@@ -18,29 +18,29 @@
     padding: 30px;
     margin: auto;
     margin-top: 100px;
-    border:1px solid black;
+    border:1px solid #795A2D;
     border-radius: 15px;
-
     color: #B0C400;
 }
 
-.form-refister h4{
-    background: #B0C400;
+.form-register h3{
     color: #795A2D;
-    padding: 30px;
-    text-align: left;
+    text-align: center;
 }
 
-a:visited{
-    color: white;
+.form-register a:visited{
+    color: #795A2D;
+
 }
 
-a:link{
-    color: white;
+.form-register a:link{
+    color: #795A2D;
+
 }
 
-a:hover {
-    color: white;
+.form-register a:hover {
+    color: #795A2D;
+
 }
 
 .controls{
@@ -56,22 +56,14 @@ a:hover {
 .form-register .buttons{
     width:100px;
     padding: 9px;
-    margin-left: 100px;
-    color: #B0C400;
-    background: #795A2D;
+    background: #c3bc95;
     border-radius: 15px;
 
 }
 
 .buttons a{
-    background: #795A2D;
+    background: #c3bc95;
     color: #B0C400;
 }
 
 
-
-/*
-.form-register a{
-    background: #1423D5;
-    color: white;
-}*/

@@ -47,7 +47,8 @@ body{
     width: 40px;
     text-align: center;
     font-size: 30px;
-    border: 3px solid #000;
+    border: 3px solid #79542D;
+    color: #795A2D;
 }
 
 footer{
@@ -186,4 +187,9 @@ a:hover {
 
 .buttons:hover {
     background: #795A2D;
+}
+
+.header{
+    background: #D3CCA5;
+    height: 85px;
 }

@@ -5,6 +5,7 @@
 
 body{
     font-family: Comic Sans MS, Candara, Arial, Candara, serif;
+    background-image: url("http://localhost:8080/img/ShrekSwamp.png");
 }
 
 #sidebar {

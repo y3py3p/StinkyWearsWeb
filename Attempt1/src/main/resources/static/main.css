@@ -147,6 +147,7 @@ a:hover {
     border-top: 2px solid #795A2D;
     background: #D3CCA5;
     min-height: 300px;
+    text-align: center;
 }
 
 #listaItems h2{
@@ -156,6 +157,7 @@ a:hover {
 #ShrekTeVigila{
     text-align: right;
     background: #D3CCA5;
+    vertical-align: bottom;
 }
 
 #itemAdded{
@@ -195,4 +197,7 @@ a:hover {
 .header{
     background: #D3CCA5;
     height: 85px;
+}
+input::placeholder {
+    font-family: "Comic Sans MS";
 }

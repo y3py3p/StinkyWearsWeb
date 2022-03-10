@@ -25,7 +25,7 @@ public class ControllerBasic {
     @GetMapping("")     //redirect to StartPage.html, the main page
     public String homePage(Model model) {
         if(generalHolder.getCurrentUser() == null){
-            model.addAttribute("login", "LogIn");   //login link will show up only if you're not loged in
+            model.addAttribute("login", "LogIn");   //login link will show up only if you're not logged in
         }else{
             model.addAttribute("login", "");
         }

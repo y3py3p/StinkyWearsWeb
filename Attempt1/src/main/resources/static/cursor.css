@@ -1,23 +1,23 @@
 body {
     margin: 0;
     height: 100vh;
-    cursor: none;
+    cursor: none;                                       /*the actual cursor won't be visible*/
     background: white;
 }
 
-.cursor {							/*circulo finito*/
+.cursor {							                    /*thin circle*/
     width: 20px;
     height: 20px;
     border: 1px solid #523513;
     border-radius: 50%;
     position: absolute;
-    transition-duration: 200ms;					/*para q siga el raton con un poco de retraso*/
+    transition-duration: 200ms;					        /*it'll follow the cursor with a bit of delay*/
     transition-timing-function: ease-out;
-    animation: ThinCricleMotion .5s infinite alternate;	/*va a alternar d un estado a otro*/
+    animation: ThinCricleMotion .5s infinite alternate;	/*it will be animated, switching between 2 states (defined in ThinCircleMotion) infinitely*/
     pointer-events: none;
 }
 
-.cursor::after {					/*circulo grande*/
+.cursor::after {					                    /*thick thircle*/
     content: "";
     width: 20px;
     height: 20px;
@@ -27,7 +27,7 @@ body {
     opacity: .5;
     top: -8px;
     left: -8px;
-    animation: ThickCircleMotion .5s infinite alternate;		/*tmb alternara d un estado a otro*/
+    animation: ThickCircleMotion .5s infinite alternate;   /*it'll also alternate between two states*/
 }
 
 @keyframes ThinCircleMotion {
@@ -44,11 +44,11 @@ body {
         transform: scale(1);
     }
     to {
-        transform: scale(.4);
+        transform: scale(0.4);
     }
 }
 
-@keyframes click {
+@keyframes click {                  /* it'll disappear for a sec when you click */
     0% {
         transform: scale(1);
     }

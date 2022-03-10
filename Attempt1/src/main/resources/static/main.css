@@ -166,17 +166,20 @@ a:hover {
 
 #itemAdded{
     text-align: center;
+    background:#D3CCA5;
+    border-top: #795A2D;
+    min-height: calc(85vh + 1px);
 }
 
 .msg{
     text-align:center;
     color: #523213;
-    min-height: 700px;
+    background: #D3CCA5;
+    height: 100vh;
 }
 
 .article p{
     text-align: center;
-    /*añadir color fuente y eso */
 }
 
 .clearfix{

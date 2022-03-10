@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Log in</title>
-    <link rel="stylesheet" href="http://localhost:8080/loginstyle.css">
+    <link rel="stylesheet" href="http://localhost:8080/main.css">
     <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
 </head>
 <body>
-    <section class="form-register">            <!-- registration fomr -->
-        <h4>Inicia sesion</h4>
-        <input class="controls" type="email" name="email" id="email" placeholder="Introduce tu correo">
-        <input class="controls" type="password" name="password" id="password" placeholder="Introduce tu contraseña">
-        <button class="buttons" type="submit"><a href="/usr">Sign in</a></button>       <!-- this button will submit your info-->
-        <br>
-        <a href="/createAccount" style="margin-left:50px; background:#B0C400; color: white">¿No tienes cuenta? Registrate</a>  <!-- will redirect you to /createAccount-->
-    </section>
+
+<section class="register-form">
+    <h3>Inicia sesion</h3>
+    <input class="control" type="email" name="email" id="email" placeholder="Introduce tu correo">
+    <input class="control" type="password" name="password" id="password" placeholder="Introduce tu contraseña">
+    <center><button class="button" type="submit"><a href="/usr">Sign in</a></button></center>
+    <br>
+    <center><a href="/createAccount" >¿No tienes cuenta? Registrate</a></center>
+</section>
 <br/>
 <section class="return">
-    <p><a href="/">Volver a la página principal</a></p>         <!-- will redirect you to the main page-->
+    <p><a href="/"><- Volver a la página principal</a></p>
 </section>
 </body>
 </html>

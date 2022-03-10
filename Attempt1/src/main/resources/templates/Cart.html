@@ -12,7 +12,7 @@
             </div>
             <!-- nav bar -->
             <ul>
-                <li><img src="img/ouuushrek.png" alt="Logo Fazt" class="logo"> </li>
+                <img src="img/ouuushrek.png" alt="Logo Fazt" class="logo"> <br/>
                 <li><a href="/">MainPage</a></li>
                 <li><a href="/items">Items</a></li>
                 <li><a href="/usr">MyUser</a></li>
@@ -21,7 +21,7 @@
             </ul>
         </div>
     </section>
-    <section id="listaItems"><center>     <!-- it'll list the items added to your cart -->
+    <section id="cart"><center>     <!-- it'll list the items added to your cart -->
         <h2>Tienes en tu carro:</h2>
         {{#cart}}
         <p><a href="/item/{{-index}}">{{name}} ({{price}}€)</a>&nbsp;&nbsp;&nbsp;&nbsp;<button class="buttons" type="submit"><a href="/item/del/{{id}}">Eliminar</a></button>  </p>

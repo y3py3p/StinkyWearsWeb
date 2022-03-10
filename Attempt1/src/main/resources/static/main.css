@@ -168,6 +168,41 @@ a:hover {
 input::placeholder {
     font-family: "Comic Sans MS", serif;
 }
+
+.register-form{
+    background: #B0C400;
+    color: #795A2D;
+}
+
+.form-register h4{
+    padding-left: 300px;
+    text-align: left;
+}
+/**/
+.register-form{
+    background: #795A2D;
+    color: #795A2D;
+}
+
+.registerform h4 {
+    padding-left: 300px;
+    text-align: left;
+}
+
+.register-form p{
+    text-align: center;
+}
+
+.controls{
+    background: #bdc291;
+    padding: 10px;
+    border-radius: 11px;
+    margin-bottom: 12px;
+    border: 1px solid #B0C400;
+    font-size: 12px;
+    width: 400px;
+}
+/**/
                                                     /* all buttons */
 .buttons{
     background: #C3BC95;

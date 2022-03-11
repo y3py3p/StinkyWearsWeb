@@ -11,7 +11,6 @@ body {
     border: 1px solid #523513;
     border-radius: 50%;
     position: absolute;
-    transition-duration: 200ms;					        /*it'll follow the cursor with a bit of delay*/
     transition-timing-function: ease-out;
     animation: ThinCricleMotion .5s infinite alternate;	/*it will be animated, switching between 2 states (defined in ThinCircleMotion) infinitely*/
     pointer-events: none;

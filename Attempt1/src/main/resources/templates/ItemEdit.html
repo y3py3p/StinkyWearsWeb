@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Editar item</title>
-    <link rel="stylesheet" href="http://localhost:8080/main.css">
+    <link rel="stylesheet" href="http://localhost:8080/cursor.css"/>
+    <link rel="stylesheet" href="http://localhost:8080/main.css"/>
     <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
     <audio src="../static/img/todountemazo.mp3" autoplay loop></audio>
 </head>
@@ -24,7 +25,7 @@
     </div>
 </section>
 <div class="clearfix"></div>
-<section id="form-register">
+<section class="form-register">
     {{#item}}
     <h2>Rellene los campos para editar el item:</h2>        <!-- will collect all the info needed in order to create/add a new item -->
     <form action="http://localhost:8080/editting/{{id}}" method="post">
@@ -43,7 +44,8 @@
             <input type="text" name="condition" placeholder="-"></h4>
         <h4> Precio:<br/>
             <input type="number" name="price" placeholder="-"></h4>        <!-- type its price (number) -->
-        <h2><input  type="submit" value="Enviar"/></h2>>              <!-- click to submit the info -->
+        <h2><button class="buttons" type="submit">Enviar</button></h2>              <!-- click to submit the info -->
+
     </form>
     {{/item}}
 </section>
@@ -51,6 +53,8 @@
 <footer>
     StinkyWear &copy; 2022
 </footer>
-<script src="../static/lateralBar.js"></script>
+    <div class="cursor"></div>
+    <script src="http://localhost:8080/cursor.js"></script>
+    <script src="http://localhost:8080/lateralBar.js"></script>
 </body>
 </html>

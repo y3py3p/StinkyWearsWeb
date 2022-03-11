@@ -64,7 +64,7 @@ public class ControllerBasic {
 
     @GetMapping("/cart/{id}")   //redirect to CartAdded.html or CartAlreadyContains.html
     public String addCarrito(Model model, @PathVariable long id){
-        if(!generalHolder.getCurrentUser().carritoContains(generalHolder.getItemId(id))){
+        if(!generalHolder.getCurrentUser().cartContains(generalHolder.getItemId(id))){
             generalHolder.getCurrentUser().addCart(generalHolder.getItemId(id));
             return "CartAdded"; //item added
         }else{

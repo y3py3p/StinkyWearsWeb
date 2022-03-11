@@ -62,7 +62,7 @@ public class User {
         this.password = password;
     }
 
-    public boolean carritoContains(Item item){
+    public boolean cartContains(Item item){
         if(cart.contains(item)){
             return true;
         }else{

@@ -61,7 +61,9 @@ public class ItemRESTController {
             return new ResponseEntity<List<Item>>((List<Item>) null, HttpStatus.NOT_FOUND);
         }else if(!generalHolder.containsItem(id)){  //check if item exists
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }else{
+        }else if(generalHolder.getCurrentUser().cartContains(generalHolder.getItemId(id))){   //check if it's already in cart
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }else{  //adds item to cart
             generalHolder.getCurrentUser().addCart(generalHolder.getItemId(id));
             return new ResponseEntity<List<Item>>(generalHolder.getCurrentUser().getCart(), HttpStatus.ACCEPTED);
         }

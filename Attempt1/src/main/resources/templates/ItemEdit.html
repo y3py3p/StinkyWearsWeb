@@ -25,8 +25,9 @@
 </section>
 <div class="clearfix"></div>
 <section id="form-register">
+    {{#item}}
     <h2>Rellene los campos para editar el item:</h2>        <!-- will collect all the info needed in order to create/add a new item -->
-    <form action="/editItem/{id}" method="post">
+    <form action="http://localhost:8080/editting/{{id}}" method="post">
         <h4> Nombre:<br/>
             <input type="text" name="name" placeholder="Nombre"></h4>     <!-- type its name (txt)-->
         <h4> Talla:<br/>
@@ -44,6 +45,7 @@
             <input type="number" name="price" placeholder="-"></h4>        <!-- type its price (number) -->
         <h2><input  type="submit" value="Enviar"/></h2>>              <!-- click to submit the info -->
     </form>
+    {{/item}}
 </section>
 <div class="clearfix"></div>
 <footer>

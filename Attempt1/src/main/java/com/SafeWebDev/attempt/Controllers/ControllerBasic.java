@@ -1,8 +1,7 @@
 package com.SafeWebDev.attempt.Controllers;
 
 import com.SafeWebDev.attempt.Models.*;
-import com.SafeWebDev.attempt.Models.Holders.GeneralHolder;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.SafeWebDev.attempt.Models.Holders.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +32,16 @@ public class ControllerBasic {
         return "StartPage";
     }
 
+    @GetMapping("/item/edit/{id}")
+    public String updateItem(Model model,@PathVariable long id){
+        model.addAttribute("item",generalHolder.getItemId(id));
+        return "ItemEdit";
+    }
+    @PostMapping("/editting/{id}")
+    public String updatingItem(Model model,@PathVariable long id,Item item){
+        generalHolder.getItemId(id).update(item);
+        return "ItemEdited";
+    }
     @GetMapping("/item/{id}")   //redirect to ItemPage.html, where you can see the info of one item
     public String itemPage(Model model, @PathVariable long id) {
         model.addAttribute("item", generalHolder.getItemId(id));
@@ -90,4 +99,5 @@ public class ControllerBasic {
         return "CreateAccount";
 
     }
+    
 }

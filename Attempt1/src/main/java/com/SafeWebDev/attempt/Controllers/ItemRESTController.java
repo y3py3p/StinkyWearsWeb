@@ -18,23 +18,23 @@ public class ItemRESTController {
     @Autowired
     private GeneralHolder generalHolder=new GeneralHolder();
 
-    @GetMapping("/see")
+    @GetMapping("/see") //to see every item on stock
     public Map<Long, Item> getItems(){
 
         return generalHolder.getItems();
     }
 
-    @GetMapping("/see/{id}")
+    @GetMapping("/see/{id}")    //see a specified item with id
     public ResponseEntity<Item> getById(@PathVariable long id){
 
-        if(generalHolder.containsItem(id)){
+        if(generalHolder.containsItem(id)){ //check if item exists
             return new ResponseEntity<Item>(generalHolder.getItemId(id), HttpStatus.ACCEPTED);
         }else{
             return new ResponseEntity<Item>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @PostMapping("/addItem")
+    @PostMapping("/addItem")    //add item to stock
     public ResponseEntity<Item> add(@RequestBody Item item){
 
         generalHolder.addItem(item);
@@ -42,11 +42,11 @@ public class ItemRESTController {
         return new ResponseEntity<Item>(item, HttpStatus.CREATED);
     }
 
-    @PostMapping("/editItem/{id}")
+    @PostMapping("/editItem/{id}")  //edit item info
     public ResponseEntity<Item> edit(@RequestBody Item item, @PathVariable long id){
 
-        if(!generalHolder.containsItem(id)){
-            return new ResponseEntity<Item>((Item) null, HttpStatus.NOT_FOUND);
+        if(!generalHolder.containsItem(id)){    //check if item exists
+            return new ResponseEntity<Item>(HttpStatus.NOT_FOUND);
         }else{
             generalHolder.getItemId(id).editItem(item);
             return new ResponseEntity<Item>(generalHolder.getItemId(id), HttpStatus.CREATED);
@@ -54,22 +54,22 @@ public class ItemRESTController {
 
     }
 
-    @GetMapping("/addCart/{id}")
-    public ResponseEntity<List<Item>>/*ResponseEntity<Map<Long, Item>>*/ addCart(@PathVariable long id){
+    @GetMapping("/addCart/{id}")    //add item to cart
+    public ResponseEntity<List<Item>> addCart(@PathVariable long id){
 
-        if(!generalHolder.logedIn()){
+        if(!generalHolder.logedIn()){   //check if you're loged in
             return new ResponseEntity<List<Item>>((List<Item>) null, HttpStatus.NOT_FOUND);
-        }else if(!generalHolder.containsItem(id)){
-            return new ResponseEntity<>((List<Item>) null, HttpStatus.NOT_FOUND);
+        }else if(!generalHolder.containsItem(id)){  //check if item exists
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }else{
             generalHolder.getCurrentUser().addCart(generalHolder.getItemId(id));
             return new ResponseEntity<List<Item>>(generalHolder.getCurrentUser().getCart(), HttpStatus.ACCEPTED);
         }
     }
 
-    @GetMapping("/seeCart")
+    @GetMapping("/seeCart") //see the cart
     public List<Item> seeCart(){
-        if(!generalHolder.logedIn()){
+        if(!generalHolder.logedIn()){   //check if you're loged in
             return null;
         }else{
             return generalHolder.getCurrentUser().getCart();
@@ -77,23 +77,23 @@ public class ItemRESTController {
 
     }
 
-    @GetMapping("/removeCart/{id}")
-    public ResponseEntity<List<Item>>/*ResponseEntity<Map<Long, Item>>*/ removeCart(@PathVariable int id){
+    @GetMapping("/removeCart/{id}") //remove item from cart
+    public ResponseEntity<List<Item>> removeCart(@PathVariable int id){
 
-        if(!generalHolder.logedIn()){
-            return new ResponseEntity<>((List<Item>) null, HttpStatus.NOT_FOUND);
-        }else if(!generalHolder.containsItem(id)){
-            return new ResponseEntity<>((List<Item>) null, HttpStatus.NOT_FOUND);
+        if(!generalHolder.logedIn()){   //check if you're loged in
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else if(!generalHolder.containsItem(id)){  //check if item exists
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }else{
             generalHolder.getCurrentUser().delCart(generalHolder.getItemId(id));
             return new ResponseEntity<List<Item>>(generalHolder.getCurrentUser().getCart(), HttpStatus.ACCEPTED);
         }
     }
 
-    @GetMapping("/usr")
+    @GetMapping("/usr") //see your user
     public User seeUser(){
 
-        if(generalHolder.logedIn()){
+        if(generalHolder.logedIn()){    //check if you're loged in
             return generalHolder.getCurrentUser();
         }else{
             return null;

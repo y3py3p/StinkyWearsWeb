@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>{{#item}}{{name}}{{/item}}</title>
+  <link rel="stylesheet" href="http://localhost:8080/cursor.css"/>
     <link rel="stylesheet" href="http://localhost:8080/main.css"/>
   <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
 </head>
+
 <body>
-  <section class="header">
+  <section class="header">                    <!-- side nav bar -->
     <div id="sidebar">
       <div class="toggle-btn">
         <span>&#9776</span>
       </div>
-      <!-- nav bar -->
       <ul>
         <img src="http://localhost:8080/img/ouuushrek.png" alt="Logo Fazt" class="logo"><br/>
         <li><a href="/">MainPage</a></li>
@@ -23,7 +24,9 @@
       </ul>
     </div>
   </section>
+
 <div class="clearfix"></div>
+
   <section id="infoitem">                 <!--will print the objects' available info-->
     {{#item}}
     <h1>{{name}}</h1><br/>
@@ -32,11 +35,16 @@
     <p><button class="buttons" type="submit"><a href="ItemEdit.html">Editar</a></button></p>
     {{/item}}
   </section>
+
 <div class="clearfix"></div>
+
   <footer>
     StinkyWear &copy; 2022
   </footer>
-<script src="http://localhost:8080/lateralBar.js"></script>
+
+  <div class="cursor"></div>
+  <script src="http://localhost:8080/cursor.js"></script>
+  <script src="http://localhost:8080/lateralBar.js"></script>
 </body>
 
 </html>

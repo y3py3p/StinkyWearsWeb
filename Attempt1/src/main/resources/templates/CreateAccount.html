@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
+    <link rel="stylesheet" href="http://localhost:8080/cursor.css"/>
     <link rel="stylesheet" href="http://localhost:8080/main.css">
     <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
 </head>
+
 <body>
-    <section class="header">
+    <section class="header">                                <!-- side nav bar -->
         <div id="sidebar">
             <div class="toggle-btn">
                 <span>&#9776</span>
             </div>
-            <!-- nav bar -->
             <ul>
                 <img src="http://localhost:8080/img/ouuushrek.png" alt="Logo Fazt" class="logo"> <br/>
                 <li><a href="/">MainPage</a></li>
@@ -21,12 +22,12 @@
                 <li><a href="/login">login</a></li>
                 <li><a href="/cart"> Carrito </a></li>
             </ul>
-
         </div>
     </section>
+
 <div class="clearfix"></div>
 
-    <section id="form-register">        <!-- registration form -->
+    <section class="form-register">        <!-- registration form -->
         <h2>Rellene los campos para crear su cuenta</h2>
         <h4> User name:<br/>
             <input class="controls" type="text" name="nombre" id="user" placeholder="-"></h4>
@@ -37,12 +38,17 @@
         <h4> Dirección:<br/>
             <input class="controls" type="text" name="direccion" id="direccion" placeholder="-"></h4>
         <br/>
-        <h2><button class="buttons" type="submit"><a href="/usr">Sign in</a></button></h2>
+        <h2><button class="buttons" type="submit"><a href="/usr">Crear</a></button></h2>
     </section>
+
 <div class="clearfix"></div>
+
     <footer>
         StinkyWear &copy; 2022
     </footer>
-    <script src="lateralBar.js"></script>
+
+    <div class="cursor"></div>
+    <script src="http://localhost:8080/cursor.js"></script>
+    <script src="http://localhost:8080/lateralBar.js"></script>
 </body>
 </html>

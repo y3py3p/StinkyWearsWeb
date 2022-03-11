@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de items</title>
+    <link rel="stylesheet" href="http://localhost:8080/cursor.css"/>
     <link rel="stylesheet" href="http://localhost:8080/main.css"/>
     <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
 </head>
+
 <body>
-    <section class="header">
+    <section class="header">                        <!-- side nav bar -->
         <div id="sidebar">
             <div class="toggle-btn">
                 <span>&#9776</span>
             </div>
-            <!-- nav bar -->
             <ul>
                 <img src="http://localhost:8080/img/ouuushrek.png" alt="Logo Fazt" class="logo"> <br/>
                 <li><a href="/">MainPage</a></li>
@@ -23,9 +24,10 @@
             </ul>
         </div>
     </section>
+
 <div class="clearfix"></div>
 
-    <section id="listaItems">           <!-- will print out all the availale items -->
+    <section id="itemList">           <!-- will print out all the available items -->
         <h2>Los items disponibles en nuestra tienda son:</h2>
         {{#items}}
         <p><a href="/item/{{-index}}">{{name}} [{{price}}€]</a></p>
@@ -33,13 +35,19 @@
         <br/><br/>
         <p>Te gustaría subir tu propia ropa? Haz click <a href="NewItem.html">AQUÍ</a> para añadir un nuevo item </p>  <!-- it'll redirect you to /newItem, where you can add your own item-->
     </section>
+
 <div class="clearfix"></div>
-    <section id="ShrekTeVigila">
+
+    <section id="ShrekIsWatching">
         <img width="200px" src="img/ShrekTeVigila.png">        <!--just Shrek watching you browse items-->
     </section>
+
     <footer>
         StinkyWear &copy; 2022
     </footer>
-<script src="lateralBar.js"></script>
+
+    <div class="cursor"></div>
+    <script src="http://localhost:8080/cursor.js"></script>
+    <script src="lateralBar.js"></script>
 </body>
 </html>

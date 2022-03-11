@@ -2,6 +2,7 @@ package com.SafeWebDev.attempt.Controllers;
 
 import com.SafeWebDev.attempt.Models.*;
 import com.SafeWebDev.attempt.Models.Holders.GeneralHolder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

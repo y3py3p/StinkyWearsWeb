@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>UsrPage</title>
+    <link rel="stylesheet" href="http://localhost:8080/cursor.css"/>
     <link rel="stylesheet" href="http://localhost:8080/main.css"/>
     <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
 </head>
+
 <body>
-    <section class="header">
+    <section class="header">                        <!-- side nav bar -->
         <div id="sidebar">
             <div class="toggle-btn">
                 <span>&#9776</span>
             </div>
-            <!-- nav bar -->
             <ul>
                 <img src="http://localhost:8080/img/ouuushrek.png" alt="Logo Fazt" class="logo"> <br/>
                 <li><a href="/">MainPage</a></li>
@@ -23,20 +24,25 @@
             </ul>
         </div>
     </section>
+
 <div class="clearfix"></div>
+
     <section id="usrimg">
-        <img align="center" alt="UsrImg" width="200" src="http://localhost:8080/img/ShrekUsr.png"/>
+        <img alt="UsrImg" width="200" src="http://localhost:8080/img/ShrekUsr.png"/>        <!-- beautiful Shreks' portrait -->
     </section>
 
     <section id="usrinfo">
         <h2>Tu perfil:</h2>
-        <p>Usuario: {{user.user}}</p>   <!-- will print out the users' info (right now it'll only show their name-->
+        <p>Usuario: {{user.user}}</p>   <!-- will print out the users' info (right now it'll only show their name)-->
     </section>
+
 <div class="clearfix"></div>
+
     <footer>
         StinkyWear &copy; 2022
     </footer>
+    <div class="cursor"></div>
+    <script src="http://localhost:8080/cursor.js"></script>
     <script src="lateralBar.js"></script>
-
 </body>
 </html>

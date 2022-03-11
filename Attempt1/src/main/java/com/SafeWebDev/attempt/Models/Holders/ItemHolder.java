@@ -30,4 +30,8 @@ public class ItemHolder {
     public Item getById(long id){
         return items.get(id);
     }
+
+    public boolean containsItem(long id){
+        return items.containsKey(id);
+    }
 }

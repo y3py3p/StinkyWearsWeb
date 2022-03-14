@@ -29,7 +29,7 @@ body{
     text-align: center;
 }
 #sidebar ul li:hover{
-    background: #523213;
+    background: #D3CCA5;
     color: #B0C400;
 }
 .logo {
@@ -184,7 +184,7 @@ input::placeholder {
     color: #795A2D;
 }
 
-.registerform h4 {
+.register-form h4 {
     padding-left: 300px;
     text-align: left;
 }

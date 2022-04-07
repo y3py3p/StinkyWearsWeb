@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Service
+
 public class ItemHolder {
     private Map<Long, Item> items = new ConcurrentHashMap<>();
     private AtomicLong lastID = new AtomicLong();

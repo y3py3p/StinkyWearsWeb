@@ -1,7 +1,9 @@
 package com.SafeWebDev.attempt.Controllers;
 
+import com.SafeWebDev.attempt.Models.ItemRepository;
 import com.SafeWebDev.attempt.Models.*;
 import com.SafeWebDev.attempt.Models.Holders.GeneralHolder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,15 +12,19 @@ import org.springframework.web.bind.annotation.*;
 public class ControllerBasic {
 
     private GeneralHolder generalHolder=new GeneralHolder();
+    @Autowired
+    private ItemRepository itemRepository;
 
     public ControllerBasic() {  //initializing the default products
         generalHolder.addItem(new Item("Boxers Hombre", "XXL", "Desgastado, dado de sí y manchado", 10));
         generalHolder.addItem(new Item("Bragas Mujer", "XL", "Desgastado, sucio", 15));
         generalHolder.addItem(new Item("Calcetin Blanco", "L", "Con agujeros, olor a esmegma", 35));
         generalHolder.addItem(new Item("Sujetador Mujer", "92B", "Hecho mierda", 25));
-        generalHolder.addUsr(new User("hola","deez"));
+        /*generalHolder.addUsr(new User("hola","deez"));
         generalHolder.addUsr(new User("Usuario temporal","deez"));
         generalHolder.setCurrentUser(generalHolder.getUsrId(2));
+
+        itemRepository.save(new Item("Bragas Mujer", "XL", "Desgastado, sucio", 15));*/
     }
 
 
@@ -34,7 +40,7 @@ public class ControllerBasic {
 
     @GetMapping("/item/{id}")   //redirect to ItemPage.html, where you can see the info of one item
     public String itemPage(Model model, @PathVariable long id) {
-        model.addAttribute("item", generalHolder.getItemId(id));
+        model.addAttribute("item", /*generalHolder.getItemId(id)*/itemRepository.getById(id));
         return "ItemPage";
     }
 

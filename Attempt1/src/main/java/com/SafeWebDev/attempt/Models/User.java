@@ -30,19 +30,14 @@ public class User {
 
 
 
-    public User(String userName, String correo, String userPass, String address, String personalName, long id) {
+    public User(String userName, String correo, String userPass, String address, String personalName) {
         this.userName = userName;
         this.email = correo;
         this.userPass = userPass;
         this.address = address;
         this.personalName = personalName;
-        this.id = id;
     }
 
-    public User(String userName, String userPass){
-        this.userName = userName;
-        this.userPass = userPass;
-    }
     public User(){
 
     }

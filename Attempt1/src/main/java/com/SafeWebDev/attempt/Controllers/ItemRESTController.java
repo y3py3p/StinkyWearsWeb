@@ -71,7 +71,7 @@ public class ItemRESTController {
 
         userRepository.save(user);
 
-        return new ResponseEntity<>(userRepository.getById(user.getUser()), HttpStatus.CREATED);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     /*@GetMapping("/addCart/{id}")    //add item to cart

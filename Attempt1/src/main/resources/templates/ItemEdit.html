@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Editar item</title>
-    <link rel="stylesheet" href="http://localhost:8080/main.css">
+    <link rel="stylesheet" href="http://localhost:8080/cursor.css"/>
+    <link rel="stylesheet" href="http://localhost:8080/main.css"/>
     <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
-    <audio src="img/todountemazo.mp3" autoplay loop></audio>
+    <audio src="http://localhost:8080/img/todountemazo2.mp3" autoplay loop></audio>
 </head>
 <body>
 <section class="header">
@@ -24,9 +25,10 @@
     </div>
 </section>
 <div class="clearfix"></div>
-<section id="form-register">
+<section class="form-register">
+    {{#item}}
     <h2>Rellene los campos para editar el item:</h2>        <!-- will collect all the info needed in order to create/add a new item -->
-    <form action="/editItem/{id}" method="post">
+    <form action="http://localhost:8080/editting/{{id}}" method="post">
         <h4> Nombre:<br/>
             <input type="text" name="name" placeholder="Nombre"></h4>     <!-- type its name (txt)-->
         <h4> Talla:<br/>
@@ -41,14 +43,18 @@
         <h4> Estado<br/>                                                <!-- type its condition (txt) -->
             <input type="text" name="condition" placeholder="-"></h4>
         <h4> Precio:<br/>
-            <input type="number" name="price" placeholder="-"></h4>        <!-- type its price (number) -->
-        <h2><input  type="submit" value="Enviar"/></h2>>              <!-- click to submit the info -->
+            <input type="number" name="price" min="0" placeholder="-"></h4>        <!-- type its price (number) -->
+        <h2><button class="buttons" type="submit">Enviar</button></h2>              <!-- click to submit the info -->
+
     </form>
+    {{/item}}
 </section>
 <div class="clearfix"></div>
 <footer>
     StinkyWear &copy; 2022
 </footer>
-<script src="lateralBar.js"></script>
+    <div class="cursor"></div>
+    <script src="http://localhost:8080/cursor.js"></script>
+    <script src="http://localhost:8080/lateralBar.js"></script>
 </body>
 </html>

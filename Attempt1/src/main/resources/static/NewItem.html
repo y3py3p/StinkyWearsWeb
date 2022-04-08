@@ -11,6 +11,10 @@
 
 <body>
     <section class="header">
+        <!--<section id="homebutton">
+            <a href="http://localhost:8080/"><i style="font-size:24px" class="fa">&#xf015;</i></a>
+        </section>-->
+        <section id="side-bar">
         <div id="sidebar">              <!-- side nav bar -->
             <div class="toggle-btn">
                 <span>&#9776</span>
@@ -24,6 +28,7 @@
                 <li><a href="/cart"> Carrito </a></li>
             </ul>
         </div>
+        </section>
     </section>
 
 <div class="clearfix"></div>
@@ -45,8 +50,8 @@
             <h4> Estado<br/>                                                <!-- type its condition (txt) -->
                 <input type="text" name="condition" placeholder="-"></h4>
             <h4> Precio:<br/>
-                <input type="number" name="price" placeholder="-"></h4>        <!-- type its price (number) -->
-            <h2><button class="buttons" type="submit"><a href="/item/new">Enviar</a></button></h2>              <!-- click to submit the info -->
+                <input type="number" name="price" min="0" placeholder="-"></h4>        <!-- type its price (number) -->
+            <h2><button class="buttons" type="submit">Enviar</button></h2>              <!-- click to submit the info -->
         </form>
     </section>
 

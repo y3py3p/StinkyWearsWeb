@@ -30,6 +30,13 @@ public class Item{
 
     }
 
+    public void update(Item item){
+        this.name=item.name;
+        this.size=item.size;
+        this.condition=item.condition;
+        this.price=item.price;
+    }
+
     public void setId(long id){
         this.id=id;
     }

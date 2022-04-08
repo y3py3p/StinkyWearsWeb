@@ -1,89 +1,102 @@
 package com.SafeWebDev.attempt.Models;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+
+@Entity
+@Table(name = "usertable")
 public class User {
 
-    private String user;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    @Column
+    private String userName;
     private String email;
-    private String password;
-    private String name;
+    private String userPass;
+    private String personalName;
     private boolean premium;
     private String address;
     private String bankData;
-    private List<Item> cart = new ArrayList<>();
-    private long id;
+    //private List<Item> cart = new ArrayList<>();
 
 
-    public User(String user, String correo, String password, String address, String name) {
-        this.user = user;
+
+    public User(String userName, String correo, String userPass, String address, String personalName, long id) {
+        this.userName = userName;
         this.email = correo;
-        this.password = password;
+        this.userPass = userPass;
         this.address = address;
-        this.name = name;
+        this.personalName = personalName;
+        this.id = id;
     }
 
-    public User(String user, String password){
-        this.user = user;
-        this.password = password;
+    public User(String userName, String userPass){
+        this.userName = userName;
+        this.userPass = userPass;
     }
     public User(){
 
     }
 
-    public List<Item> getCart() {
+    /*public List<Item> getCart() {
         return cart;
-    }
+    }*/
 
-    public boolean sameUser(User user){
-        return this.user.equals(user.user);
+    public boolean sameUser(User userName){
+        return this.userName.equals(userName.userName);
     }
 
     public boolean samePassword(User user){
-        return this.password.equals(user.password);
+        return this.userPass.equals(user.userPass);
     }
 
     public String getUser() {
-        return user;
+        return userName;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUser(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
-        return password;
+        return userPass;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String userPass) {
+        this.userPass = userPass;
     }
 
-    public boolean cartContains(Item item){
+    /*public boolean cartContains(Item item){
         if(cart.contains(item)){
             return true;
         }else{
             return false;
         }
-    }
+    }*/
 
-    public void addCart(Item item){
+    /*public void addCart(Item item){
         cart.add(item);
     }
 
     public void delCart(Item item){
         cart.remove(item);
-    }
+    }*/
 
-    public long getId() {
+    /*public long getId() {
         return id;
     }
 
     public void setId(long id){
         this.id=id;
-    }
+    }*/
 
 }

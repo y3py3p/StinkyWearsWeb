@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.sql.*;
 
 import java.util.List;
 
@@ -14,9 +15,13 @@ import java.util.List;
 @RequestMapping("/api")
 public class ItemRESTController {
 
-    @Autowired
+
 //    private GeneralHolder generalHolder=new GeneralHolder();
+    @Autowired
     private ItemRepository itemRepository;
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/see") //to see every item on stock
     public /*Map<Long, Item>*/List<Item> getItems(){
 
@@ -32,7 +37,7 @@ public class ItemRESTController {
         }else{
             return new ResponseEntity<Item>(HttpStatus.NOT_FOUND);
         }*/
-        return new ResponseEntity<>(itemRepository.getById(id), HttpStatus.ACCEPTED);
+        return new ResponseEntity<Item>(itemRepository.findById(id), HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/addItem")    //add item to stock
@@ -41,27 +46,38 @@ public class ItemRESTController {
         //generalHolder.addItem(item);
         itemRepository.save(item);
 
+
         return new ResponseEntity<Item>(item, HttpStatus.CREATED);
     }
 
-    /*@PostMapping("/editItem/{id}")  //edit item info
+    @PostMapping("/editItem/{id}")  //edit item info
     public ResponseEntity<Item> edit(@RequestBody Item item, @PathVariable long id){
 
-        *//*if(!generalHolder.containsItem(id)){    //check if item exists
+        /*if(!generalHolder.containsItem(id)){    //check if item exists
             return new ResponseEntity<Item>(HttpStatus.NOT_FOUND);
         }else{
             generalHolder.getItemId(id).editItem(item);
             return new ResponseEntity<Item>(generalHolder.getItemId(id), HttpStatus.CREATED);
-        }*//*
+        }*/
 
-        itemRepository.
+        itemRepository.findById(id).update(item);
+
+        return new ResponseEntity<>(itemRepository.findById(id), HttpStatus.CREATED);
 
     }
 
-    @GetMapping("/addCart/{id}")    //add item to cart
+    @PostMapping("/newUser")
+    public ResponseEntity<User> newUser(@RequestBody User user){
+
+        userRepository.save(user);
+
+        return new ResponseEntity<>(userRepository.getById(user.getUser()), HttpStatus.CREATED);
+    }
+
+    /*@GetMapping("/addCart/{id}")    //add item to cart
     public ResponseEntity<List<Item>> addCart(@PathVariable long id){
 
-        if(!generalHolder.logedIn()){   //check if you're loged in
+        *//*if(!generalHolder.logedIn()){   //check if you're loged in
             return new ResponseEntity<List<Item>>((List<Item>) null, HttpStatus.NOT_FOUND);
         }else if(!generalHolder.containsItem(id)){  //check if item exists
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -70,7 +86,7 @@ public class ItemRESTController {
         }else{  //adds item to cart
             generalHolder.getCurrentUser().addCart(generalHolder.getItemId(id));
             return new ResponseEntity<List<Item>>(generalHolder.getCurrentUser().getCart(), HttpStatus.ACCEPTED);
-        }
+        }*//*
     }
 
     @GetMapping("/seeCart") //see the cart

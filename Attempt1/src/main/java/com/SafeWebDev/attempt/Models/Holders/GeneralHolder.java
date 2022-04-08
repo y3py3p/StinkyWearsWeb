@@ -11,7 +11,7 @@ public class GeneralHolder {
     private ItemHolder itemholder=new ItemHolder();
     private UserHolder userholder=new UserHolder();
 
-    public GeneralHolder(){
+    /*public GeneralHolder(){
         setCurrentUser(new User("Usuario temporal","deez"));
     }
 
@@ -50,5 +50,5 @@ public class GeneralHolder {
     public boolean containsItem(long id){
         return itemholder.containsItem(id);
     }
-
+*/
 }

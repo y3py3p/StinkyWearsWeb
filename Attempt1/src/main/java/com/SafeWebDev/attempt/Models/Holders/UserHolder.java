@@ -14,7 +14,7 @@ public class UserHolder {
     private AtomicLong lastId=new AtomicLong();
     private User currentUser ;
 
-    public void addUser(User user){
+    /*public void addUser(User user){
         long id = lastId.incrementAndGet();
         user.setId(id);
         users.put(id, user);
@@ -30,7 +30,7 @@ public class UserHolder {
 
     public User getUsrbyId(long id){
         return users.get(id);
-    }
+    }*/
 
 
 }

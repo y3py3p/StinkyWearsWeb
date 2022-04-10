@@ -1,14 +1,10 @@
-package com.SafeWebDev.attempt.Models;
+package com.SafeWebDev.attempt.Models.Entities;
 
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 
 @Entity
 @Table(name = "usertable")
@@ -16,7 +12,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long userID;
 
     @Column
     private String userName;
@@ -26,8 +22,18 @@ public class User {
     private boolean premium;
     private String address;
     private String bankData;
-    //private List<Item> cart = new ArrayList<>();
 
+
+    /*@ElementCollection
+    private List<Long> cart = new ArrayList<>();
+
+    public List<Long> getCart() {
+        return cart;
+    }
+
+    public void setCart(List<Long> cart) {
+        this.cart = cart;
+    }*/
 
 
     public User(String userName, String correo, String userPass, String address, String personalName) {
@@ -36,6 +42,10 @@ public class User {
         this.userPass = userPass;
         this.address = address;
         this.personalName = personalName;
+    }
+
+    public User(String userName){
+        this.userName = userName;
     }
 
     public User(){

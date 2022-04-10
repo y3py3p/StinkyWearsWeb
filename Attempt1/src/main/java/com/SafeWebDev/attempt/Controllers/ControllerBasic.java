@@ -1,31 +1,34 @@
 package com.SafeWebDev.attempt.Controllers;
 
-import com.SafeWebDev.attempt.Models.ItemRepository;
-import com.SafeWebDev.attempt.Models.*;
+import com.SafeWebDev.attempt.Models.Entities.Item;
+import com.SafeWebDev.attempt.Models.Respositories.ItemRepository;
 import com.SafeWebDev.attempt.Models.Holders.*;
+import com.SafeWebDev.attempt.Models.Services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
 
 @Controller
 public class ControllerBasic {
 
     private GeneralHolder generalHolder=new GeneralHolder();
     @Autowired
-    private ItemRepository itemRepository;
+    private ItemService itemService;
 
-    public ControllerBasic() {  //initializing the default products
-        /*generalHolder.addItem(new Item("Boxers Hombre", "XXL", "Desgastado, dado de sí y manchado", 10));
+
+    /*public ControllerBasic() {  //initializing the default products
+        *//*generalHolder.addItem(new Item("Boxers Hombre", "XXL", "Desgastado, dado de sí y manchado", 10));
         generalHolder.addItem(new Item("Bragas Mujer", "XL", "Desgastado, sucio", 15));
         generalHolder.addItem(new Item("Calcetin Blanco", "L", "Con agujeros, olor a esmegma", 35));
-        generalHolder.addItem(new Item("Sujetador Mujer", "92B", "Hecho mierda", 25));*/
-        /*generalHolder.addUsr(new User("hola","deez"));
+        generalHolder.addItem(new Item("Sujetador Mujer", "92B", "Hecho mierda", 25));*//*
+        *//*generalHolder.addUsr(new User("hola","deez"));
         generalHolder.addUsr(new User("Usuario temporal","deez"));
-        generalHolder.setCurrentUser(generalHolder.getUsrId(2));*/
+        generalHolder.setCurrentUser(generalHolder.getUsrId(2));*//*
 
-        //itemRepository.save(new Item("Bragas Mujer", "XL", "Desgastado, sucio", 15));
-    }
+        itemService.add(new Item("Bragas Mujer", "XL", "Desgastado, sucio", 15));
+    }*/
 
 
     /*@GetMapping("")     //redirect to StartPage.html, the main page

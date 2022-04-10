@@ -1,13 +1,16 @@
 package com.SafeWebDev.attempt.Controllers;
 
 
-import com.SafeWebDev.attempt.Models.ItemRepository;
-import com.SafeWebDev.attempt.Models.*;
+import com.SafeWebDev.attempt.Models.Entities.Item;
+import com.SafeWebDev.attempt.Models.Entities.User;
+import com.SafeWebDev.attempt.Models.Respositories.ItemRepository;
+import com.SafeWebDev.attempt.Models.Respositories.UserRepository;
+import com.SafeWebDev.attempt.Models.Services.ItemService;
+import com.SafeWebDev.attempt.Models.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.sql.*;
 
 import java.util.List;
 
@@ -18,58 +21,55 @@ public class ItemRESTController {
 
 //    private GeneralHolder generalHolder=new GeneralHolder();
     @Autowired
-    private ItemRepository itemRepository;
+    private ItemService itemService;
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @GetMapping("/see") //to see every item on stock
-    public /*Map<Long, Item>*/List<Item> getItems(){
+    public List<Item> getItems(){
 
-        //return generalHolder.getItems();
-        return itemRepository.findAll();
+        return itemService.getAll();
     }
 
     @GetMapping("/see/{id}")    //see a specified item with id
     public ResponseEntity<Item> getById(@PathVariable long id){
 
-        /*if(generalHolder.containsItem(id)){ //check if item exists
-            return new ResponseEntity<Item>(generalHolder.getItemId(id), HttpStatus.ACCEPTED);
-        }else{
-            return new ResponseEntity<Item>(HttpStatus.NOT_FOUND);
-        }*/
-        return new ResponseEntity<Item>(itemRepository.findById(id), HttpStatus.ACCEPTED);
+        if(itemService.exists(id)){
+            return new ResponseEntity<>(itemService.findById(id), HttpStatus.ACCEPTED);
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @PostMapping("/addItem")    //add item to stock
     public ResponseEntity<Item> add(@RequestBody Item item){
 
-        //generalHolder.addItem(item);
-        itemRepository.save(item);
+        itemService.add(item);
 
-
-        return new ResponseEntity<Item>(item, HttpStatus.CREATED);
+        return new ResponseEntity<>(item, HttpStatus.CREATED);
     }
 
     @PostMapping("/editItem/{id}")  //edit item info
     public ResponseEntity<Item> edit(@RequestBody Item item, @PathVariable long id){
 
-        /*if(!generalHolder.containsItem(id)){    //check if item exists
-            return new ResponseEntity<Item>(HttpStatus.NOT_FOUND);
+        if(itemService.exists(id)){
+            itemService.updateItem(id, item);
+            return new ResponseEntity<>(itemService.findById(id), HttpStatus.CREATED);
         }else{
-            generalHolder.getItemId(id).editItem(item);
-            return new ResponseEntity<Item>(generalHolder.getItemId(id), HttpStatus.CREATED);
-        }*/
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
-        itemRepository.findById(id).update(item);
-
-        return new ResponseEntity<>(itemRepository.findById(id), HttpStatus.CREATED);
 
     }
 
     @PostMapping("/newUser")
     public ResponseEntity<User> newUser(@RequestBody User user){
 
-        userRepository.save(user);
+        userService.saveUser(user);
+
+        userService.setCurrentUser(user);
 
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
@@ -77,7 +77,7 @@ public class ItemRESTController {
     /*@GetMapping("/addCart/{id}")    //add item to cart
     public ResponseEntity<List<Item>> addCart(@PathVariable long id){
 
-        *//*if(!generalHolder.logedIn()){   //check if you're loged in
+        if(!generalHolder.logedIn()){   //check if you're loged in
             return new ResponseEntity<List<Item>>((List<Item>) null, HttpStatus.NOT_FOUND);
         }else if(!generalHolder.containsItem(id)){  //check if item exists
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -86,20 +86,26 @@ public class ItemRESTController {
         }else{  //adds item to cart
             generalHolder.getCurrentUser().addCart(generalHolder.getItemId(id));
             return new ResponseEntity<List<Item>>(generalHolder.getCurrentUser().getCart(), HttpStatus.ACCEPTED);
-        }*//*
-    }
+        }
 
-    @GetMapping("/seeCart") //see the cart
+        currentUser.
+
+        return new ResponseEntity<>(userRepository.getCart(), HttpStatus.ACCEPTED);
+    }*/
+
+    /*@GetMapping("/seeCart") //see the cart
     public List<Item> seeCart(){
-        if(!generalHolder.logedIn()){   //check if you're loged in
+        *//*if(!generalHolder.logedIn()){   //check if you're loged in
             return null;
         }else{
             return generalHolder.getCurrentUser().getCart();
-        }
+        }*//*
 
-    }
+        return userService;
 
-    @GetMapping("/removeCart/{id}") //remove item from cart
+    }*/
+
+    /*@GetMapping("/removeCart/{id}") //remove item from cart
     public ResponseEntity<List<Item>> removeCart(@PathVariable int id){
 
         if(!generalHolder.logedIn()){   //check if you're loged in
@@ -110,16 +116,16 @@ public class ItemRESTController {
             generalHolder.getCurrentUser().delCart(generalHolder.getItemId(id));
             return new ResponseEntity<List<Item>>(generalHolder.getCurrentUser().getCart(), HttpStatus.ACCEPTED);
         }
-    }
+    }*/
 
     @GetMapping("/usr") //see your user
     public User seeUser(){
 
-        if(generalHolder.logedIn()){    //check if you're loged in
-            return generalHolder.getCurrentUser();
+        if(userService.logedIn()){    //check if you're loged in
+            return userService.getCurrentUser();
         }else{
             return null;
         }
 
-    }*/
+    }
 }

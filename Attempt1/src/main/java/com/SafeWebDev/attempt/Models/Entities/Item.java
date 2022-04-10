@@ -1,10 +1,11 @@
-package com.SafeWebDev.attempt.Models;
+package com.SafeWebDev.attempt.Models.Entities;
 
 import lombok.Data;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
+@Component
 @Data
 @Entity
 @Table(name = "itemtable")

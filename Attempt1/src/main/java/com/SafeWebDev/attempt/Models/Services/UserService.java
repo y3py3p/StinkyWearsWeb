@@ -38,6 +38,15 @@ public class UserService {
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
+
+    public List<Item> getCart(){
+        return currentUser.getCart();
+    }
+
+    public void addCart(Item item){
+
+        getCart().add(item);
+    }
 /*public List<Item> getCart(User user){
         userRepository.
     }*/

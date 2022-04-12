@@ -24,16 +24,8 @@ public class User {
     private String bankData;
 
 
-    /*@ElementCollection
-    private List<Long> cart = new ArrayList<>();
-
-    public List<Long> getCart() {
-        return cart;
-    }
-
-    public void setCart(List<Long> cart) {
-        this.cart = cart;
-    }*/
+    @OneToMany
+    List<Item> cart = new ArrayList<>();
 
 
     public User(String userName, String correo, String userPass, String address, String personalName) {
@@ -52,9 +44,9 @@ public class User {
 
     }
 
-    /*public List<Item> getCart() {
+    public List<Item> getCart() {
         return cart;
-    }*/
+    }
 
     public boolean sameUser(User userName){
         return this.userName.equals(userName.userName);

@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @RestController
@@ -24,6 +25,11 @@ public class ItemRESTController {
     private ItemService itemService;
     @Autowired
     private UserService userService;
+
+    @PostConstruct
+    public void init(){
+        userService.setCurrentUser(new User("Default"));
+    }
 
     @GetMapping("/see") //to see every item on stock
     public List<Item> getItems(){
@@ -74,10 +80,10 @@ public class ItemRESTController {
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
-    /*@GetMapping("/addCart/{id}")    //add item to cart
+    @GetMapping("/addCart/{id}")    //add item to cart
     public ResponseEntity<List<Item>> addCart(@PathVariable long id){
 
-        if(!generalHolder.logedIn()){   //check if you're loged in
+        /*if(!generalHolder.logedIn()){   //check if you're loged in
             return new ResponseEntity<List<Item>>((List<Item>) null, HttpStatus.NOT_FOUND);
         }else if(!generalHolder.containsItem(id)){  //check if item exists
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -86,24 +92,23 @@ public class ItemRESTController {
         }else{  //adds item to cart
             generalHolder.getCurrentUser().addCart(generalHolder.getItemId(id));
             return new ResponseEntity<List<Item>>(generalHolder.getCurrentUser().getCart(), HttpStatus.ACCEPTED);
-        }
+        }*/
 
-        currentUser.
+        userService.addCart(itemService.findById(id));
+        return new ResponseEntity<>(userService.getCart(), HttpStatus.ACCEPTED);
+    }
 
-        return new ResponseEntity<>(userRepository.getCart(), HttpStatus.ACCEPTED);
-    }*/
-
-    /*@GetMapping("/seeCart") //see the cart
+    @GetMapping("/seeCart") //see the cart
     public List<Item> seeCart(){
-        *//*if(!generalHolder.logedIn()){   //check if you're loged in
+        /*if(!generalHolder.logedIn()){   //check if you're loged in
             return null;
         }else{
             return generalHolder.getCurrentUser().getCart();
-        }*//*
+        }*/
 
-        return userService;
+        return userService.getCart();
 
-    }*/
+    }
 
     /*@GetMapping("/removeCart/{id}") //remove item from cart
     public ResponseEntity<List<Item>> removeCart(@PathVariable int id){

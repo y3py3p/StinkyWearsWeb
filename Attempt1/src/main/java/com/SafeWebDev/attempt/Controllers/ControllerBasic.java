@@ -22,8 +22,8 @@ public class ControllerBasic {
         *//*generalHolder.addItem(new Item("Boxers Hombre", "XXL", "Desgastado, dado de sí y manchado", 10));
         generalHolder.addItem(new Item("Bragas Mujer", "XL", "Desgastado, sucio", 15));
         generalHolder.addItem(new Item("Calcetin Blanco", "L", "Con agujeros, olor a esmegma", 35));
-        generalHolder.addItem(new Item("Sujetador Mujer", "92B", "Hecho mierda", 25));*//*
-        *//*generalHolder.addUsr(new User("hola","deez"));
+        generalHolder.addItem(new Item("Sujetador Mujer", "92B", "Hecho mierda", 25));
+        generalHolder.addUsr(new User("hola","deez"));
         generalHolder.addUsr(new User("Usuario temporal","deez"));
         generalHolder.setCurrentUser(generalHolder.getUsrId(2));*//*
 

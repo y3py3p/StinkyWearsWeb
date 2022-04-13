@@ -99,5 +99,10 @@ public class ControllerBasic {
         return "CreateAccount";
 
     }
+
+    @GetMapping("/comments")
+    public String comments(){
+        return "textoenriquecidoprueba";
+    }
     
 }

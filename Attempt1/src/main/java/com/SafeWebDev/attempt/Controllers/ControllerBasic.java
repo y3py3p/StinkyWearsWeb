@@ -19,7 +19,6 @@ import javax.annotation.PostConstruct;
 @Controller
 public class ControllerBasic {
 
-    //private GeneralHolder generalHolder=new GeneralHolder();
     @Autowired
     private ItemService itemService;
 
@@ -103,6 +102,13 @@ public class ControllerBasic {
         return "ItemsList";
     }
 
+    @GetMapping("/item/del/{id}")
+    public String delFromList(@PathVariable int id){
+        itemService.delete(itemService.findById(id));
+        return "ItemDeleted";
+
+    }
+
     @GetMapping("/cart")    //redirect to Cart.html, with your cart info
     public String carrito(Model model){
         /*model.addAttribute("cart", generalHolder.getCurrentUser().getCart());
@@ -119,15 +125,19 @@ public class ControllerBasic {
         }else{
             return "CartAlreadyContains";   //you already have the item in your cart
         }*/
-
-        userService.addCart(itemService.findById(id));
-        return "CartAdded";
+        if(userService.getCart().contains(itemService.findById(id))){
+            return "CartAlreadyContains";
+        }else{
+            userService.addCart(itemService.findById(id));
+            return "CartAdded";
+        }
     }
 
     @GetMapping("/cart/del/{id}")   //redirect to ItemDeleted.html, to confirm the item was deleted
     public String deleteItem(@PathVariable int id){
         /*generalHolder.getCurrentUser().delCart(generalHolder.getItemId(id));
         return "ItemDeleted";*/
+        userService.getCart().remove(itemService.findById(id));
         return "ItemDeleted";
 
     }

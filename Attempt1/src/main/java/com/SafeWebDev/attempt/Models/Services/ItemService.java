@@ -33,6 +33,10 @@ public class ItemService {
         itemRepository.save(item);
     }
 
+    public void delete(Item item){
+        itemRepository.delete(item);
+    }
+
     public boolean exists(long id){
         if(itemRepository.findById(id) != null){
             return true;

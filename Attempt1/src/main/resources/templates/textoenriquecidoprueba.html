@@ -2,13 +2,18 @@
 <html>
 <head>
     <title></title>
+    <link rel="stylesheet" href="http://localhost:8080/editor.css"/>
+    <link rel="stylesheet" href="http://localhost:8080/cursor.css"/>
+    <script src="http://localhost:8080/cursor.js"></script>
+    <script src="http://localhost:8080/editor2.js"></script>
+    <script src="http://localhost:8080/editor.js"></script>
+    <script src="http://localhost:8080/lateralBar.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" href="http://localhost:8080/cursor.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://localhost:8080/editor.css">
     <script type="text/javascript">
-        $(document).ready(function(){       //esto hay q cambiarlo pq pasaba la info con javascript a un archivo php
+        $(document).ready(function(){
             $('#txt-content').Editor();
 
             $('#btn-enviar').click(function(e){
@@ -18,8 +23,8 @@
     </script>
 </head>
 <body >
-<section class="header">
-    <div id="sidebar">                          <!-- side nav bar -->
+ <section class="header">
+    <div id="sidebar">
         <div class="toggle-btn">
             <span>&#9776</span>
         </div>
@@ -34,6 +39,7 @@
         </ul>
     </div>
 </section>
+
 <div class="container" style="background-color:#D3CCA5">
     <div class="row" >
         <div class="col-sm-8" >
@@ -59,10 +65,6 @@
 <footer>
     StinkyWear &copy; 2022
 </footer>
-<script src="https://localhost:8080/jquery-1.12.0.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src="https://localhost:8080/editor.js"></script>
-<script src="http://localhost:8080/cursor.js"></script>
-<script src="http://localhost:8080/lateralBar.js"></script>
+
 </body>
 </html>

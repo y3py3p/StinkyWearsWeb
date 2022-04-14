@@ -328,7 +328,7 @@ h1{
     cursor:pointer;
 }
 
-
+                                            /* sidebar */
 #sidebar {
     position: fixed;
     width: 200px;
@@ -375,7 +375,7 @@ h1{
     border: 3px solid #D3CCA5;
     color: #795A2D;
 }
-
+                                        /* footer */
 footer{
     background: #795A2D;
     color: #B0C400;
@@ -384,19 +384,19 @@ footer{
     line-height: 20px;
     font-size: 12px;
 }
-
+                                        /* headers */
 h2{
     text-align: center;
     padding: 40px;
     color: #523213;
 }
-
+                                        /* all headers */
 .header{
     background: #D3CCA5;
     height: 85px;
-    border-bottom: 2px solid #795A2D;
 }
-
+                                            /* used to separate sections */
 .clearfix{
     clear: both;
 }
+

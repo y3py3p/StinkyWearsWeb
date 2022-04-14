@@ -31,11 +31,11 @@ public class ItemRESTController {
         userService.setCurrentUser(new User("Default"));
     }
 
-    @GetMapping("/see") //to see every item on stock
+    /*@GetMapping("/see") //to see every item on stock
     public List<Item> getItems(){
 
         return itemService.getAll();
-    }
+    }*/
 
     @GetMapping("/see/{id}")    //see a specified item with id
     public ResponseEntity<Item> getById(@PathVariable long id){

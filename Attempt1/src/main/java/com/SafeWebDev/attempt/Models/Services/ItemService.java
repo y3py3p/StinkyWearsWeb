@@ -51,4 +51,8 @@ public class ItemService {
         updated.update(item);
         itemRepository.save(updated);
     }
+
+    public long getId(Item item){
+        return item.getProductID();
+    }
 }

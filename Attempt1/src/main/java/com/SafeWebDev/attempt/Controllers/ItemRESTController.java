@@ -21,7 +21,6 @@ import java.util.List;
 public class ItemRESTController {
 
 
-//    private GeneralHolder generalHolder=new GeneralHolder();
     @Autowired
     private ItemService itemService;
     @Autowired
@@ -48,6 +47,12 @@ public class ItemRESTController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
+    }
+
+    @GetMapping("/del/{id}")
+    public ResponseEntity<Item> deleteItem(@PathVariable long id){
+        itemService.delete(itemService.findById(id));
+        return new ResponseEntity<>(itemService.findById(id),HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/addItem")    //add item to stock
@@ -94,9 +99,13 @@ public class ItemRESTController {
             generalHolder.getCurrentUser().addCart(generalHolder.getItemId(id));
             return new ResponseEntity<List<Item>>(generalHolder.getCurrentUser().getCart(), HttpStatus.ACCEPTED);
         }*/
+        if(userService.getCart().contains(itemService.findById(id))){
+            return new ResponseEntity<>( HttpStatus.NOT_ACCEPTABLE);
+        }else{
+            userService.addCart(itemService.findById(id));
+            return new ResponseEntity<>(userService.getCart(), HttpStatus.ACCEPTED);
+        }
 
-        userService.addCart(itemService.findById(id));
-        return new ResponseEntity<>(userService.getCart(), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/seeCart") //see the cart
@@ -111,18 +120,11 @@ public class ItemRESTController {
 
     }
 
-    /*@GetMapping("/removeCart/{id}") //remove item from cart
+    @GetMapping("/removeCart/{id}") //remove item from cart
     public ResponseEntity<List<Item>> removeCart(@PathVariable int id){
-
-        if(!generalHolder.logedIn()){   //check if you're loged in
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }else if(!generalHolder.containsItem(id)){  //check if item exists
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }else{
-            generalHolder.getCurrentUser().delCart(generalHolder.getItemId(id));
-            return new ResponseEntity<List<Item>>(generalHolder.getCurrentUser().getCart(), HttpStatus.ACCEPTED);
-        }
-    }*/
+        userService.getCart().remove(itemService.findById(id));
+        return new ResponseEntity<>(userService.getCart(),HttpStatus.ACCEPTED);
+    }
 
     @GetMapping("/usr") //see your user
     public User seeUser(){

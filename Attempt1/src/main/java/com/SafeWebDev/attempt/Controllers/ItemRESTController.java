@@ -1,16 +1,20 @@
 package com.SafeWebDev.attempt.Controllers;
 
 
+import com.SafeWebDev.attempt.Models.Entities.Comment;
 import com.SafeWebDev.attempt.Models.Entities.Item;
 import com.SafeWebDev.attempt.Models.Entities.User;
+import com.SafeWebDev.attempt.Models.Respositories.CommentRepository;
 import com.SafeWebDev.attempt.Models.Respositories.ItemRepository;
 import com.SafeWebDev.attempt.Models.Respositories.UserRepository;
+import com.SafeWebDev.attempt.Models.Services.CommentService;
 import com.SafeWebDev.attempt.Models.Services.ItemService;
 import com.SafeWebDev.attempt.Models.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
@@ -25,6 +29,8 @@ public class ItemRESTController {
     private ItemService itemService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private CommentService commentService;
 
     @PostConstruct
     public void init(){
@@ -135,5 +141,15 @@ public class ItemRESTController {
             return null;
         }
 
+    }
+    @GetMapping("/comments")    //see every comment in our database
+    public ResponseEntity<List<Comment>> comments(Model model){
+        return new ResponseEntity<>(commentService.getAll(),HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping("/NewComment")     //add a comment to our database
+    public ResponseEntity<Comment> addComment(Model model, @RequestBody Comment comment){
+        commentService.addComment(comment);
+        return new ResponseEntity<>(comment,HttpStatus.ACCEPTED);
     }
 }

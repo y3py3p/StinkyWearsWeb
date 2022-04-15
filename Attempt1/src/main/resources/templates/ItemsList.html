@@ -31,7 +31,7 @@
     <section id="itemList">           <!-- will print out all the available items -->
         <h2>Los items disponibles en nuestra tienda son:</h2>
         {{#items}}
-        <p><a href="/item/{{-index}}">{{productName}} [{{productPrice}}€]</a><br><br><button class="buttons" type="submit"><a href="/cart/del/{{id}}">Eliminar</a></button></p>
+        <p><a href="/item/{{productID}}">{{productName}} [{{productPrice}}€]</a><br><br><button class="buttons" type="submit"><a href="/item/del/{{productID}}">Eliminar</a></button></p>
         {{/items}}
         <br/><br/>
         <p>Te gustaría subir tu propia ropa? Haz click <a href="NewItem.html">AQUÍ</a> para añadir un nuevo item </p>  <!-- it'll redirect you to /newItem, where you can add your own item-->

@@ -1,8 +1,10 @@
 package com.SafeWebDev.attempt.Controllers;
 
-import com.SafeWebDev.attempt.Models.Entities.Item;
+import com.SafeWebDev.attempt.Models.Entities.*;
+import com.SafeWebDev.attempt.Models.Respositories.CommentRepository;
 import com.SafeWebDev.attempt.Models.Respositories.ItemRepository;
 import com.SafeWebDev.attempt.Models.Holders.*;
+import com.SafeWebDev.attempt.Models.Services.CommentService;
 import com.SafeWebDev.attempt.Models.Services.ItemService;
 import com.SafeWebDev.attempt.Models.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +41,6 @@ public class ControllerBasic {
     }*/
     @PostConstruct
     public void init(){
-        itemService.add(new Item("Bragas Mujer", "XL", "Desgastado, sucio", 15));
     }
 
 
@@ -156,16 +157,17 @@ public class ControllerBasic {
         return "CreateAccount";
 
     }
-
-    @GetMapping("/comments")
-    public String comments(Model model,@RequestParam String comment){
-        model.addAttribute("comment", comment);
-        return "comments";
+  
+    @GetMapping("/comments")    //see every comment in our database
+    public String comments(Model model){
+        model.addAttribute("comments",commentService.getAll());
+        return "textoenriquecidoprueba";
     }
 
-    @GetMapping("/NewComment")
-    public String Newcomment(){
-        return "NewComment";
+    @PostMapping("/NewComment")     //add a comment to our database
+    public String addComment(Model model, Comment comment){
+        commentService.addComment(comment);
+        return "ItemAdded";
     }
-
+    
 }

@@ -1,6 +1,6 @@
 package com.SafeWebDev.attempt.Models.Holders;
 
-import com.SafeWebDev.attempt.Models.*;
+import com.SafeWebDev.attempt.*;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -11,7 +11,7 @@ public class GeneralHolder {
     private ItemHolder itemholder=new ItemHolder();
     private UserHolder userholder=new UserHolder();
 
-    public GeneralHolder(){
+    /*public GeneralHolder(){
         setCurrentUser(new User("Usuario temporal","deez"));
     }
 
@@ -50,5 +50,5 @@ public class GeneralHolder {
     public boolean containsItem(long id){
         return itemholder.containsItem(id);
     }
-
+*/
 }

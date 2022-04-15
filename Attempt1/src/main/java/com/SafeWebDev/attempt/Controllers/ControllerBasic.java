@@ -101,8 +101,14 @@ public class ControllerBasic {
     }
 
     @GetMapping("/comments")
-    public String comments(){
-        return "textoenriquecidoprueba";
+    public String comments(Model model,@RequestParam String comment){
+        model.addAttribute("comment", comment);
+        return "comments";
     }
-    
+
+    @GetMapping("/NewComment")
+    public String Newcomment(){
+        return "NewComment";
+    }
+
 }

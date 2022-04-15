@@ -25,7 +25,7 @@
     <section id="cart"><center>     <!-- it'll list the items added to your cart -->
         <h2>Tienes en tu carro:</h2>
         {{#cart}}
-        <p><a href="/item/{{id}}">{{name}} ({{price}}€)</a>&nbsp;&nbsp;&nbsp;&nbsp;<button class="buttons" type="submit"><a href="/cart/del/{{id}}">Eliminar</a></button>  </p>
+        <p><a href="/item/{{id}}">{{productName}} ({{productPrice}}€)</a>&nbsp;&nbsp;&nbsp;&nbsp;<button class="buttons" type="submit"><a href="/cart/del/{{id}}">Eliminar</a></button>  </p>
         {{/cart}}
     </center>
     </section>

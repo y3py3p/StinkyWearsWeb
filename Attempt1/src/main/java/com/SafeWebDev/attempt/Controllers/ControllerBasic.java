@@ -27,16 +27,20 @@ public class ControllerBasic {
     private UserService userService;
 
 
-    public ControllerBasic() {  //initializing the default products
-        /*generalHolder.addItem(new Item("Boxers Hombre", "XXL", "Desgastado, dado de sí y manchado", 10));
+    /*public ControllerBasic() {  //initializing the default products
+        generalHolder.addItem(new Item("Boxers Hombre", "XXL", "Desgastado, dado de sí y manchado", 10));
         generalHolder.addItem(new Item("Bragas Mujer", "XL", "Desgastado, sucio", 15));
         generalHolder.addItem(new Item("Calcetin Blanco", "L", "Con agujeros, olor a esmegma", 35));
         generalHolder.addItem(new Item("Sujetador Mujer", "92B", "Hecho mierda", 25));
         generalHolder.addUsr(new User("hola","deez"));
         generalHolder.addUsr(new User("Usuario temporal","deez"));
-        generalHolder.setCurrentUser(generalHolder.getUsrId(2));*/
+        generalHolder.setCurrentUser(generalHolder.getUsrId(2));
 
-        //itemService.add(new Item("Bragas Mujer", "XL", "Desgastado, sucio", 15));
+        itemService.add(new Item("Bragas Mujer", "XL", "Desgastado, sucio", 15));
+    }*/
+    @PostConstruct
+    public void init(){
+        itemService.add(new Item("Bragas Mujer", "XL", "Desgastado, sucio", 15));
     }
 
 

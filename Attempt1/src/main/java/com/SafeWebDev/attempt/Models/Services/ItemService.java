@@ -1,14 +1,12 @@
 package com.SafeWebDev.attempt.Models.Services;
 
-import com.SafeWebDev.attempt.Models.Entities.Item;
-import com.SafeWebDev.attempt.Models.Respositories.ItemRepository;
+import com.SafeWebDev.attempt.Models.Item;
+import com.SafeWebDev.attempt.Models.Respositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @Component

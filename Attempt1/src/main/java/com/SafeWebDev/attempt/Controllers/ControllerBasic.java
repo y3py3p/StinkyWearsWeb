@@ -1,12 +1,9 @@
 package com.SafeWebDev.attempt.Controllers;
 
-import com.SafeWebDev.attempt.Models.Entities.*;
-import com.SafeWebDev.attempt.Models.Respositories.CommentRepository;
-import com.SafeWebDev.attempt.Models.Respositories.ItemRepository;
+import com.SafeWebDev.attempt.Models.*;
+import com.SafeWebDev.attempt.Models.Respositories.*;
 import com.SafeWebDev.attempt.Models.Holders.*;
-import com.SafeWebDev.attempt.Models.Services.CommentService;
-import com.SafeWebDev.attempt.Models.Services.ItemService;
-import com.SafeWebDev.attempt.Models.Services.UserService;
+import com.SafeWebDev.attempt.Models.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -27,6 +24,8 @@ public class ControllerBasic {
     @Autowired
     private CommentService commentService;
 
+    User currentUser;
+
 
     /*public ControllerBasic() {  //initializing the default products
         generalHolder.addItem(new Item("Boxers Hombre", "XXL", "Desgastado, dado de sí y manchado", 10));
@@ -41,6 +40,7 @@ public class ControllerBasic {
     }*/
     @PostConstruct
     public void init(){
+        currentUser=new User("webo","webotes","webazos","webitos","weboncio");
     }
 
 
@@ -86,7 +86,7 @@ public class ControllerBasic {
         /*model.addAttribute("user", generalHolder.getCurrentUser());
         return "UsrPage";*/
 
-        model.addAttribute("user", userService.getCurrentUser());
+        model.addAttribute("user", currentUser);
         return "UsrPage";
 
     }
@@ -118,7 +118,7 @@ public class ControllerBasic {
     public String carrito(Model model){
         /*model.addAttribute("cart", generalHolder.getCurrentUser().getCart());
         return "Cart";*/
-        model.addAttribute("cart", userService.getCart());
+        model.addAttribute("cart", currentUser.getCart());
         return "Cart";
     }
 
@@ -130,19 +130,17 @@ public class ControllerBasic {
         }else{
             return "CartAlreadyContains";   //you already have the item in your cart
         }*/
-        if(userService.getCart().contains(itemService.findById(id))){
+        if(currentUser.getCart().contains(itemService.findById(id))){
             return "CartAlreadyContains";
         }else{
-            userService.addCart(itemService.findById(id));
+            currentUser.addCart(itemService.findById(id));
             return "CartAdded";
         }
     }
 
     @GetMapping("/cart/del/{id}")   //redirect to ItemDeleted.html, to confirm the item was deleted
     public String deleteItem(@PathVariable int id){
-        /*generalHolder.getCurrentUser().delCart(generalHolder.getItemId(id));
-        return "ItemDeleted";*/
-        userService.getCart().remove(itemService.findById(id));
+        currentUser.delCart(id-1);
         return "ItemDeleted";
 
     }

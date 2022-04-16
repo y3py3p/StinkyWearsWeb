@@ -1,6 +1,6 @@
 package com.SafeWebDev.attempt.Models.Respositories;
 
-import com.SafeWebDev.attempt.Models.Entities.Comment;
+import com.SafeWebDev.attempt.Models.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

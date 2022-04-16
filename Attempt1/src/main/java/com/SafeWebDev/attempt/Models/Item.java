@@ -1,7 +1,7 @@
-package com.SafeWebDev.attempt.Models.Entities;
+package com.SafeWebDev.attempt.Models;
 
-import lombok.Data;
-import org.springframework.stereotype.Component;
+import com.sun.istack.NotNull;
+import lombok.Builder;
 
 import javax.persistence.*;
 
@@ -10,13 +10,14 @@ import javax.persistence.*;
 public class Item{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long productID = 0;
+    private long productID ;
 
     @Column
+    @NotNull
     private String productName;
-    private String productSize;
-    private String productCondition;
-    private float productPrice;
+    private String productSize="desconocido";
+    private String productCondition="desconocido";
+    private float productPrice=0;
     private int productStock=0;
 
     public Item(String productName, String productSize, String state,float productPrice) {

@@ -1,19 +1,11 @@
 package com.SafeWebDev.attempt.Controllers;
 
 
-import com.SafeWebDev.attempt.Models.Entities.Comment;
-import com.SafeWebDev.attempt.Models.Entities.Item;
-import com.SafeWebDev.attempt.Models.Entities.User;
-import com.SafeWebDev.attempt.Models.Respositories.CommentRepository;
-import com.SafeWebDev.attempt.Models.Respositories.ItemRepository;
-import com.SafeWebDev.attempt.Models.Respositories.UserRepository;
-import com.SafeWebDev.attempt.Models.Services.CommentService;
-import com.SafeWebDev.attempt.Models.Services.ItemService;
-import com.SafeWebDev.attempt.Models.Services.UserService;
+import com.SafeWebDev.attempt.Models.*;
+import com.SafeWebDev.attempt.Models.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,9 +24,11 @@ public class ItemRESTController {
     @Autowired
     private CommentService commentService;
 
+    private User currentUser;
+
     @PostConstruct
     public void init(){
-        userService.setCurrentUser(new User("Default"));
+        currentUser=new User("Default");
     }
 
     @GetMapping("/see") //to see every item on stock
@@ -87,7 +81,7 @@ public class ItemRESTController {
 
         userService.saveUser(user);
 
-        userService.setCurrentUser(user);
+        currentUser=user;
 
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
@@ -105,11 +99,11 @@ public class ItemRESTController {
             generalHolder.getCurrentUser().addCart(generalHolder.getItemId(id));
             return new ResponseEntity<List<Item>>(generalHolder.getCurrentUser().getCart(), HttpStatus.ACCEPTED);
         }*/
-        if(userService.getCart().contains(itemService.findById(id))){
+        if(currentUser.getCart().contains(itemService.findById(id))){
             return new ResponseEntity<>( HttpStatus.NOT_ACCEPTABLE);
         }else{
-            userService.addCart(itemService.findById(id));
-            return new ResponseEntity<>(userService.getCart(), HttpStatus.ACCEPTED);
+            currentUser.addCart(itemService.findById(id));
+            return new ResponseEntity<>(currentUser.getCart(), HttpStatus.ACCEPTED);
         }
 
     }
@@ -122,21 +116,21 @@ public class ItemRESTController {
             return generalHolder.getCurrentUser().getCart();
         }*/
 
-        return userService.getCart();
+        return currentUser.getCart();
 
     }
 
     @GetMapping("/removeCart/{id}") //remove item from cart
     public ResponseEntity<List<Item>> removeCart(@PathVariable int id){
-        userService.getCart().remove(itemService.findById(id));
-        return new ResponseEntity<>(userService.getCart(),HttpStatus.ACCEPTED);
+        currentUser.getCart().remove(itemService.findById(id));
+        return new ResponseEntity<>(currentUser.getCart(),HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/usr") //see your user
     public User seeUser(){
 
-        if(userService.logedIn()){    //check if you're loged in
-            return userService.getCurrentUser();
+        if(currentUser!=null){    //check if you're loged in
+            return currentUser;
         }else{
             return null;
         }

@@ -21,6 +21,9 @@ public class User {
     private String address;
     private String bankData;
 
+    @ManyToMany
+    private List<Cupon> cupones=new ArrayList<Cupon>();
+
     @OneToMany
     private List<Item> cart = new ArrayList<Item>();
 
@@ -45,6 +48,14 @@ public class User {
 
     public List<Item> getCart() {
         return cart;
+    }
+
+    public float getPrice(){
+        float precio=0;
+        for(Item item:cart){
+            precio+=item.getprice();
+        }
+        return precio;
     }
 
     public boolean sameUser(User userName){

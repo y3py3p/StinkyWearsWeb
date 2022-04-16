@@ -164,10 +164,16 @@ public class ControllerBasic {
         return "comments";
     }
 
-    @PostMapping("/NewComment")     //add a comment to our database
-    public String addComment(Model model, Comment comment){
-        commentService.addComment(comment);
+    @GetMapping("/NewComment")     //add a comment to our database
+    public String addComment(Model model){
         return "NewComment";
     }
-    
+
+    @RequestMapping("/createComment")
+    public String createComment(@RequestParam String content){
+        Comment comment=new Comment();
+        comment.setContent(content);
+        commentService.addComment(comment);
+        return "ItemAdded";
+    }
 }

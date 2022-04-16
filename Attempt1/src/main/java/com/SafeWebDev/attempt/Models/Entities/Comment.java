@@ -12,7 +12,7 @@ public class Comment {
 
     @Column
     private String content;
-    private String user;
+    private String user="default";
 
     public String getContent() {
         return content;

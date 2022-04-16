@@ -3,10 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Comments</title>
+    <link rel="stylesheet" href="http://localhost:8080/editor.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
 </head>
 <body>
-    {{#comment}}
-    <p>{{.}}</p>
-    {{/comment}}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8" >
+            <div id="texto">
+
+                {{#comments}}
+                <p>user: {{user}} </br> </p> contenido: {{{content}}}
+                {{/comments}}
+            </div>
+        </div>
+    </div>
+</div>
+    <a href="/NewComment"> nuevo comentario</a>
 </body>
 </html>

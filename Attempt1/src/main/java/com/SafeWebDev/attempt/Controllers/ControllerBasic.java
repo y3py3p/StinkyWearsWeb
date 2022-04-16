@@ -155,15 +155,22 @@ public class ControllerBasic {
         return "CreateAccount";
 
     }
-  
+
     @GetMapping("/comments")    //see every comment in our database
     public String comments(Model model){
         model.addAttribute("comments",commentService.getAll());
-        return "textoenriquecidoprueba";
+        return "comments";
     }
 
-    @PostMapping("/NewComment")     //add a comment to our database
-    public String addComment(Model model, Comment comment){
+    @GetMapping("/NewComment")     //add a comment to our database
+    public String addComment(Model model){
+        return "NewComment";
+    }
+
+    @RequestMapping("/createComment")
+    public String createComment(@RequestParam String content){
+        Comment comment=new Comment();
+        comment.setContent(content);
         commentService.addComment(comment);
         return "ItemAdded";
     }

@@ -1,6 +1,7 @@
 package com.SafeWebDev.attempt.Models;
 
 import javax.persistence.*;
+import java.lang.*;
 
 @Entity
 @Table(name="commentTable")
@@ -12,7 +13,7 @@ public class Comment {
 
     @Column
     private String content;
-    private String user;
+    private String user="default";
 
     public String getContent() {
         return content;

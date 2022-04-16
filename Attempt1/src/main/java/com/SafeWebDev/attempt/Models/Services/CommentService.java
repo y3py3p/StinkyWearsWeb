@@ -4,7 +4,7 @@ import com.SafeWebDev.attempt.Models.Respositories.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import com.SafeWebDev.attempt.Models.Entities.*;
+import com.SafeWebDev.attempt.Models.*;
 
 import java.util.List;
 

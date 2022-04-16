@@ -1,4 +1,4 @@
-package com.SafeWebDev.attempt.Models.Entities;
+package com.SafeWebDev.attempt.Models;
 
 import javax.persistence.*;
 

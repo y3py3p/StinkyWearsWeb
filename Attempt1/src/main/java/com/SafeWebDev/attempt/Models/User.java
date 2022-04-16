@@ -1,6 +1,4 @@
-package com.SafeWebDev.attempt.Models.Entities;
-
-import org.springframework.stereotype.Controller;
+package com.SafeWebDev.attempt.Models;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,9 +21,10 @@ public class User {
     private String address;
     private String bankData;
 
-
     @OneToMany
-    List<Item> cart = new ArrayList<>();
+    private List<Item> cart = new ArrayList<Item>();
+
+
 
 
     public User(String userName, String correo, String userPass, String address, String personalName) {
@@ -80,13 +79,13 @@ public class User {
         }
     }*/
 
-    /*public void addCart(Item item){
-        cart.add(item);
+    public void addCart(Item item){
+        this.cart.add(item);
     }
 
-    public void delCart(Item item){
-        cart.remove(item);
-    }*/
+    public void delCart(int id){
+        this.cart.remove(id);
+    }
 
     /*public long getId() {
         return id;

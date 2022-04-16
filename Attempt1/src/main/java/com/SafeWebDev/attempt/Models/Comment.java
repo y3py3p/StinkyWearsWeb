@@ -1,4 +1,4 @@
-package com.SafeWebDev.attempt.Models.Entities;
+package com.SafeWebDev.attempt.Models;
 
 import javax.persistence.*;
 
@@ -12,7 +12,7 @@ public class Comment {
 
     @Column
     private String content;
-    private String user="default";
+    private String user;
 
     public String getContent() {
         return content;

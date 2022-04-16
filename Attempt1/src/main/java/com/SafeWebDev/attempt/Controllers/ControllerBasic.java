@@ -176,4 +176,23 @@ public class ControllerBasic {
         commentService.addComment(comment);
         return "ItemAdded";
     }
+
+    @GetMapping("/payments")
+    public String payment(Model model){
+        model.addAttribute("cart",currentUser.getCart());
+        return "Payments";
+    }
+
+    @GetMapping("/pay")
+    public String pay(Model model){
+        model.addAttribute("precio",currentUser.getPrice());
+        return "PayForm";
+    }
+
+    @GetMapping("/coupons")
+    public String coupons(){
+
+        return "Coupons";
+    }
+
 }

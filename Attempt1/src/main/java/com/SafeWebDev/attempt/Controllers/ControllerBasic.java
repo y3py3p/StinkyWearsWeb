@@ -158,7 +158,7 @@ public class ControllerBasic {
 
     @GetMapping("/comments")    //see every comment in our database
     public String comments(Model model){
-        model.addAttribute("comments",commentService.getAll());
+        model.addAttribute("comment",commentService.getAll());
         return "comments";
     }
 

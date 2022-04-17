@@ -174,7 +174,7 @@ public class ControllerBasic {
         Comment comment=new Comment();
         comment.setContent(content);
         commentService.addComment(comment);
-        return "ItemAdded";
+        return "CommentAdded";
     }
 
     @GetMapping("/payments")

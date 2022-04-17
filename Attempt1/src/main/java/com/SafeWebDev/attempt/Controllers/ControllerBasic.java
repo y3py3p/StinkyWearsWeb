@@ -112,7 +112,7 @@ public class ControllerBasic {
     @GetMapping("/item/del/{id}")
     public String delFromList(@PathVariable int id){
         itemService.delete(itemService.findById(id));
-        return "ItemDeleted";
+        return "ItemDeletedCompletely";
 
     }
 

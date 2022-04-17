@@ -1,7 +1,7 @@
 package com.SafeWebDev.attempt.Models.Services;
 
-import com.SafeWebDev.attempt.Models.Entities.Item;
-import com.SafeWebDev.attempt.Models.Entities.User;
+import com.SafeWebDev.attempt.Models.Item;
+import com.SafeWebDev.attempt.Models.User;
 import com.SafeWebDev.attempt.Models.Respositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,13 +16,11 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    User currentUser;
-
     public void saveUser(User user){
         userRepository.save(user);
     }
 
-    public boolean logedIn(){
+    /*public boolean logedIn(){
 
         if(currentUser != null){
             return true;
@@ -44,10 +42,13 @@ public class UserService {
     }
 
     public void addCart(Item item){
-
-        getCart().add(item);
+        currentUser.getCart().add(item);
     }
-/*public List<Item> getCart(User user){
+
+    public void deleteCart(Item item){
+        currentUser.getCart().remove(item);
+    }
+public List<Item> getCart(User user){
         userRepository.
     }*/
 }

@@ -1,16 +1,12 @@
 package com.SafeWebDev.attempt.Controllers;
 
 
-import com.SafeWebDev.attempt.Models.Entities.Item;
-import com.SafeWebDev.attempt.Models.Entities.User;
-import com.SafeWebDev.attempt.Models.Respositories.ItemRepository;
-import com.SafeWebDev.attempt.Models.Respositories.UserRepository;
-import com.SafeWebDev.attempt.Models.Services.ItemService;
-import com.SafeWebDev.attempt.Models.Services.UserService;
+import com.SafeWebDev.attempt.Models.*;
+import com.SafeWebDev.attempt.Models.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
@@ -21,15 +17,18 @@ import java.util.List;
 public class ItemRESTController {
 
 
-//    private GeneralHolder generalHolder=new GeneralHolder();
     @Autowired
     private ItemService itemService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private CommentService commentService;
+
+    private User currentUser;
 
     @PostConstruct
     public void init(){
-        userService.setCurrentUser(new User("Default"));
+        currentUser=new User("Default");
     }
 
     @GetMapping("/see") //to see every item on stock
@@ -48,6 +47,12 @@ public class ItemRESTController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
+    }
+
+    @GetMapping("/del/{id}")
+    public ResponseEntity<Item> deleteItem(@PathVariable long id){
+        itemService.delete(itemService.findById(id));
+        return new ResponseEntity<>(itemService.findById(id),HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/addItem")    //add item to stock
@@ -76,7 +81,7 @@ public class ItemRESTController {
 
         userService.saveUser(user);
 
-        userService.setCurrentUser(user);
+        currentUser=user;
 
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
@@ -94,9 +99,13 @@ public class ItemRESTController {
             generalHolder.getCurrentUser().addCart(generalHolder.getItemId(id));
             return new ResponseEntity<List<Item>>(generalHolder.getCurrentUser().getCart(), HttpStatus.ACCEPTED);
         }*/
+        if(currentUser.getCart().contains(itemService.findById(id))){
+            return new ResponseEntity<>( HttpStatus.NOT_ACCEPTABLE);
+        }else{
+            currentUser.addCart(itemService.findById(id));
+            return new ResponseEntity<>(currentUser.getCart(), HttpStatus.ACCEPTED);
+        }
 
-        userService.addCart(itemService.findById(id));
-        return new ResponseEntity<>(userService.getCart(), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/seeCart") //see the cart
@@ -107,31 +116,34 @@ public class ItemRESTController {
             return generalHolder.getCurrentUser().getCart();
         }*/
 
-        return userService.getCart();
+        return currentUser.getCart();
 
     }
 
-    /*@GetMapping("/removeCart/{id}") //remove item from cart
+    @GetMapping("/removeCart/{id}") //remove item from cart
     public ResponseEntity<List<Item>> removeCart(@PathVariable int id){
-
-        if(!generalHolder.logedIn()){   //check if you're loged in
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }else if(!generalHolder.containsItem(id)){  //check if item exists
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }else{
-            generalHolder.getCurrentUser().delCart(generalHolder.getItemId(id));
-            return new ResponseEntity<List<Item>>(generalHolder.getCurrentUser().getCart(), HttpStatus.ACCEPTED);
-        }
-    }*/
+        currentUser.getCart().remove(itemService.findById(id));
+        return new ResponseEntity<>(currentUser.getCart(),HttpStatus.ACCEPTED);
+    }
 
     @GetMapping("/usr") //see your user
     public User seeUser(){
 
-        if(userService.logedIn()){    //check if you're loged in
-            return userService.getCurrentUser();
+        if(currentUser!=null){    //check if you're loged in
+            return currentUser;
         }else{
             return null;
         }
 
+    }
+    @GetMapping("/comments")    //see every comment in our database
+    public ResponseEntity<List<Comment>> comments(Model model){
+        return new ResponseEntity<>(commentService.getAll(),HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping("/NewComment")     //add a comment to our database
+    public ResponseEntity<Comment> addComment(Model model, @RequestBody Comment comment){
+        commentService.addComment(comment);
+        return new ResponseEntity<>(comment,HttpStatus.ACCEPTED);
     }
 }

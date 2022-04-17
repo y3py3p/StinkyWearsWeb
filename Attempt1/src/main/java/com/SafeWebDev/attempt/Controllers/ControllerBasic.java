@@ -1,30 +1,30 @@
 package com.SafeWebDev.attempt.Controllers;
 
-import com.SafeWebDev.attempt.Models.Entities.Item;
-import com.SafeWebDev.attempt.Models.Respositories.ItemRepository;
+import com.SafeWebDev.attempt.Models.*;
+import com.SafeWebDev.attempt.Models.Respositories.*;
 import com.SafeWebDev.attempt.Models.Holders.*;
-import com.SafeWebDev.attempt.Models.Services.ItemService;
-import com.SafeWebDev.attempt.Models.Services.UserService;
+import com.SafeWebDev.attempt.Models.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 
 @Controller
 public class ControllerBasic {
 
-    //private GeneralHolder generalHolder=new GeneralHolder();
     @Autowired
     private ItemService itemService;
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CommentService commentService;
+
+    User currentUser;
 
 
     /*public ControllerBasic() {  //initializing the default products
@@ -40,7 +40,7 @@ public class ControllerBasic {
     }*/
     @PostConstruct
     public void init(){
-        itemService.add(new Item("Bragas Mujer", "XL", "Desgastado, sucio", 15));
+        currentUser=new User("webo","webotes","webazos","webitos","weboncio");
     }
 
 
@@ -86,7 +86,7 @@ public class ControllerBasic {
         /*model.addAttribute("user", generalHolder.getCurrentUser());
         return "UsrPage";*/
 
-        model.addAttribute("user", userService.getCurrentUser());
+        model.addAttribute("user", currentUser);
         return "UsrPage";
 
     }
@@ -107,11 +107,18 @@ public class ControllerBasic {
         return "ItemsList";
     }
 
+    @GetMapping("/item/del/{id}")
+    public String delFromList(@PathVariable int id){
+        itemService.delete(itemService.findById(id));
+        return "ItemDeleted";
+
+    }
+
     @GetMapping("/cart")    //redirect to Cart.html, with your cart info
     public String carrito(Model model){
         /*model.addAttribute("cart", generalHolder.getCurrentUser().getCart());
         return "Cart";*/
-        model.addAttribute("cart", userService.getCart());
+        model.addAttribute("cart", currentUser.getCart());
         return "Cart";
     }
 
@@ -123,15 +130,17 @@ public class ControllerBasic {
         }else{
             return "CartAlreadyContains";   //you already have the item in your cart
         }*/
-
-        userService.addCart(itemService.findById(id));
-        return "CartAdded";
+        if(currentUser.getCart().contains(itemService.findById(id))){
+            return "CartAlreadyContains";
+        }else{
+            currentUser.addCart(itemService.findById(id));
+            return "CartAdded";
+        }
     }
 
     @GetMapping("/cart/del/{id}")   //redirect to ItemDeleted.html, to confirm the item was deleted
     public String deleteItem(@PathVariable int id){
-        /*generalHolder.getCurrentUser().delCart(generalHolder.getItemId(id));
-        return "ItemDeleted";*/
+        currentUser.delCart(id-1);
         return "ItemDeleted";
 
     }
@@ -147,9 +156,41 @@ public class ControllerBasic {
 
     }
 
-    @GetMapping("/comments")
-    public String comments(){
-        return "textoenriquecidoprueba";
+    @GetMapping("/comments")    //see every comment in our database
+    public String comments(Model model){
+        model.addAttribute("comment",commentService.getAll());
+        return "comments";
+    }
+
+    @GetMapping("/NewComment")     //add a comment to our database
+    public String addComment(Model model){
+        return "NewComment";
+    }
+
+    @RequestMapping("/createComment")
+    public String createComment(@RequestParam String content){
+        Comment comment=new Comment();
+        comment.setContent(content);
+        commentService.addComment(comment);
+        return "ItemAdded";
+    }
+
+    @GetMapping("/payments")
+    public String payment(Model model){
+        model.addAttribute("cart",currentUser.getCart());
+        return "Payments";
+    }
+
+    @GetMapping("/pay")
+    public String pay(Model model){
+        model.addAttribute("precio",currentUser.getPrice());
+        return "PayForm";
+    }
+
+    @GetMapping("/coupons")
+    public String coupons(){
+
+        return "Coupons";
     }
     
 }

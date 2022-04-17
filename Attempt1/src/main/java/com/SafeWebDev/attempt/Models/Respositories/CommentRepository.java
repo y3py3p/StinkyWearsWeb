@@ -1,12 +1,9 @@
 package com.SafeWebDev.attempt.Models.Respositories;
 
-import com.SafeWebDev.attempt.Models.Item;
+import com.SafeWebDev.attempt.Models.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ItemRepository extends JpaRepository<Item, Long> {
-
-    Item findById(long id);
-
+public interface CommentRepository extends JpaRepository<Comment,Long> {
 }

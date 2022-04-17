@@ -1,6 +1,6 @@
 package com.SafeWebDev.attempt.Models.Holders;
 
-import com.SafeWebDev.attempt.Models.Entities.User;
+import com.SafeWebDev.attempt.Models.User;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

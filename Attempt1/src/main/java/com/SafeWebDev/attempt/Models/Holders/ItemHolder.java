@@ -1,7 +1,7 @@
 package com.SafeWebDev.attempt.Models.Holders;
 
 
-import com.SafeWebDev.attempt.Models.Entities.Item;
+import com.SafeWebDev.attempt.Models.Item;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

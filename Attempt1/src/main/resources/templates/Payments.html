@@ -3,13 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Payment</title>
+    <link rel="stylesheet" href="http://localhost:8080/cursor.css"/>
+    <link rel="stylesheet" href="http://localhost:8080/main.css"/>
+    <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
 </head>
 <body>
+
+<section class="header">
+    <div id="sidebar">              <!-- side nav bar -->
+        <div class="toggle-btn">
+            <span>&#9776</span>
+        </div>
+        <ul>
+            <img src="http://localhost:8080/img/ouuushrek.png" alt="Logo Fazt" class="logo"> <br/>
+            <li><a href="/">MainPage</a></li>
+            <li><a href="/items">Items</a></li>
+            <li><a href="/usr">MyUser</a></li>
+            <li><a href="/login">login</a></li>
+            <li><a href="/cart"> Carrito </a></li>
+            <li><a href="/comments"> Comentarios </a></li>
+        </ul>
+    </div>
+</section>
+<section id="itemList">
+    <h2>Los productos a pagar son:</h2>
     {{#cart}}
-    <p>{{productName}} ({{productPrice}}€)</p><br>
+    <p>{{productName}} ({{productPrice}}€)</p><br/>
     {{/cart}}
-    <br>
-    <a href="/pay">Pagar ahora</a><br>
-    <p>Hay algo mal? <a href="/cart">Volver al carrito</a></p>
+    <br/>
+    <h4><button class="buttons"><a href="/pay">Pagar</a></button></h4><br/>
+    <h4><p>Hay algo mal? <a href="/cart">Volver al carrito</a></p></h4>
+</section>
+<div class="clearfix"></div>
+<footer>
+    StinkyWear &copy; 2022
+</footer>
+<div class="cursor"></div>
+<script src="http://localhost:8080/cursor.js"></script>
+<script src="http://localhost:8080/lateralBar.js"></script>
+</body>
 </body>
 </html>

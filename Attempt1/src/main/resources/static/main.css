@@ -181,6 +181,7 @@ a:hover {
     background: #D3CCA5;
     height: 100vh;
 }
+
                                                     /* forms (LohIn NewItem CreateAccount) */
 .form-register {
     background: #B0C400;
@@ -202,6 +203,10 @@ input::placeholder {
 .form-register h4{
     padding-left: 300px;
     text-align: left;
+}
+
+.form-register p{
+    text-align: center;
 }
 /**/
 .register-form{

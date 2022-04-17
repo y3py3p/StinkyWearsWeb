@@ -3,12 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Comments</title>
+    <link rel="stylesheet" href="http://localhost:8080/cursor.css"/>
+    <link rel="stylesheet" href="http://localhost:8080/main.css"/>
+    <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png"/>
 </head>
 <body>
+<section class="header">
+    <div id="sidebar">                          <!-- side nav bar -->
+        <div class="toggle-btn">
+            <span>&#9776</span>
+        </div>
+        <ul>
+            <img src="http://localhost:8080/img/ouuushrek.png" alt="Logo Fazt" class="logo"> <br/>
+            <li><a href="/">MainPage</a></li>
+            <li><a href="/items">Items</a></li>
+            <li><a href="/usr">MyUser</a></li>
+            <li><a href="/login">login</a></li>
+            <li><a href="/cart"> Carrito </a></li>
+            <li><a href="/comments"> Comentarios </a></li>
+        </ul>
+    </div>
+</section>
+
+<div class="clearfix"></div>
+<section id="commentlist">
+
     {{#comment}}
     <p> {{user}} </p> <p>contenido: {{{content}}}</p>
     {{/comment}}
 
 <a href="/NewComment"> nuevo comentario</a>
+</section>
+<div class="clearfix"></div>
+
+    <footer>
+        StinkyWear &copy; 2022
+    </footer>
+<div class="cursor"></div>
+<script src="http://localhost:8080/cursor.js"></script>
+<script src="http://localhost:8080/lateralBar.js"></script>
 </body>
 </html>

@@ -3,23 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <title>Pay Form</title>
+    <link rel="stylesheet" href="http://localhost:8080/cursor.css"/>
+    <link rel="stylesheet" href="http://localhost:8080/main.css"/>
+    <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
 </head>
 <body>
-<p>{{precio}}</p><br>
+<section class="header">                        <!-- side nav bar -->
+    <div id="sidebar">
+        <div class="toggle-btn">
+            <span>&#9776</span>
+        </div>
+        <ul>
+            <img src="http://localhost:8080/img/ouuushrek.png" alt="Logo Fazt" class="logo"> <br/>
+            <li><a href="/">MainPage</a></li>
+            <li><a href="/items">Items</a></li>
+            <li><a href="/usr">MyUser</a></li>
+            <li><a href="/login">login</a></li>
+            <li><a href="/cart"> Carrito </a></li>
+            <li><a href="/comments"> Comentarios </a></li>
+        </ul>
+    </div>
+</section>
 
-<section class="register-form">
-    <h2>Rellena los datos:</h2>
+
+
+<section class="form-register">
+
+    <h2>Shrek necesita tus datos:</h2>
+
+     <p style="align-content: center">El precio total de su maravillosa e inigualable compra es de {{precio}}€</p><br/><br/>
+
     <form action="price/final" method="post">
         <h4> Numero de tarjeta:<br/>
-            <input type="number" name="number" placeholder="Numero"></h4>
-        Fecha de caducidad:<br/>
-            <input type="number" name="month" placeholder="Mes"><input type="number" name="year" placeholder="Año">
-
-        Numero de cupon: (maximo uno por compra)
-        <input type="number" name="cupon" placeholder="Cupon">
+            <input type="number" name="number" placeholder="Numero" minlength="16" maxlength="16" min="000000000000000000"></h4>
+        <br/>
+        <h4>Fecha de caducidad:<br/>
+            <input type="number" name="month" placeholder="Mes" min="1" max="12"><input type="number" name="year" placeholder="Año" min="2022" max="2100"></h4>
+        <br/>
+        <h4> Numero de cupon: (maximo uno por compra)<br/>
+            <input type="number" name="cupon" placeholder="Cupon" min="0"></h4>
+        <br/>
         <h2><button class="buttons" type="submit">Enviar</button></h2><!-- click to submit the info -->
 
     </form>
 </section>
+<footer>
+    StinkyWear &copy; 2022
+</footer>
+<div class="cursor"></div>
+<script src="http://localhost:8080/cursor.js"></script>
+<script src="lateralBar.js"></script>
 </body>
 </html>

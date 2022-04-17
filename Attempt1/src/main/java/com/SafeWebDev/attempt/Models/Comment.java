@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.lang.*;
 
 @Entity
-@Table(name="commentTable")
+@Table(name="comment_table")
 public class Comment {
 
     @Id

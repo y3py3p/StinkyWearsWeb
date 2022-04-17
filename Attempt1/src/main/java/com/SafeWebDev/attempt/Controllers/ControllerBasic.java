@@ -8,6 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 @Controller
 public class ControllerBasic {
@@ -23,6 +26,9 @@ public class ControllerBasic {
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private EntityManager entityManager;
 
 
 
@@ -199,7 +205,9 @@ public class ControllerBasic {
         }else{
             model.addAttribute("precio", currentUser.getPrice());
         }*/
-        model.addAttribute("precio", currentUser.priceCupon(cupone));
+        model.addAttribute("precioInicial",currentUser.getPrice());
+        model.addAttribute("descuento",cupone.getDescuento());
+        model.addAttribute("precioFinal", currentUser.priceCupon(cupone));
 
         return "FinalPrice";
     }
@@ -207,15 +215,23 @@ public class ControllerBasic {
 
 
     @GetMapping("/coupons")
-    public String coupons(){
-
-        return "Coupons";
+    public String coupons(Model model){
+        model.addAttribute("coupons",cuponService.getAll());
+        return "CouponList";
     }
 
-    /*@PostMapping("/item/new")   //redirect to ItemAdded.html after adding an item to our general List
-    public String addItem(Model model,Item item){
-        itemService.add(item);
-        return "ItemAdded";
+    @PostMapping("/coupon/new")
+    public String createCoupon(Cupon coupon){
+        cuponService.addCupon(coupon);
+        return "CouponAdded";
+    }
+
+    /*@PostMapping("/search")
+    public String searchByName(Model model, @RequestBody String name){
+        TypedQuery<Item> q1=entityManager.createQuery("SELECT c FROM itemtable c WHERE lower(c.product_name)=lower(:name)",Item.class).setParameter("name",name);
+        List<Item> items=q1.getResultList();
+        model.addAttribute("items",items);
+        return "ItemsList";
     }*/
 
 }

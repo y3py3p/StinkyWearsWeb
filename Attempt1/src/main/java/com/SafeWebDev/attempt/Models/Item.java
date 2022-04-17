@@ -13,7 +13,6 @@ public class Item{
     private long productID ;
 
     @Column
-    @NotNull
     private String productName;
     private String productSize="desconocido";
     private String productCondition="desconocido";

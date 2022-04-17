@@ -189,6 +189,23 @@ public class ControllerBasic {
         return "PayForm";
     }
 
+    @PostMapping("/price/final")
+    public String finalPrice(Model model, @RequestParam long cupon){
+
+        Cupon cupone = cuponService.findById(cupon);
+
+        /*if(currentUser.sameCupon(cupon)){
+            model.addAttribute("precio", currentUser.priceCupon(cupon));
+        }else{
+            model.addAttribute("precio", currentUser.getPrice());
+        }*/
+        model.addAttribute("precio", currentUser.priceCupon(cupone));
+
+        return "FinalPrice";
+    }
+
+
+
     @GetMapping("/coupons")
     public String coupons(){
 
@@ -200,18 +217,5 @@ public class ControllerBasic {
         itemService.add(item);
         return "ItemAdded";
     }*/
-    @GetMapping("/price/final")
-    public String finalPrice(Model model, long numCup){
 
-        Cupon cupon = cuponService.findById(numCup);
-
-        /*if(currentUser.sameCupon(cupon)){
-            model.addAttribute("precio", currentUser.priceCupon(cupon));
-        }else{
-            model.addAttribute("precio", currentUser.getPrice());
-        }*/
-        model.addAttribute("precio", currentUser.priceCupon(cupon));
-
-        return "FinalPrice";
-    }
 }

@@ -6,6 +6,20 @@
 </head>
 <body>
 <p>{{precio}}</p><br>
-<p>Aqui va todo el formulario de la tarjeta de credito y demás</p>
+
+<section class="register-form">
+    <h2>Rellena los datos:</h2>
+    <form action="price/final" method="post">
+        <h4> Numero de tarjeta:<br/>
+            <input type="number" name="number" placeholder="Numero"></h4>
+        Fecha de caducidad:<br/>
+            <input type="number" name="month" placeholder="Mes"><input type="number" name="year" placeholder="Año">
+
+        Numero de cupon: (maximo uno por compra)
+        <input type="number" name="cupon" placeholder="Cupon">
+        <h2><button class="buttons" type="submit">Enviar</button></h2><!-- click to submit the info -->
+
+    </form>
+</section>
 </body>
 </html>

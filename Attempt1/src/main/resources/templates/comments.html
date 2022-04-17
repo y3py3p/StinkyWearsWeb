@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="http://localhost:8080/cursor.css"/>
     <link rel="stylesheet" href="http://localhost:8080/main.css"/>
     <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png"/>
+    <audio src="http://localhost:8080/img/todountemazo3.mp3" autoplay loop></audio>
 </head>
 <body>
 <section class="header">
@@ -27,13 +28,18 @@
 
 <div class="clearfix"></div>
 <section id="itemList">
-    <br/><br/><br/>
+    <h2> Comentarios: </h2>
+    <br/>
     {{#comment}}
     <h4> Usuario: {{user}} </h4> <p> {{{content}}}</p><br/><br/>
     {{/comment}}
     <p>Haga click <a href="/NewComment">AQUÍ</a> para añadir un nuevo comentario </p>
 </section>
 <div class="clearfix"></div>
+
+<section id="ShrekIsWatching">
+    <img width="200px" src="img/ShrekTeVigila.png">        <!--just Shrek watching you browse items-->
+</section>
 
     <footer>
         StinkyWear &copy; 2022

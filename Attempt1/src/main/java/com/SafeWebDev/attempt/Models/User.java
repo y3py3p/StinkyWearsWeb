@@ -38,6 +38,10 @@ public class User {
         this.personalName = personalName;
     }
 
+    public List<Cupon> getCupones(){
+        return cupones;
+    }
+
     public User(String userName){
         this.userName = userName;
     }
@@ -56,6 +60,24 @@ public class User {
             precio+=item.getprice();
         }
         return precio;
+    }
+
+    public float priceCupon(Cupon cupon){
+
+        float descuento = cupon.getDescuento();
+
+        float precio = getPrice();
+
+        return precio - ((descuento/100) * precio);
+    }
+
+    public boolean sameCupon(Cupon cupon){
+
+        if (cupones.contains(cupon)){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     public boolean sameUser(User userName){

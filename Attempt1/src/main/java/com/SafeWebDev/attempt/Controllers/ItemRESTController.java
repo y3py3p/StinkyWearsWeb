@@ -89,16 +89,6 @@ public class ItemRESTController {
     @GetMapping("/addCart/{id}")    //add item to cart
     public ResponseEntity<List<Item>> addCart(@PathVariable long id){
 
-        /*if(!generalHolder.logedIn()){   //check if you're loged in
-            return new ResponseEntity<List<Item>>((List<Item>) null, HttpStatus.NOT_FOUND);
-        }else if(!generalHolder.containsItem(id)){  //check if item exists
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }else if(generalHolder.getCurrentUser().cartContains(generalHolder.getItemId(id))){   //check if it's already in cart
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }else{  //adds item to cart
-            generalHolder.getCurrentUser().addCart(generalHolder.getItemId(id));
-            return new ResponseEntity<List<Item>>(generalHolder.getCurrentUser().getCart(), HttpStatus.ACCEPTED);
-        }*/
         if(currentUser.getCart().contains(itemService.findById(id))){
             return new ResponseEntity<>( HttpStatus.NOT_ACCEPTABLE);
         }else{
@@ -110,11 +100,6 @@ public class ItemRESTController {
 
     @GetMapping("/seeCart") //see the cart
     public List<Item> seeCart(){
-        /*if(!generalHolder.logedIn()){   //check if you're loged in
-            return null;
-        }else{
-            return generalHolder.getCurrentUser().getCart();
-        }*/
 
         return currentUser.getCart();
 
@@ -146,4 +131,16 @@ public class ItemRESTController {
         commentService.addComment(comment);
         return new ResponseEntity<>(comment,HttpStatus.ACCEPTED);
     }
+
+    @GetMapping("/coupons")
+    public ResponseEntity<List<Cupon>> getCupons(){
+        return new ResponseEntity<>(currentUser.getCupones(), HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping("/pay")
+    public void pay(){
+
+
+    }
+
 }

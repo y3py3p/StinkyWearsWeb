@@ -1,12 +1,9 @@
 package com.SafeWebDev.attempt.Controllers;
 
 import com.SafeWebDev.attempt.Models.*;
-import com.SafeWebDev.attempt.Models.Respositories.*;
-import com.SafeWebDev.attempt.Models.Holders.*;
 import com.SafeWebDev.attempt.Models.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +13,9 @@ import javax.annotation.PostConstruct;
 public class ControllerBasic {
 
     @Autowired
+    private CuponService cuponService;
+
+    @Autowired
     private ItemService itemService;
 
     @Autowired
@@ -23,6 +23,8 @@ public class ControllerBasic {
 
     @Autowired
     private CommentService commentService;
+
+
 
     User currentUser;
 
@@ -192,5 +194,24 @@ public class ControllerBasic {
 
         return "Coupons";
     }
-    
+
+    /*@PostMapping("/item/new")   //redirect to ItemAdded.html after adding an item to our general List
+    public String addItem(Model model,Item item){
+        itemService.add(item);
+        return "ItemAdded";
+    }*/
+    @GetMapping("/price/final")
+    public String finalPrice(Model model, long numCup){
+
+        Cupon cupon = cuponService.findById(numCup);
+
+        /*if(currentUser.sameCupon(cupon)){
+            model.addAttribute("precio", currentUser.priceCupon(cupon));
+        }else{
+            model.addAttribute("precio", currentUser.getPrice());
+        }*/
+        model.addAttribute("precio", currentUser.priceCupon(cupon));
+
+        return "FinalPrice";
+    }
 }

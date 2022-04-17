@@ -2,7 +2,7 @@
 * {
     margin: 0;
     padding: 0;
-    cursor: none;
+    /*cursor: none;*/
 }
 body{
     font-family: Comic Sans MS, Candara, Arial, serif;

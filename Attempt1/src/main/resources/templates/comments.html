@@ -26,13 +26,12 @@
 </section>
 
 <div class="clearfix"></div>
-<section id="commentlist">
-
+<section id="itemList">
+    <br/><br/><br/>
     {{#comment}}
-    <p> {{user}} </p> <p>contenido: {{{content}}}</p>
+    <h4> Usuario: {{user}} </h4> <p> {{{content}}}</p><br/><br/>
     {{/comment}}
-
-<a href="/NewComment"> nuevo comentario</a>
+    <p>Haga click <a href="/NewComment">AQUÍ</a> para añadir un nuevo comentario </p>
 </section>
 <div class="clearfix"></div>
 

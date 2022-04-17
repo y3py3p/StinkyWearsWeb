@@ -23,6 +23,8 @@ public class ItemRESTController {
     private UserService userService;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private CuponService cuponService;
 
     private User currentUser;
 
@@ -137,10 +139,16 @@ public class ItemRESTController {
         return new ResponseEntity<>(currentUser.getCupones(), HttpStatus.ACCEPTED);
     }
 
-    @PostMapping("/pay")
-    public void pay(){
+    @GetMapping("/pay")
+    public ResponseEntity<Float> pay(){
 
+        return new ResponseEntity<>(currentUser.getPrice(), HttpStatus.ACCEPTED);
+    }
 
+    @PostMapping("pay/cupon")
+    public ResponseEntity<Float> payCupons(@RequestParam long cupId){
+
+        return new ResponseEntity<>(currentUser.priceCupon(cuponService.findById(cupId)), HttpStatus.ACCEPTED);
     }
 
 }

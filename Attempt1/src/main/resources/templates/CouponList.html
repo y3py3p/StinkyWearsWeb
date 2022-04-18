@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Comments</title>
+    <title>Lista de items</title>
     <link rel="stylesheet" href="http://localhost:8080/cursor.css"/>
     <link rel="stylesheet" href="http://localhost:8080/main.css"/>
-    <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png"/>
-    <audio src="http://localhost:8080/img/todountemazo3.mp3" autoplay loop></audio>
+    <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
 </head>
+
 <body>
-<section class="header">
-    <div id="sidebar">                          <!-- side nav bar -->
+<section class="header">                        <!-- side nav bar -->
+    <div id="sidebar">
         <div class="toggle-btn">
             <span>&#9776</span>
         </div>
@@ -22,30 +22,34 @@
             <li><a href="/login">login</a></li>
             <li><a href="/cart"> Carrito </a></li>
             <li><a href="/comments"> Comentarios </a></li>
+            <li><a href="/coupons">Cupones</a></li>
         </ul>
     </div>
 </section>
 
 <div class="clearfix"></div>
-<section id="itemList">
-    <h2> Comentarios: </h2>
-    <br/>
-    {{#comment}}
-      <h4> Usuario: {{user}} </h4> <p> {{{content}}}</p><br/><br/>
-    {{/comment}}
-    <p>Haga click <a href="/NewComment">AQUÍ</a> para añadir un nuevo comentario </p>
+
+<section id="couponList">           <!-- will print out all the available items -->
+    <h2>Los items disponibles en nuestra tienda son:</h2>
+    {{#coupons}}
+        <p>Código del cupón: {{cuponID}}<br>Descuento aplicado: {{descuento}}%</p><br><br>
+    {{/coupons}}
+    <br/><br/>
+    <p>Pulse <a href="NewCoupon.html">AQUI</a> para añadir otro cupón</p>
 </section>
+
 <div class="clearfix"></div>
 
 <section id="ShrekIsWatching">
     <img width="200px" src="img/ShrekTeVigila.png">        <!--just Shrek watching you browse items-->
 </section>
 
-    <footer>
-        StinkyWear &copy; 2022
-    </footer>
+<footer>
+    StinkyWear &copy; 2022
+</footer>
+
 <div class="cursor"></div>
 <script src="http://localhost:8080/cursor.js"></script>
-<script src="http://localhost:8080/lateralBar.js"></script>
+<script src="lateralBar.js"></script>
 </body>
 </html>

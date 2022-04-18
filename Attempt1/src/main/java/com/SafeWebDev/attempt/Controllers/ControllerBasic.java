@@ -124,7 +124,7 @@ public class ControllerBasic {
     @GetMapping("/item/del/{id}")
     public String delFromList(@PathVariable int id){
         itemService.delete(itemService.findById(id));
-        return "ItemDeleted";
+        return "ItemDeletedCompletely";
 
     }
 
@@ -205,7 +205,7 @@ public class ControllerBasic {
         comment.setContent(content);
         comment.setUser(user);*/
         commentService.addComment(comment);
-        return "ItemAdded";
+        return "CommentAdded";
     }
 
     @GetMapping("/payments")

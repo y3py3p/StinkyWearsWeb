@@ -3,12 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>Comments</title>
+    <link rel="stylesheet" href="http://localhost:8080/cursor.css"/>
+    <link rel="stylesheet" href="http://localhost:8080/main.css"/>
+    <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png"/>
+    <audio src="http://localhost:8080/img/todountemazo3.mp3" autoplay loop></audio>
 </head>
 <body>
-    {{#comment}}
-    <p> Usuario: {{user}} <br>contenido: {{{content}}}</p>
-    {{/comment}}
+<section class="header">
+    <div id="sidebar">                          <!-- side nav bar -->
+        <div class="toggle-btn">
+            <span>&#9776</span>
+        </div>
+        <ul>
+            <img src="http://localhost:8080/img/ouuushrek.png" alt="Logo Fazt" class="logo"> <br/>
+            <li><a href="/">MainPage</a></li>
+            <li><a href="/items">Items</a></li>
+            <li><a href="/usr">MyUser</a></li>
+            <li><a href="/login">login</a></li>
+            <li><a href="/cart"> Carrito </a></li>
+            <li><a href="/comments"> Comentarios </a></li>
+        </ul>
+    </div>
+</section>
 
-<a href="/NewComment"> nuevo comentario</a>
+<div class="clearfix"></div>
+<section id="itemList">
+    <h2> Comentarios: </h2>
+    <br/>
+    {{#comment}}
+      <h4> Usuario: {{user}} </h4> <p> {{{content}}}</p><br/><br/>
+    {{/comment}}
+    <p>Haga click <a href="/NewComment">AQUÍ</a> para añadir un nuevo comentario </p>
+</section>
+<div class="clearfix"></div>
+
+<section id="ShrekIsWatching">
+    <img width="200px" src="img/ShrekTeVigila.png">        <!--just Shrek watching you browse items-->
+</section>
+
+    <footer>
+        StinkyWear &copy; 2022
+    </footer>
+<div class="cursor"></div>
+<script src="http://localhost:8080/cursor.js"></script>
+<script src="http://localhost:8080/lateralBar.js"></script>
 </body>
 </html>

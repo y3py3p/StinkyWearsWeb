@@ -74,7 +74,7 @@ public class Item{
         this.productPrice = productPrice;
     }
 
-    public void setstate(String state) {
+    public void setCondition(String state) {
         this.productCondition = state;
     }
 

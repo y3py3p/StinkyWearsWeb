@@ -222,19 +222,22 @@ public class ControllerBasic {
 
     @PostMapping("/price/final")
     public String finalPrice(Model model, @RequestParam long cupon){
+        /*if(cupon==null){
+            model.addAttribute("precioFinal", currentUser.getPrice());
+            return "SuccessfulPurchase";
+        }
+        else */if(!cuponService.exists(cupon)){
+            model.addAttribute("precioFinal", currentUser.getPrice());
+            return "SuccessfulPurchase";
 
-        Cupon cupone = cuponService.findById(cupon);
+        } else {
+            Cupon cupone = cuponService.findById(cupon);
 
-        /*if(currentUser.sameCupon(cupon)){
-            model.addAttribute("precio", currentUser.priceCupon(cupon));
-        }else{
-            model.addAttribute("precio", currentUser.getPrice());
-        }*/
-        model.addAttribute("precioInicial",currentUser.getPrice());
-        model.addAttribute("descuento",cupone.getDescuento());
-        model.addAttribute("precioFinal", currentUser.priceCupon(cupone));
+            model.addAttribute("precioFinal", currentUser.priceCupon(cupone));
 
-        return "FinalPrice";
+            return "SuccessfulPurchase";
+        }
+
     }
 
 
@@ -253,11 +256,13 @@ public class ControllerBasic {
 
     @PostMapping("/search")
     public String searchByName(Model model, @RequestBody String name){
+        entityManager.getTransaction().begin();
         TypedQuery<Item> q1=entityManager.createQuery("SELECT c FROM Item c WHERE lower(c.productName)=lower(:name)",Item.class).setParameter("name",name);
         List<Item> items=q1.getResultList();
         model.addAttribute("items",items);
         return "ItemsList";
     }
+
 
     /*@GetMapping("/testform")
     public String testform(){

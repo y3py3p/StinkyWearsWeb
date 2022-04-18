@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -59,8 +60,12 @@ public class ControllerBasic {
     }
 
     @PostMapping("/editting/{id}")  //edit an item
-    public String updatingItem(Model model,@PathVariable long id,Item item){
-        itemService.findById(id).update(item);
+    public String updatingItem(Model model,@PathVariable long id, Item item){
+
+        Item aux = itemService.findById(id);
+        aux.update(item);
+        itemService.add(aux);
+
         return "ItemEdited";
     }
 
@@ -216,7 +221,6 @@ public class ControllerBasic {
     public String searchByName(Model model, @RequestParam String name){
 
         String webo = name.replaceAll(".*([';]+|(--)+).*", " ");
-        System.out.println(webo);
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         TypedQuery<Item> q1=entityManager.createQuery("SELECT c FROM Item c WHERE c.productName like concat('%',:webo,'%')",Item.class).setParameter("webo",webo);

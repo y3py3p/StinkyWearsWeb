@@ -226,12 +226,12 @@ public class ControllerBasic {
         return "CouponAdded";
     }
 
-    /*@PostMapping("/search")
+    @PostMapping("/search")
     public String searchByName(Model model, @RequestBody String name){
-        TypedQuery<Item> q1=entityManager.createQuery("SELECT c FROM itemtable c WHERE lower(c.product_name)=lower(:name)",Item.class).setParameter("name",name);
+        TypedQuery<Item> q1=entityManager.createQuery("SELECT c FROM Item c WHERE lower(c.productName)=lower(:name)",Item.class).setParameter("name",name);
         List<Item> items=q1.getResultList();
         model.addAttribute("items",items);
         return "ItemsList";
-    }*/
+    }
 
 }

@@ -10,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @RestController
@@ -25,6 +28,8 @@ public class ItemRESTController {
     private CommentService commentService;
     @Autowired
     private CuponService cuponService;
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;
 
     private User currentUser;
 
@@ -51,7 +56,7 @@ public class ItemRESTController {
 
     }
 
-    @GetMapping("/del/{id}")
+    @GetMapping("/del/{id}")    //delete an item
     public ResponseEntity<Item> deleteItem(@PathVariable long id){
         itemService.delete(itemService.findById(id));
         return new ResponseEntity<>(itemService.findById(id),HttpStatus.ACCEPTED);
@@ -78,7 +83,7 @@ public class ItemRESTController {
 
     }
 
-    @PostMapping("/newUser")
+    /*@PostMapping("/newUser")
     public ResponseEntity<User> newUser(@RequestBody User user){
 
         userService.saveUser(user);
@@ -86,7 +91,7 @@ public class ItemRESTController {
         currentUser=user;
 
         return new ResponseEntity<>(user, HttpStatus.CREATED);
-    }
+    }*/
 
     @GetMapping("/addCart/{id}")    //add item to cart
     public ResponseEntity<List<Item>> addCart(@PathVariable long id){
@@ -134,21 +139,41 @@ public class ItemRESTController {
         return new ResponseEntity<>(comment,HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/coupons")
+    @PostMapping("/coupon/new") //create a coupon
+    public ResponseEntity<Cupon> createCoupon(@RequestBody Cupon coupon){
+        cuponService.addCupon(coupon);
+        return new ResponseEntity<>(coupon, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/coupons") //see the coupons
     public ResponseEntity<List<Cupon>> getCupons(){
         return new ResponseEntity<>(currentUser.getCupones(), HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/pay")
+    @GetMapping("/pay") //pay
     public ResponseEntity<Float> pay(){
 
         return new ResponseEntity<>(currentUser.getPrice(), HttpStatus.ACCEPTED);
     }
 
-    @PostMapping("pay/cupon")
-    public ResponseEntity<Float> payCupons(@RequestParam long cupId){
+    @GetMapping("pay/cupon/{id}")   //pay with coupons
+    public ResponseEntity<Float> payCupons(@PathVariable long id){
 
-        return new ResponseEntity<>(currentUser.priceCupon(cuponService.findById(cupId)), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(currentUser.priceCupon(cuponService.findById(id)), HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/search/{name}")   //search by name
+    public ResponseEntity<List<Item>> searchByName(@PathVariable String name){
+
+        String webo = name.replaceAll(".*([';]+|(--)+).*", " ");
+        System.out.println(webo);
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        TypedQuery<Item> q1=entityManager.createQuery("SELECT c FROM Item c WHERE c.productName like concat('%',:webo,'%')",Item.class).setParameter("webo",webo);
+        List<Item> items=q1.getResultList();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        return new ResponseEntity<>(items, HttpStatus.ACCEPTED);
     }
 
 }

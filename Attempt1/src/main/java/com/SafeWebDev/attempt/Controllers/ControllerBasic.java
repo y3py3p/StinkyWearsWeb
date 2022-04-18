@@ -2,6 +2,8 @@ package com.SafeWebDev.attempt.Controllers;
 
 import com.SafeWebDev.attempt.Models.*;
 import com.SafeWebDev.attempt.Models.Services.*;
+import org.owasp.html.PolicyFactory;
+import org.owasp.html.Sanitizers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,10 @@ import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.regex.Pattern;
+
+import org.owasp.html.HtmlPolicyBuilder;
+import org.owasp.html.HtmlSanitizer;
 
 @Controller
 public class ControllerBasic {
@@ -175,10 +181,24 @@ public class ControllerBasic {
         return "NewComment";
     }
 
-    @RequestMapping("/createComment")
-    public String createComment(@RequestParam String content){
+    @PostMapping("/createComment")
+    public String createComment(@RequestParam String content,@RequestParam String user){
+        PolicyFactory sanitizer=new HtmlPolicyBuilder()
+                .allowStandardUrlProtocols()
+                .allowAttributes("title").globally() //We allow the title attribute wherever it is
+                .allowAttributes("href").onElements("a") //We allow the use of link in elements of type <a>
+                .requireRelNofollowOnLinks() //Because we allow link, we use this option t avoid spamming
+                .allowAttributes("lang").matching(Pattern.compile("[a-zA-Z]{2,20}")).globally() //Allow alphabetic values in lang attributes wherever it is
+                .allowAttributes("align").matching(true,"left","rigth","center",
+                        "justify","char").onElements("p") //Allow alignment options in <p> elements
+                .allowElements("a","p","div","i","b","em","blockquote","tt","strong",
+                        "br","ul","ol","li") //List of all the elements that are allowed in our "String"
+                .toFactory(); //Make it be a factory so that the Policy Builder matches the PolicyFactory type
+        String sanitized=sanitizer.sanitize(content);
+        String sanUser=sanitizer.sanitize(user);
         Comment comment=new Comment();
-        comment.setContent(content);
+        comment.setContent(sanitized);
+        comment.setUser(sanUser);
         commentService.addComment(comment);
         return "ItemAdded";
     }
@@ -233,5 +253,30 @@ public class ControllerBasic {
         model.addAttribute("items",items);
         return "ItemsList";
     }
+
+    /*@GetMapping("/testform")
+    public String testform(){
+        return "TestForm";
+    }
+
+    @PostMapping("/test")
+    public String test(Model model,@RequestParam String texto){
+        PolicyFactory sanitizer=new HtmlPolicyBuilder()
+                .allowStandardUrlProtocols()
+                .allowAttributes("title").globally() //We allow the title attribute wherever it is
+                .allowAttributes("href").onElements("a") //We allow the use of link in elements of type <a>
+                .requireRelNofollowOnLinks() //Because we allow link, we use this option t avoid spamming
+                .allowAttributes("lang").matching(Pattern.compile("[a-zA-Z]{2,20}")).globally() //Allow alphabetic values in lang attributes wherever it is
+                .allowAttributes("align").matching(true,"left","rigth","center",
+                        "justify","char").onElements("p") //Allow alignment options in <p> elements
+                .allowElements("a","p","div","i","b","em","blockquote","tt","strong",
+                        "br","ul","ol","li") //List of all the elements that are allowed in our "String"
+                .toFactory(); //Make it be a factory so that the Policy Builder matches the PolicyFactory type
+        PolicyFactory sanitizer2=Sanitizers.FORMATTING.and(Sanitizers.LINKS);//Pasamos otra politica para mas seguridad
+        String sanitized=sanitizer.sanitize(texto);
+        String sanitized2=sanitizer2.sanitize(sanitized);
+        model.addAttribute("texto",sanitized2);
+        return "Test";
+    }*/
 
 }

@@ -10,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @RestController
@@ -25,6 +28,8 @@ public class ItemRESTController {
     private CommentService commentService;
     @Autowired
     private CuponService cuponService;
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;
 
     private User currentUser;
 
@@ -134,6 +139,12 @@ public class ItemRESTController {
         return new ResponseEntity<>(comment,HttpStatus.ACCEPTED);
     }
 
+    @PostMapping("/coupon/new")
+    public ResponseEntity<Cupon> createCoupon(@RequestBody Cupon coupon){
+        cuponService.addCupon(coupon);
+        return new ResponseEntity<>(coupon, HttpStatus.CREATED);
+    }
+
     @GetMapping("/coupons")
     public ResponseEntity<List<Cupon>> getCupons(){
         return new ResponseEntity<>(currentUser.getCupones(), HttpStatus.ACCEPTED);
@@ -145,10 +156,24 @@ public class ItemRESTController {
         return new ResponseEntity<>(currentUser.getPrice(), HttpStatus.ACCEPTED);
     }
 
-    @PostMapping("pay/cupon")
-    public ResponseEntity<Float> payCupons(@RequestParam long cupId){
+    @GetMapping("pay/cupon/{id}")
+    public ResponseEntity<Float> payCupons(@PathVariable long id){
 
-        return new ResponseEntity<>(currentUser.priceCupon(cuponService.findById(cupId)), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(currentUser.priceCupon(cuponService.findById(id)), HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/search/{name}")
+    public ResponseEntity<List<Item>> searchByName(@PathVariable String name){
+
+        String webo = name.replaceAll(".*([';]+|(--)+).*", " ");
+        System.out.println(webo);
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        TypedQuery<Item> q1=entityManager.createQuery("SELECT c FROM Item c WHERE c.productName like concat('%',:webo,'%')",Item.class).setParameter("webo",webo);
+        List<Item> items=q1.getResultList();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        return new ResponseEntity<>(items, HttpStatus.ACCEPTED);
     }
 
 }

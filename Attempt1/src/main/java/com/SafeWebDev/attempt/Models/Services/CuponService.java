@@ -22,4 +22,7 @@ public class CuponService {
     public void addCupon(Cupon coupon){
         cuponRespository.save(coupon);
     }
+    public boolean exists(long id){
+        return cuponRespository.existsById(id);
+    }
 }

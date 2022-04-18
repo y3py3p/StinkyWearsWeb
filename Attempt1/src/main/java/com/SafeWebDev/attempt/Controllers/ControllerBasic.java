@@ -51,14 +51,14 @@ public class ControllerBasic {
         return "StartPage";
     }
 
-    @GetMapping("/item/edit/{id}")
+    @GetMapping("/item/edit/{id}")  //edit an item
     public String updateItem(Model model,@PathVariable long id){
 
         model.addAttribute("item", itemService.findById(id));
         return "ItemEdit";
     }
 
-    @PostMapping("/editting/{id}")
+    @PostMapping("/editting/{id}")  //edit an item
     public String updatingItem(Model model,@PathVariable long id,Item item){
         itemService.findById(id).update(item);
         return "ItemEdited";
@@ -91,7 +91,7 @@ public class ControllerBasic {
         return "ItemsList";
     }
 
-    @GetMapping("/item/del/{id}")
+    @GetMapping("/item/del/{id}")   //delete an item
     public String delFromList(@PathVariable int id){
         itemService.delete(itemService.findById(id));
         return "ItemDeletedCompletely";
@@ -167,19 +167,19 @@ public class ControllerBasic {
         return "CommentAdded";
     }
 
-    @GetMapping("/payments")
+    @GetMapping("/payments")    //see what you have to pay
     public String payment(Model model){
         model.addAttribute("cart",currentUser.getCart());
         return "Payments";
     }
 
-    @GetMapping("/pay")
+    @GetMapping("/pay") //pay
     public String pay(Model model){
         model.addAttribute("precio",currentUser.getPrice());
         return "PayForm";
     }
 
-    @PostMapping("/price/final")
+    @PostMapping("/price/final")        //final price
     public String finalPrice(Model model, @RequestParam long cupon){
 
         Cupon cupone = cuponService.findById(cupon);

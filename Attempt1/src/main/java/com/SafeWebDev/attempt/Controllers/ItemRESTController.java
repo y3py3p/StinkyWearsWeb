@@ -56,7 +56,7 @@ public class ItemRESTController {
 
     }
 
-    @GetMapping("/del/{id}")
+    @GetMapping("/del/{id}")    //delete an item
     public ResponseEntity<Item> deleteItem(@PathVariable long id){
         itemService.delete(itemService.findById(id));
         return new ResponseEntity<>(itemService.findById(id),HttpStatus.ACCEPTED);
@@ -83,7 +83,7 @@ public class ItemRESTController {
 
     }
 
-    @PostMapping("/newUser")
+    /*@PostMapping("/newUser")
     public ResponseEntity<User> newUser(@RequestBody User user){
 
         userService.saveUser(user);
@@ -91,7 +91,7 @@ public class ItemRESTController {
         currentUser=user;
 
         return new ResponseEntity<>(user, HttpStatus.CREATED);
-    }
+    }*/
 
     @GetMapping("/addCart/{id}")    //add item to cart
     public ResponseEntity<List<Item>> addCart(@PathVariable long id){
@@ -139,30 +139,30 @@ public class ItemRESTController {
         return new ResponseEntity<>(comment,HttpStatus.ACCEPTED);
     }
 
-    @PostMapping("/coupon/new")
+    @PostMapping("/coupon/new") //create a coupon
     public ResponseEntity<Cupon> createCoupon(@RequestBody Cupon coupon){
         cuponService.addCupon(coupon);
         return new ResponseEntity<>(coupon, HttpStatus.CREATED);
     }
 
-    @GetMapping("/coupons")
+    @GetMapping("/coupons") //see the coupons
     public ResponseEntity<List<Cupon>> getCupons(){
         return new ResponseEntity<>(currentUser.getCupones(), HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/pay")
+    @GetMapping("/pay") //pay
     public ResponseEntity<Float> pay(){
 
         return new ResponseEntity<>(currentUser.getPrice(), HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("pay/cupon/{id}")
+    @GetMapping("pay/cupon/{id}")   //pay with coupons
     public ResponseEntity<Float> payCupons(@PathVariable long id){
 
         return new ResponseEntity<>(currentUser.priceCupon(cuponService.findById(id)), HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/search/{name}")
+    @GetMapping("/search/{name}")   //search by name
     public ResponseEntity<List<Item>> searchByName(@PathVariable String name){
 
         String webo = name.replaceAll(".*([';]+|(--)+).*", " ");

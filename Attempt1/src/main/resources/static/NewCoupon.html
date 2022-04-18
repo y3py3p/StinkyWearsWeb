@@ -26,6 +26,7 @@
                 <li><a href="/usr">MyUser</a></li>
                 <li><a href="/login">login</a></li>
                 <li><a href="/cart"> Carrito </a></li>
+                <li><a href="/comments">Comentarios</a></li>
                 <li><a href="/coupons">Cupones</a></li>
             </ul>
         </div>
@@ -38,10 +39,10 @@
     <h2>Rellene los campos para añadir un nuevo cupón:</h2>        <!-- will collect all the info needed in order to create/add a new item -->
     <form action="coupon/new" method="post">
                 <h4> Descuento del nuevo cupón:<br/>
-            <input type="number" name="descuento" min="1" max="100" placeholder="Descuento"></h4>        <!-- type its price (number) -->
-        <h2><button class="buttons" type="submit">Enviar</button></h2>              <!-- click to submit the info -->
-    </form>
-    <br><p>El código de cupón se genera de manera automática, para verlo diríjase a la página de cupones</p>
+            <input type="number" name="descuento" min="1" max="99" placeholder="Descuento"></h4><br/>        <!-- type its price (number) -->
+        <p><button class="buttons" type="submit">Crear</button></p>              <!-- click to submit the info -->
+    </form><br/>
+    <p>El código de cupón se genera de manera automática, para verlo diríjase a la página de cupones</p><br/>
 </section>
 
 <div class="clearfix"></div>

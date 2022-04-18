@@ -29,12 +29,12 @@
 
 <div class="clearfix"></div>
 
-<section id="couponList">           <!-- will print out all the available items -->
+<section id="itemList">           <!-- will print out all the available items -->
     <h2>Los items disponibles en nuestra tienda son:</h2>
     {{#coupons}}
         <p>Código del cupón: {{cuponID}}<br>Descuento aplicado: {{descuento}}%</p><br><br>
     {{/coupons}}
-    <br/><br/>
+    <br/>
     <p>Pulse <a href="NewCoupon.html">AQUI</a> para añadir otro cupón</p>
 </section>
 

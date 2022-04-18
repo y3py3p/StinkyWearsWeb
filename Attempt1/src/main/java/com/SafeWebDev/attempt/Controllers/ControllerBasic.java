@@ -181,13 +181,21 @@ public class ControllerBasic {
 
     @PostMapping("/price/final")        //final price
     public String finalPrice(Model model, @RequestParam long cupon){
+        /*if(cupon==null){
+            model.addAttribute("precioFinal", currentUser.getPrice());
+            return "SuccessfulPurchase";
+        }
+        else */if(!cuponService.exists(cupon)){
+            model.addAttribute("precioFinal", currentUser.getPrice());
+            return "SuccessfulPurchase";
+        } else {
+            Cupon cupone = cuponService.findById(cupon);
 
-        Cupon cupone = cuponService.findById(cupon);
-        model.addAttribute("precioInicial",currentUser.getPrice());
-        model.addAttribute("descuento",cupone.getDescuento());
-        model.addAttribute("precioFinal", currentUser.priceCupon(cupone));
+            model.addAttribute("precioFinal", currentUser.priceCupon(cupone));
 
-        return "FinalPrice";
+            return "SuccessfulPurchase";
+        }
+
     }
 
 
@@ -218,5 +226,4 @@ public class ControllerBasic {
         model.addAttribute("items",items);
         return "ItemsList";
     }
-
 }

@@ -45,7 +45,7 @@ public class ItemService {
 
     public void updateItem(long id, Item item){
 
-        Item updated = findById(id);
+        Item updated = itemRepository.findById(id);
         updated.update(item);
         itemRepository.save(updated);
     }

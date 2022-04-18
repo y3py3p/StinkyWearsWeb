@@ -183,7 +183,7 @@ public class ControllerBasic {
 
     @PostMapping("/createComment")
     public String createComment(@RequestParam String content,@RequestParam String user){
-        PolicyFactory sanitizer=new HtmlPolicyBuilder()
+       PolicyFactory sanitizer=new HtmlPolicyBuilder()
                 .allowStandardUrlProtocols()
                 .allowAttributes("title").globally() //We allow the title attribute wherever it is
                 .allowAttributes("href").onElements("a") //We allow the use of link in elements of type <a>
@@ -191,14 +191,19 @@ public class ControllerBasic {
                 .allowAttributes("lang").matching(Pattern.compile("[a-zA-Z]{2,20}")).globally() //Allow alphabetic values in lang attributes wherever it is
                 .allowAttributes("align").matching(true,"left","rigth","center",
                         "justify","char").onElements("p") //Allow alignment options in <p> elements
+               .allowAttributes("style").onElements("span")
                 .allowElements("a","p","div","i","b","em","blockquote","tt","strong",
-                        "br","ul","ol","li") //List of all the elements that are allowed in our "String"
+                        "br","ul","ol","li", "span") //List of all the elements that are allowed in our "String"
                 .toFactory(); //Make it be a factory so that the Policy Builder matches the PolicyFactory type
         String sanitized=sanitizer.sanitize(content);
         String sanUser=sanitizer.sanitize(user);
         Comment comment=new Comment();
         comment.setContent(sanitized);
         comment.setUser(sanUser);
+
+        /*Comment comment=new Comment();
+        comment.setContent(content);
+        comment.setUser(user);*/
         commentService.addComment(comment);
         return "ItemAdded";
     }

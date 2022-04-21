@@ -1,24 +1,31 @@
 package com.SafeWebDev.attempt.Controllers;
 
-import com.SafeWebDev.attempt.Models.*;
-import com.SafeWebDev.attempt.Models.Services.*;
-import org.owasp.html.PolicyFactory;
-import org.owasp.html.Sanitizers;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.util.List;
-import java.util.regex.Pattern;
+
+import com.SafeWebDev.attempt.Models.Comment;
+import com.SafeWebDev.attempt.Models.Cupon;
+import com.SafeWebDev.attempt.Models.Item;
+import com.SafeWebDev.attempt.Models.User;
+import com.SafeWebDev.attempt.Models.Services.CommentService;
+import com.SafeWebDev.attempt.Models.Services.CuponService;
+import com.SafeWebDev.attempt.Models.Services.ItemService;
+import com.SafeWebDev.attempt.Models.Services.UserService;
 
 import org.owasp.html.HtmlPolicyBuilder;
-import org.owasp.html.HtmlSanitizer;
+import org.owasp.html.PolicyFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ControllerBasic {

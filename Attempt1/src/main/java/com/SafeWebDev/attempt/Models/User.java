@@ -38,6 +38,10 @@ public class User {
         this.personalName = personalName;
     }
 
+    public void addCupon(Cupon cupon){
+        this.cupones.add(cupon);
+    }
+
     public List<Cupon> getCupones(){
         return cupones;
     }
@@ -111,6 +115,11 @@ public class User {
             return false;
         }
     }*/
+
+    @Override
+    public String toString() {
+        return "userName=" + userName;
+    }
 
     public void addCart(Item item){
         this.cart.add(item);

@@ -30,12 +30,12 @@ public class User {
 
 
 
-    public User(String userName, String correo, String userPass, String address, String personalName) {
+    public User(String userName, String correo, String userPass, String address/*, String personalName*/) {
         this.userName = userName;
         this.email = correo;
         this.userPass = userPass;
         this.address = address;
-        this.personalName = personalName;
+        //this.personalName = personalName;
     }
 
     public List<Cupon> getCupones(){

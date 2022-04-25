@@ -3,7 +3,6 @@ package com.SafeWebDev.attempt.Controllers;
 import com.SafeWebDev.attempt.Models.*;
 import com.SafeWebDev.attempt.Models.Services.*;
 import org.owasp.html.PolicyFactory;
-import org.owasp.html.Sanitizers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,13 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.regex.Pattern;
 
 import org.owasp.html.HtmlPolicyBuilder;
-import org.owasp.html.HtmlSanitizer;
 
 @Controller
 public class ControllerBasic {
@@ -43,7 +40,7 @@ public class ControllerBasic {
 
     @PostConstruct
     public void init(){
-        currentUser=new User("webo","webotes","webazos","webitos","weboncio");
+        currentUser=new User("webo","webotes","webazos","webitos"/*,"weboncio"*/);
     }
 
 
@@ -127,14 +124,28 @@ public class ControllerBasic {
     }
 
     @GetMapping("/login")   //redirect to LogIn.html, where you'll be able to log in
-    public String logIn(){
+    public String logIn(Model model) {
+
+
         return "LogIn";
+
     }
 
-    @GetMapping("/createAccount")   //redirect to CreateAccount.html, to sign up
+    @GetMapping("/loggedIn")
+    public String loggedIn(){
+        return "hoola";
+    }
+
+   /* @GetMapping("/createAccount")   //redirect to CreateAccount.html, to sign up
     public String createAccount(){
         return "CreateAccount";
 
+    }*/
+
+    @PostMapping("/account/created")
+    public String createdAccount(Model model, User user){
+        userService.saveUser(user);
+        return "AccountCreated";
     }
 
     @GetMapping("/comments")    //see every comment in our database

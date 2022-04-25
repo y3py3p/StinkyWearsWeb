@@ -30,17 +30,19 @@
 <div class="clearfix"></div>
 
     <section class="form-register">        <!-- registration form -->
+        <form action="account/created" method="post">
         <h2>Rellene los campos para crear su cuenta</h2>
         <h4> User name:<br/>
-            <input class="controls" type="text" name="nombre" id="user" placeholder="-"></h4>
+            <input class="controls" type="text" name="name" id="user" placeholder="-"></h4>
         <h4> Correo:<br/>
             <input class="controls" type="email" name="email" id="email" placeholder="-"></h4>
         <h4> Contraseña:<br/>
             <input class="controls" type="password" name="password" id="password" placeholder="********"></h4>
         <h4> Dirección:<br/>
-            <input class="controls" type="text" name="direccion" id="direccion" placeholder="-"></h4>
+            <input class="controls" type="text" name="address" id="direccion" placeholder="-"></h4>
         <br/>
-        <h2><button class="buttons" type="submit"><a href="/usr">Crear</a></button></h2>
+            <h2><button class="buttons" type="submit">Enviar</button></h2>
+        </form>
     </section>
 
 <div class="clearfix"></div>

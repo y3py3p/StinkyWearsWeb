@@ -142,14 +142,20 @@ public class ControllerBasic {
 
     @GetMapping("/login")   //redirect to LogIn.html, where you'll be able to log in
     public String logIn(Model model) {
+        model.addAttribute("aviso", "");
         return "LogIn";
 
     }
-    @PostMapping("/login")   //redirect to LogIn.html, where you'll be able to log in
+    @PostMapping("/login")   //logs the user in and displays the user page with the user already swapped
     public String logInPost(Model model,@RequestParam String userName,@RequestParam String password) {
-        model.addAttribute("user",userService.findByName(userName) );
-        return "UsrPage";
-
+        if(userService.findByName(userName,password)!=null){
+            currentUser=userService.findByName(userName,password);
+            model.addAttribute("user",currentUser);
+            return "UsrPage";
+        }else{
+            model.addAttribute("aviso", "El nombre de usuario no correponde con ninguno registrado en nuestra base de datos");
+            return "LogIn";
+        }
     }
 
     @GetMapping("/loggedIn")

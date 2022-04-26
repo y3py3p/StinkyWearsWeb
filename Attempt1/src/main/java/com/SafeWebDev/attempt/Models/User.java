@@ -30,12 +30,16 @@ public class User {
 
 
 
-    public User(String userName, String correo, String userPass, String address, String personalName) {
+    public User(String userName, String correo, String userPass, String address/*, String personalName*/) {
         this.userName = userName;
         this.email = correo;
         this.userPass = userPass;
         this.address = address;
-        this.personalName = personalName;
+        //this.personalName = personalName;
+    }
+
+    public void addCupon(Cupon cupon){
+        this.cupones.add(cupon);
     }
 
     public List<Cupon> getCupones(){
@@ -111,6 +115,11 @@ public class User {
             return false;
         }
     }*/
+
+    @Override
+    public String toString() {
+        return "userName=" + userName;
+    }
 
     public void addCart(Item item){
         this.cart.add(item);

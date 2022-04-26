@@ -25,4 +25,12 @@ public class Cupon {
     public int getDescuento() {
         return descuento;
     }
+
+    @Override
+    public String toString() {
+        return "Cupon{" +
+                "cuponID=" + cuponID +
+                ", descuento=" + descuento +
+                '}';
+    }
 }

@@ -1,21 +1,38 @@
 package com.SafeWebDev.attempt.Controllers;
 
+import java.util.List;
+import java.util.regex.Pattern;
 import com.SafeWebDev.attempt.Models.*;
-import com.SafeWebDev.attempt.Models.Services.*;
 import org.owasp.html.PolicyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
-import java.util.List;
-import java.util.regex.Pattern;
+
+import com.SafeWebDev.attempt.Models.Comment;
+import com.SafeWebDev.attempt.Models.Cupon;
+import com.SafeWebDev.attempt.Models.Item;
+import com.SafeWebDev.attempt.Models.User;
+import com.SafeWebDev.attempt.Models.Services.CommentService;
+import com.SafeWebDev.attempt.Models.Services.CuponService;
+import com.SafeWebDev.attempt.Models.Services.ItemService;
+import com.SafeWebDev.attempt.Models.Services.UserService;
 
 import org.owasp.html.HtmlPolicyBuilder;
+import org.owasp.html.PolicyFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ControllerBasic {
@@ -125,9 +142,13 @@ public class ControllerBasic {
 
     @GetMapping("/login")   //redirect to LogIn.html, where you'll be able to log in
     public String logIn(Model model) {
-
-
         return "LogIn";
+
+    }
+    @PostMapping("/login")   //redirect to LogIn.html, where you'll be able to log in
+    public String logInPost(Model model,@RequestParam String userName,@RequestParam String password) {
+        model.addAttribute("user",userService.findByName(userName) );
+        return "UsrPage";
 
     }
 
@@ -145,6 +166,7 @@ public class ControllerBasic {
     @PostMapping("/account/created")
     public String createdAccount(Model model, User user){
         userService.saveUser(user);
+        currentUser=user;
         return "AccountCreated";
     }
 
@@ -203,11 +225,13 @@ public class ControllerBasic {
         }
         else */if(!cuponService.exists(cupon)){
             model.addAttribute("precioFinal", currentUser.getPrice());
+            currentUser.emptyCart();
+
             return "SuccessfulPurchase";
         } else {
             Cupon cupone = cuponService.findById(cupon);
-
             model.addAttribute("precioFinal", currentUser.priceCupon(cupone));
+            currentUser.emptyCart();
 
             return "SuccessfulPurchase";
         }

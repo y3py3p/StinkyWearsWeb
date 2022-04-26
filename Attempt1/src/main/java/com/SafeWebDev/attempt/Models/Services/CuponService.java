@@ -25,4 +25,8 @@ public class CuponService {
     public boolean exists(long id){
         return cuponRespository.existsById(id);
     }
+
+    public List<Cupon> getCupons(){
+        return cuponRespository.findAll();
+    }
 }

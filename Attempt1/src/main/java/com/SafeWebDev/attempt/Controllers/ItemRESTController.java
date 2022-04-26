@@ -142,6 +142,7 @@ public class ItemRESTController {
     @PostMapping("/coupon/new") //create a coupon
     public ResponseEntity<Cupon> createCoupon(@RequestBody Cupon coupon){
         cuponService.addCupon(coupon);
+        currentUser.addCupon(coupon);
         return new ResponseEntity<>(coupon, HttpStatus.CREATED);
     }
 

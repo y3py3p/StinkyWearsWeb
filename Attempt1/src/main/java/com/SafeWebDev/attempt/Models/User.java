@@ -38,10 +38,6 @@ public class User {
         //this.personalName = personalName;
     }
 
-    public List<Cupon> getCupones(){
-        return cupones;
-    }
-
     public User(String userName){
         this.userName = userName;
     }
@@ -49,6 +45,35 @@ public class User {
     public User(){
 
     }
+
+    public void setUserName(String user){
+        this.userName=user;
+    }
+
+    public void setUserPass(String pass){
+        this.userPass=pass;
+    }
+
+    public void setAddress(String address){
+        this.address=address;
+    }
+
+    public void setEmail(String email){
+        this.email=email;
+    }
+
+    public void addCupon(Cupon cupon){
+        this.cupones.add(cupon);
+    }
+
+    public List<Cupon> getCupones(){
+        return cupones;
+    }
+
+    public void emptyCart(){
+        this.cart.clear();
+    }
+
 
     public List<Item> getCart() {
         return cart;
@@ -88,29 +113,11 @@ public class User {
         return this.userPass.equals(user.userPass);
     }
 
-    public String getUser() {
-        return userName;
-    }
 
-    public void setUser(String userName) {
-        this.userName = userName;
+    @Override
+    public String toString() {
+        return "userName=" + userName;
     }
-
-    public String getPassword() {
-        return userPass;
-    }
-
-    public void setPassword(String userPass) {
-        this.userPass = userPass;
-    }
-
-    /*public boolean cartContains(Item item){
-        if(cart.contains(item)){
-            return true;
-        }else{
-            return false;
-        }
-    }*/
 
     public void addCart(Item item){
         this.cart.add(item);
@@ -120,12 +127,5 @@ public class User {
         this.cart.remove(id);
     }
 
-    /*public long getId() {
-        return id;
-    }
-
-    public void setId(long id){
-        this.id=id;
-    }*/
 
 }

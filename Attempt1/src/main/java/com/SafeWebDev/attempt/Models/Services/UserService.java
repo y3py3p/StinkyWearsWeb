@@ -20,6 +20,10 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public User findByName(String name){
+        return userRepository.findByName(name);
+    }
+
     /*public boolean logedIn(){
 
         if(currentUser != null){

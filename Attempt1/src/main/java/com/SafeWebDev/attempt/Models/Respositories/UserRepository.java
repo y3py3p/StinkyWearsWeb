@@ -2,11 +2,11 @@ package com.SafeWebDev.attempt.Models.Respositories;
 
 import com.SafeWebDev.attempt.Models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
-
-    /*@Query("select cart from user")
-    List<Item> getCart();*/
+    @Query("SELECT u FROM User u WHERE u.userName = ?1")
+    public User findByName(String name);
 }

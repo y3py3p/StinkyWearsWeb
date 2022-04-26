@@ -12,8 +12,9 @@
     <br/><br/><br/><br/><br/><br/><br/>
 <section class="register-form">                         <!-- login form -->
     <h2>Inicia sesion</h2>
-    <form action="" method="post">
+    <form action="/login" method="post">
     <p><input class="controls" type="text" name="userName" id="userName" placeholder="Introduce tu nombre de usuario"></p>
+    <br><p style="color:red">{{aviso}}</p><br>
     <p><input class="controls" type="password" name="password" id="password" placeholder="Introduce tu contraseña"></p><br/>
     <p><button class="buttons" type="submit">Sign in</button></p>
     <br><p><a href="http://localhost:8080/CreateAccount.html">¿No tienes cuenta? Registrate</a><!-- link in case you don't have an account --> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

@@ -57,7 +57,7 @@ public class ControllerBasic {
 
     @PostConstruct
     public void init(){
-        currentUser=new User("webo","webotes","webazos","webitos"/*,"weboncio"*/);
+        currentUser=new User("webo",null,null,null);
     }
 
 
@@ -142,14 +142,20 @@ public class ControllerBasic {
 
     @GetMapping("/login")   //redirect to LogIn.html, where you'll be able to log in
     public String logIn(Model model) {
+        model.addAttribute("aviso", "");
         return "LogIn";
 
     }
-    @PostMapping("/login")   //redirect to LogIn.html, where you'll be able to log in
+    @PostMapping("/login")   //logs the user in and displays the user page with the user already swapped
     public String logInPost(Model model,@RequestParam String userName,@RequestParam String password) {
-        model.addAttribute("user",userService.findByName(userName) );
-        return "UsrPage";
-
+        if(userService.findByName(userName.replaceAll(".*([';]+|(--)+).*", " "),password.replaceAll(".*([';]+|(--)+).*", " "))!=null){  //Sanitize the fields so that we dont suffer and sql injection
+            currentUser=userService.findByName(userName.replaceAll(".*([';]+|(--)+).*", " "),password.replaceAll(".*([';]+|(--)+).*", " "));
+            model.addAttribute("user",currentUser);
+            return "UsrPage";
+        }else{
+            model.addAttribute("aviso", "El nombre de usuario no correponde con ninguno registrado en nuestra base de datos");
+            return "LogIn";
+        }
     }
 
     @GetMapping("/loggedIn")
@@ -157,17 +163,23 @@ public class ControllerBasic {
         return "hoola";
     }
 
-   /* @GetMapping("/createAccount")   //redirect to CreateAccount.html, to sign up
-    public String createAccount(){
-        return "CreateAccount";
-
-    }*/
+    @GetMapping("/logout")
+    public String logout(){
+        currentUser=new User("webo",null,null,null);
+        return "StartPage";
+    }
 
     @PostMapping("/account/created")
     public String createdAccount(Model model, User user){
-        userService.saveUser(user);
-        currentUser=user;
-        return "AccountCreated";
+        if(userService.findByOnlyName(user.getUserName().replaceAll(".*([';]+|(--)+).*", " "))==null){
+            userService.saveUser(user);
+            currentUser=user;
+            return "AccountCreated";
+        }else{
+            model.addAttribute("aviso", "Este usuario ya esta registrado, inicie sesión con sus credenciales");
+            return "LogIn";
+        }
+        
     }
 
     @GetMapping("/comments")    //see every comment in our database

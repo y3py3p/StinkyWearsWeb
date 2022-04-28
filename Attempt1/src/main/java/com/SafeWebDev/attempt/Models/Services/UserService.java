@@ -20,8 +20,12 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public User findByName(String name){
-        return userRepository.findByName(name);
+    public User findByName(String name,String pass){
+        return userRepository.findByName(name,pass);
+    }
+
+    public User findByOnlyName(String name){
+        return userRepository.findyByOnlyName(name);
     }
 
     /*public boolean logedIn(){

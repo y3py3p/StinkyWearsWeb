@@ -171,9 +171,15 @@ public class ControllerBasic {
 
     @PostMapping("/account/created")
     public String createdAccount(Model model, User user){
-        userService.saveUser(user);
-        currentUser=user;
-        return "AccountCreated";
+        if(userService.findByOnlyName(user.getUserName())==null){
+            userService.saveUser(user);
+            currentUser=user;
+            return "AccountCreated";
+        }else{
+            model.addAttribute("aviso", "Este usuario ya esta registrado, inicie sesión con sus credenciales");
+            return "LogIn";
+        }
+        
     }
 
     @GetMapping("/comments")    //see every comment in our database

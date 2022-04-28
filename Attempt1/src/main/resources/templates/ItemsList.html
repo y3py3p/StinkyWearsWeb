@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de items</title>
-    <link rel="stylesheet" href="http://localhost:8080/cursor.css"/>
-    <link rel="stylesheet" href="http://localhost:8080/main.css"/>
+    <link rel="stylesheet" href="http://localhost:8080/res/cursor.css"/>
+    <link rel="stylesheet" href="http://localhost:8080/res/main.css"/>
     <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
 </head>
 
@@ -35,7 +35,7 @@
         <p><a href="/item/{{productID}}">{{productName}} [{{productPrice}}€]</a><br/><button class="buttons" type="submit"><a href="/item/del/{{productID}}">Eliminar</a></button></p><br>
         {{/items}}
         <br/>
-        <p>Te gustaría subir tu propia ropa? Haz click <a href="NewItem.html">AQUÍ</a> para añadir un nuevo item </p>  <!-- it'll redirect you to /newItem, where you can add your own item-->
+        <p>Te gustaría subir tu propia ropa? Haz click <a href="res/NewItem.html">AQUÍ</a> para añadir un nuevo item </p>  <!-- it'll redirect you to /newItem, where you can add your own item-->
         <form action="/search" method="post">
 
             <br/><br/>
@@ -58,7 +58,7 @@
     </footer>
 
     <div class="cursor"></div>
-    <script src="http://localhost:8080/cursor.js"></script>
-    <script src="lateralBar.js"></script>
+    <script src="http://localhost:8080/res/cursor.js"></script>
+    <script src="res/lateralBar.js"></script>
 </body>
 </html>

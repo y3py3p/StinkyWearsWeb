@@ -50,6 +50,10 @@ public class User {
         this.userName=user;
     }
 
+    public String getUserName(){
+        return this.userName;
+    }
+
     public void setUserPass(String pass){
         this.userPass=pass;
     }

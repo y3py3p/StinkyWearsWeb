@@ -24,6 +24,10 @@ public class UserService {
         return userRepository.findByName(name,pass);
     }
 
+    public User findByOnlyName(String name){
+        return userRepository.findyByOnlyName(name);
+    }
+
     /*public boolean logedIn(){
 
         if(currentUser != null){

@@ -83,7 +83,7 @@ public class ItemRESTController {
 
     }
 
-    /*@PostMapping("/newUser")
+    @PostMapping("/newUser")
     public ResponseEntity<User> newUser(@RequestBody User user){
 
         userService.saveUser(user);
@@ -91,7 +91,7 @@ public class ItemRESTController {
         currentUser=user;
 
         return new ResponseEntity<>(user, HttpStatus.CREATED);
-    }*/
+    }
 
     @GetMapping("/addCart/{id}")    //add item to cart
     public ResponseEntity<List<Item>> addCart(@PathVariable long id){

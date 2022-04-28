@@ -1,12 +1,17 @@
 package com.SafeWebDev.attempt.Models;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Table(name = "usertable")
-public class User {
+public class User{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,12 +25,15 @@ public class User {
     private boolean premium;
     private String address;
     private String bankData;
+    private Role role;
 
     @ManyToMany
     private List<Cupon> cupones=new ArrayList<Cupon>();
 
     @OneToMany
     private List<Item> cart = new ArrayList<Item>();
+
+
 
 
 
@@ -46,24 +54,32 @@ public class User {
 
     }
 
-    public void setUserName(String user){
-        this.userName=user;
+    public Role getRole() {
+        return role;
+    }
+
+    public String getUserPass() {
+        return userPass;
     }
 
     public String getUserName(){
         return this.userName;
     }
 
-    public void setUserPass(String pass){
-        this.userPass=pass;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public void setAddress(String address){
-        this.address=address;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setEmail(String email){
-        this.email=email;
+    public void setUserPass(String userPass) {
+        this.userPass = userPass;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public void addCupon(Cupon cupon){
@@ -109,6 +125,7 @@ public class User {
         }
     }
 
+
     public boolean sameUser(User userName){
         return this.userName.equals(userName.userName);
     }
@@ -130,6 +147,7 @@ public class User {
     public void delCart(int id){
         this.cart.remove(id);
     }
+
 
 
 }

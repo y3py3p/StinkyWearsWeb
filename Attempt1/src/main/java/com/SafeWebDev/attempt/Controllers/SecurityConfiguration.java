@@ -81,6 +81,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .antMatchers("/comments").permitAll()
                 .antMatchers("/coupons").permitAll()
                 .antMatchers("/search").permitAll();
+        
+        http.csrf().disable();
 
 
     }

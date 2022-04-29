@@ -19,7 +19,8 @@ import java.util.List;
 @RequestMapping("/api")
 public class ItemRESTController {
 
-
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
     @Autowired
     private ItemService itemService;
     @Autowired
@@ -83,14 +84,20 @@ public class ItemRESTController {
 
     }
 
-    /*@PostMapping("/newUser")
+    @PostMapping("/newUser")
     public ResponseEntity<User> newUser(@RequestBody User user){
 
-        userService.saveUser(user);
+        userDetailsService.saveUser(user);
 
         currentUser=user;
 
         return new ResponseEntity<>(user, HttpStatus.CREATED);
+    }
+
+    /*@PostMapping("/login")
+    public ResponseEntity<User> login(@RequestParam String username, @RequestParam String password){
+
+
     }*/
 
     @GetMapping("/addCart/{id}")    //add item to cart

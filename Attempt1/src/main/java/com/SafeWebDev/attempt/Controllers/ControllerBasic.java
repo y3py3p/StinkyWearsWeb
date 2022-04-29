@@ -3,6 +3,8 @@ package com.SafeWebDev.attempt.Controllers;
 import java.util.List;
 import java.util.regex.Pattern;
 import com.SafeWebDev.attempt.Models.*;
+import com.SafeWebDev.attempt.Models.Services.*;
+import lombok.extern.slf4j.Slf4j;
 import org.owasp.html.PolicyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,10 +21,6 @@ import com.SafeWebDev.attempt.Models.Comment;
 import com.SafeWebDev.attempt.Models.Cupon;
 import com.SafeWebDev.attempt.Models.Item;
 import com.SafeWebDev.attempt.Models.User;
-import com.SafeWebDev.attempt.Models.Services.CommentService;
-import com.SafeWebDev.attempt.Models.Services.CuponService;
-import com.SafeWebDev.attempt.Models.Services.ItemService;
-import com.SafeWebDev.attempt.Models.Services.UserService;
 
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
@@ -35,6 +33,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@Slf4j
 public class ControllerBasic {
 
     @Autowired
@@ -51,6 +50,9 @@ public class ControllerBasic {
 
     @Autowired
     private EntityManagerFactory entityManagerFactory;
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
     User currentUser;
 
@@ -146,21 +148,20 @@ public class ControllerBasic {
         return "LogIn";
 
     }
-    @PostMapping("/login")   //logs the user in and displays the user page with the user already swapped
+
+    @PostMapping("/login/user")   //logs the user in and displays the user page with the user already swapped
     public String logInPost(Model model,@RequestParam String userName,@RequestParam String password) {
-        if(userService.findByName(userName.replaceAll(".*([';]+|(--)+).*", " "),password.replaceAll(".*([';]+|(--)+).*", " "))!=null){  //Sanitize the fields so that we dont suffer and sql injection
-            currentUser=userService.findByName(userName.replaceAll(".*([';]+|(--)+).*", " "),password.replaceAll(".*([';]+|(--)+).*", " "));
+
+        if(userService.findByName(userName.replaceAll(".*([';]+|(--)+).*", " "),password.replaceAll(".*([';]+|(--)+).*", " ")) !=null){  //Sanitize the fields so that we dont suffer and sql injection
+            log.info("Encontrado");
+            currentUser=userService.findByName(/*userName.replaceAll(".*([';]+|(--)+).*", " "),password.replaceAll(".*([';]+|(--)+).*", " ")*/userName, password);
             model.addAttribute("user",currentUser);
             return "UsrPage";
         }else{
             model.addAttribute("aviso", "El nombre de usuario no correponde con ninguno registrado en nuestra base de datos");
+            log.error("No");
             return "LogIn";
         }
-    }
-
-    @GetMapping("/loggedIn")
-    public String loggedIn(){
-        return "hoola";
     }
 
     @GetMapping("/logout")
@@ -171,8 +172,8 @@ public class ControllerBasic {
 
     @PostMapping("/account/created")
     public String createdAccount(Model model, User user){
-        if(userService.findByOnlyName(user.getUserName().replaceAll(".*([';]+|(--)+).*", " "))==null){
-            userService.saveUser(user);
+        if(userService.findByOnlyName(user.getUserName().replaceAll(".*([';]+|(--)+).*", " ")) ==  null){
+            userDetailsService.saveUser(user);
             currentUser=user;
             return "AccountCreated";
         }else{

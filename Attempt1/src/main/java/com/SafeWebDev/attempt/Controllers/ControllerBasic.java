@@ -22,6 +22,7 @@ import com.SafeWebDev.attempt.Models.Cupon;
 import com.SafeWebDev.attempt.Models.Item;
 import com.SafeWebDev.attempt.Models.User;
 
+import org.hibernate.annotations.common.util.impl.Log_$logger;
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import ch.qos.logback.classic.Logger;
 
 @Controller
 @Slf4j

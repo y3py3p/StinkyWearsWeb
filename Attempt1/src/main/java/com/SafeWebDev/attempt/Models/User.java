@@ -5,9 +5,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "usertable")
@@ -25,13 +23,15 @@ public class User{
     private boolean premium;
     private String address;
     private String bankData;
-    private Role role;
 
     @ManyToMany
     private List<Cupon> cupones=new ArrayList<Cupon>();
 
     @OneToMany
     private List<Item> cart = new ArrayList<Item>();
+
+    @ManyToMany
+    private Set<Role> roles = new HashSet<>();
 
 
 
@@ -46,6 +46,8 @@ public class User{
         //this.personalName = personalName;
     }
 
+
+
     public User(String userName){
         this.userName = userName;
     }
@@ -54,8 +56,16 @@ public class User{
 
     }
 
-    public Role getRole() {
-        return role;
+    public Set<Role> getRole() {
+        return roles;
+    }
+
+    public String getPersonalName() {
+        return personalName;
+    }
+
+    public String getEmail(){
+        return email;
     }
 
     public String getUserPass() {

@@ -5,12 +5,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,34 +22,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new UserService();
-    }
-
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService());
-        authProvider.setPasswordEncoder(passwordEncoder());
-
-        return authProvider;
-    }
+    private final UserDetailsService userDetailsService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
 
-        /*//Setting public places
+        /*
         http.authorizeRequests().antMatchers("/img/**").permitAll();
         http.authorizeRequests().antMatchers("/res/**").permitAll();
         http.authorizeRequests().antMatchers("/").permitAll(); 
@@ -60,14 +46,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         http.authorizeRequests().antMatchers("/comments").permitAll();
         http.authorizeRequests().antMatchers("/coupons").permitAll();
         http.authorizeRequests().antMatchers("/search").permitAll();
-        http.authorizeRequests().antMatchers("/res/CreateAccount.html").permitAll();
+        http.authorizeRequests().antMatchers("/res/CreateAccount.html").permitAll();*/
 
-        //Setting the rest of the pages as authenticated
-        //http.authorizeRequests().anyRequest().authenticated();
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        //Setting the login page variables
-        http.formLogin().loginPage("/login");*/
-
+        //Setting public places
         http.authorizeRequests()
                 .antMatchers("/img/**").permitAll()
                 .antMatchers("/res/**").permitAll()
@@ -80,11 +63,27 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .antMatchers("/account/created").permitAll()
                 .antMatchers("/comments").permitAll()
                 .antMatchers("/coupons").permitAll()
-                .antMatchers("/search").permitAll();
-        
+                .antMatchers("/search").permitAll()
+                .antMatchers("/login/user").permitAll()
+                .antMatchers("/api/**").permitAll();
+
+        http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
+
+        //Setting the rest of the pages as authenticated
+        http.authorizeRequests().anyRequest().authenticated();
+
+        //Setting the login page variables
+        http.formLogin().loginPage("/login");
+
         http.csrf().disable();
 
 
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception{
+        return super.authenticationManagerBean();
     }
 
 

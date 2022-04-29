@@ -18,7 +18,7 @@ public class User{
     @Column
     private String userName;
     private String email;
-    private String userPass;
+    private int userPass;
     private String personalName;
     private boolean premium;
     private String address;
@@ -30,15 +30,11 @@ public class User{
     @OneToMany
     private List<Item> cart = new ArrayList<Item>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Role> roles = new HashSet<>();
 
 
-
-
-
-
-    public User(String userName, String correo, String userPass, String address/*, String personalName*/) {
+    public User(String userName, String correo, int userPass, String address/*, String personalName*/) {
         this.userName = userName;
         this.email = correo;
         this.userPass = userPass;
@@ -68,12 +64,16 @@ public class User{
         return email;
     }
 
-    public String getUserPass() {
+    /*public String getUserPass() {
         return userPass;
-    }
+    }*/
 
     public String getUserName(){
         return this.userName;
+    }
+
+    public int getUserPass(){
+        return this.userPass;
     }
 
     public void setUserName(String userName) {
@@ -85,7 +85,7 @@ public class User{
     }
 
     public void setUserPass(String userPass) {
-        this.userPass = userPass;
+        this.userPass = userPass.hashCode();
     }
 
     public void setAddress(String address) {
@@ -140,10 +140,6 @@ public class User{
         return this.userName.equals(userName.userName);
     }
 
-    public boolean samePassword(User user){
-        return this.userPass.equals(user.userPass);
-    }
-
 
     @Override
     public String toString() {
@@ -158,6 +154,9 @@ public class User{
         this.cart.remove(id);
     }
 
+    public void addRole(RoleName role){
+        this.roles.add(new Role(role));
+    }
 
 
 }

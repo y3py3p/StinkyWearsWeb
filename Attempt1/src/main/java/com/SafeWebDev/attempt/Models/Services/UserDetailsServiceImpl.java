@@ -52,6 +52,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         userService.saveUser(user);
     }
 
+    public void saveUserGuest(User user){
+        log.info("Saving new user {} to the database", user.getUserName());
+        user.addRole(RoleName.GUEST);              //We assign the roles so that every user created through the app is a common user
+        user.setUserPass(passwordEncoder.encode(user.getUserPass()));
+        userService.saveUser(user);
+    }
+
     public String login(String password){
 
         return password;

@@ -57,10 +57,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .antMatchers("/payments").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/pay").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/price/final").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/coupons").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/coupons").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/coupons").authenticated()
                 .antMatchers("/coupon/new").hasAnyRole("ADMIN")
-                .antMatchers("/searchsi").permitAll();
+                .antMatchers("/search");
 
 
         //http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));

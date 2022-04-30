@@ -4,6 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.management.relation.Role;
 import javax.persistence.*;
 import java.util.*;
 
@@ -18,11 +19,9 @@ public class User{
     @Column
     private String userName;
     private String email;
-    private int userPass;
+    private String userPass;
     private String personalName;
-    private boolean premium;
     private String address;
-    private String bankData;
 
     @ManyToMany
     private List<Cupon> cupones=new ArrayList<Cupon>();
@@ -30,11 +29,11 @@ public class User{
     @OneToMany
     private List<Item> cart = new ArrayList<Item>();
 
-    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    private Set<Role> roles = new HashSet<>();
+    @Enumerated(EnumType.STRING)
+    private RoleName role;
 
 
-    public User(String userName, String correo, int userPass, String address/*, String personalName*/) {
+    public User(String userName, String correo, String userPass, String address/*, String personalName*/) {
         this.userName = userName;
         this.email = correo;
         this.userPass = userPass;
@@ -52,8 +51,8 @@ public class User{
 
     }
 
-    public Set<Role> getRole() {
-        return roles;
+    public RoleName getRole() {
+        return role;
     }
 
     public String getPersonalName() {
@@ -72,7 +71,7 @@ public class User{
         return this.userName;
     }
 
-    public int getUserPass(){
+    public String getUserPass(){
         return this.userPass;
     }
 
@@ -85,7 +84,7 @@ public class User{
     }
 
     public void setUserPass(String userPass) {
-        this.userPass = userPass.hashCode();
+        this.userPass = userPass;
     }
 
     public void setAddress(String address) {
@@ -155,7 +154,7 @@ public class User{
     }
 
     public void addRole(RoleName role){
-        this.roles.add(new Role(role));
+        this.role = role;
     }
 
 

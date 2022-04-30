@@ -23,8 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     UserService userService;
-    @Autowired
-    RoleService roleService;
+
     @Autowired
     PasswordEncoder passwordEncoder;
 
@@ -41,16 +40,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        user.getRole().forEach(role ->
-            {authorities.add(new SimpleGrantedAuthority(role.getRoleName().toString()));
-            });
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole().toString()));
 
-        return new org.springframework.security.core.userdetails.User(user.getUserName(), "unknown", authorities);
+        return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getUserPass(), authorities);
     }
 
     public void saveUser(User user){
         log.info("Saving new user {} to the database", user.getUserName());
         user.addRole(RoleName.USER);              //We assign the roles so that every user created through the app is a common user
+        user.setUserPass(passwordEncoder.encode(user.getUserPass()));
         userService.saveUser(user);
     }
 

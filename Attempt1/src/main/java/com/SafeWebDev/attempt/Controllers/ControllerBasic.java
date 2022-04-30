@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
+import javax.servlet.http.HttpServletRequest;
 
 import com.SafeWebDev.attempt.Models.Comment;
 import com.SafeWebDev.attempt.Models.Cupon;
@@ -61,7 +62,8 @@ public class ControllerBasic {
 
     @PostConstruct
     public void init(){
-        currentUser=new User("webo",null,1,null);
+        //currentUser=new User("webo",null,null,null);
+        //userDetailsService.saveUser(new User("guest", "guest@guest", "1234", "guest"));
     }
 
 
@@ -95,9 +97,11 @@ public class ControllerBasic {
     }
 
     @GetMapping("/usr") //redirect to UsrPage.html with your usr info (right now just the admin user)
-    public String usrPage(Model model) {
+    public String usrPage(Model model, HttpServletRequest request) {
 
-        model.addAttribute("user", currentUser);
+        String name = request.getUserPrincipal().getName();
+        User user = userService.findByOnlyName(name);
+        model.addAttribute("user", user);
         return "UsrPage";
 
     }
@@ -148,12 +152,11 @@ public class ControllerBasic {
     public String logIn(Model model) {
         model.addAttribute("aviso", "");
         return "LogIn";
-
     }
 
-    @PostMapping("/login/user")   //logs the user in and displays the user page with the user already swapped
-    public String logInPost(Model model,@RequestParam String userName,@RequestParam String password) {
-
+    /*@PostMapping("/login/user")   //logs the user in and displays the user page with the user already swapped
+    public String logInPost(Model model, @RequestParam String userName, @RequestParam String password, HttpServletRequest request) {
+        request.getUserPrincipal()
         if(userService.findByName(userName.replaceAll(".*([';]+|(--)+).*", " "),password.hashCode()) !=null){  //Sanitize the fields so that we dont suffer and sql injection
             log.info("Encontrado");
             currentUser=userService.findByName(userName,password.hashCode());
@@ -164,13 +167,13 @@ public class ControllerBasic {
             log.error("No");
             return "LogIn";
         }
-    }
+    }*/
 
-    @GetMapping("/logout")
+    /*@GetMapping("/logout")
     public String logout(){
         currentUser=new User("webo",null,1,null);   //Here the password is irrelevant as we wont use it
         return "StartPage";
-    }
+    }*/
 
     @PostMapping("/account/created")
     public String createdAccount(Model model, User user){
@@ -186,7 +189,10 @@ public class ControllerBasic {
     }
 
     @GetMapping("/comments")    //see every comment in our database
-    public String comments(Model model){
+    public String comments(Model model, HttpServletRequest request){
+        String name = request.getUserPrincipal().getName();
+        User user = userService.findByOnlyName(name);
+        log.info("Casi");
         model.addAttribute("comment",commentService.getAll());
         return "comments";
     }

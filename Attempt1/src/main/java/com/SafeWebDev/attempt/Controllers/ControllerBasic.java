@@ -1,16 +1,8 @@
 package com.SafeWebDev.attempt.Controllers;
 
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.regex.Pattern;
-import com.SafeWebDev.attempt.Models.*;
-import com.SafeWebDev.attempt.Models.Services.*;
-import lombok.extern.slf4j.Slf4j;
-import org.owasp.html.PolicyFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
@@ -21,16 +13,26 @@ import com.SafeWebDev.attempt.Models.Comment;
 import com.SafeWebDev.attempt.Models.Cupon;
 import com.SafeWebDev.attempt.Models.Item;
 import com.SafeWebDev.attempt.Models.User;
+import com.SafeWebDev.attempt.Models.Services.CommentService;
+import com.SafeWebDev.attempt.Models.Services.CuponService;
+import com.SafeWebDev.attempt.Models.Services.ItemService;
+import com.SafeWebDev.attempt.Models.Services.UserDetailsServiceImpl;
+import com.SafeWebDev.attempt.Models.Services.UserService;
 
+import org.checkerframework.checker.units.qual.A;
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
@@ -59,7 +61,7 @@ public class ControllerBasic {
 
     @PostConstruct
     public void init(){
-        currentUser=new User("webo",null,null,null);
+        currentUser=new User("webo",null,1,null);
     }
 
 
@@ -152,13 +154,13 @@ public class ControllerBasic {
     @PostMapping("/login/user")   //logs the user in and displays the user page with the user already swapped
     public String logInPost(Model model,@RequestParam String userName,@RequestParam String password) {
 
-        if(userService.findByName(userName.replaceAll(".*([';]+|(--)+).*", " "),password.replaceAll(".*([';]+|(--)+).*", " ")) !=null){  //Sanitize the fields so that we dont suffer and sql injection
+        if(userService.findByName(userName.replaceAll(".*([';]+|(--)+).*", " "),password.hashCode()) !=null){  //Sanitize the fields so that we dont suffer and sql injection
             log.info("Encontrado");
-            currentUser=userService.findByName(/*userName.replaceAll(".*([';]+|(--)+).*", " "),password.replaceAll(".*([';]+|(--)+).*", " ")*/userName, password);
+            currentUser=userService.findByName(userName,password.hashCode());
             model.addAttribute("user",currentUser);
             return "UsrPage";
         }else{
-            model.addAttribute("aviso", "El nombre de usuario no correponde con ninguno registrado en nuestra base de datos");
+            model.addAttribute("aviso", "El nombre de usuario no correponde con ninguno registrado en nuestra base de datos u ocurrió otro error inesperado");
             log.error("No");
             return "LogIn";
         }
@@ -166,7 +168,7 @@ public class ControllerBasic {
 
     @GetMapping("/logout")
     public String logout(){
-        currentUser=new User("webo",null,null,null);
+        currentUser=new User("webo",null,1,null);   //Here the password is irrelevant as we wont use it
         return "StartPage";
     }
 
@@ -174,7 +176,7 @@ public class ControllerBasic {
     public String createdAccount(Model model, User user){
         if(userService.findByOnlyName(user.getUserName().replaceAll(".*([';]+|(--)+).*", " ")) ==  null){
             userDetailsService.saveUser(user);
-            currentUser=user;
+            currentUser=userService.findByOnlyName(user.getUserName().replaceAll(".*([';]+|(--)+).*", " "));
             return "AccountCreated";
         }else{
             model.addAttribute("aviso", "Este usuario ya esta registrado, inicie sesión con sus credenciales");

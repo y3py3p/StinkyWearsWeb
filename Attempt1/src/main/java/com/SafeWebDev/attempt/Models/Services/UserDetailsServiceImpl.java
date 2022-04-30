@@ -1,5 +1,6 @@
 package com.SafeWebDev.attempt.Models.Services;
 
+import com.SafeWebDev.attempt.Models.RoleName;
 import com.SafeWebDev.attempt.Models.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,12 +45,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             {authorities.add(new SimpleGrantedAuthority(role.getRoleName().toString()));
             });
 
-        return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getUserPass(), authorities);
+        return new org.springframework.security.core.userdetails.User(user.getUserName(), "unknown", authorities);
     }
 
     public void saveUser(User user){
         log.info("Saving new user {} to the database", user.getUserName());
-        user.setUserPass(passwordEncoder.encode(user.getUserPass()));
+        user.addRole(RoleName.USER);              //We assign the roles so that every user created through the app is a common user
         userService.saveUser(user);
     }
 

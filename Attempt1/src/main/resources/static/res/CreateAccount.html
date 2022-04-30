@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
-    <link rel="stylesheet" href="http://localhost:8080/cursor.css"/>
-    <link rel="stylesheet" href="http://localhost:8080/main.css">
+    <link rel="stylesheet" href="http://localhost:8080/res/cursor.css"/>
+    <link rel="stylesheet" href="http://localhost:8080/res/main.css">
     <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
 </head>
 
@@ -30,17 +30,19 @@
 <div class="clearfix"></div>
 
     <section class="form-register">        <!-- registration form -->
+        <form action="http://localhost:8080/account/created" method="post">
         <h2>Rellene los campos para crear su cuenta</h2>
         <h4> User name:<br/>
-            <input class="controls" type="text" name="nombre" id="user" placeholder="-"></h4>
-        <h4> Correo:<br/>
+            <input class="controls" type="text" name="userName" id="user" placeholder="-"></h4>
+        <h4>Correo:<br/>
             <input class="controls" type="email" name="email" id="email" placeholder="-"></h4>
-        <h4> Contraseña:<br/>
-            <input class="controls" type="password" name="password" id="password" placeholder="********"></h4>
-        <h4> Dirección:<br/>
-            <input class="controls" type="text" name="direccion" id="direccion" placeholder="-"></h4>
+        <h4>Contraseña:<br/>
+            <input class="controls" type="password" name="userPass" id="password" placeholder="********"></h4>
+        <h4>Dirección:<br/>
+            <input class="controls" type="text" name="address" id="direccion" placeholder="-"></h4>
         <br/>
-        <h2><button class="buttons" type="submit"><a href="/usr">Crear</a></button></h2>
+            <h2><button class="buttons" type="submit">Enviar</button></h2>
+        </form>
     </section>
 
 <div class="clearfix"></div>
@@ -50,7 +52,7 @@
     </footer>
 
     <div class="cursor"></div>
-    <script src="http://localhost:8080/cursor.js"></script>
-    <script src="http://localhost:8080/lateralBar.js"></script>
+    <script src="http://localhost:8080/res/cursor.js"></script>
+    <script src="http://localhost:8080/res/lateralBar.js"></script>
 </body>
 </html>

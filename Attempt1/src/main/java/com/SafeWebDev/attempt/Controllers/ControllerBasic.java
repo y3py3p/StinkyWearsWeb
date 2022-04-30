@@ -1,26 +1,42 @@
 package com.SafeWebDev.attempt.Controllers;
 
-import com.SafeWebDev.attempt.Models.*;
-import com.SafeWebDev.attempt.Models.Services.*;
-import org.owasp.html.PolicyFactory;
-import org.owasp.html.Sanitizers;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import java.security.SecureRandom;
+import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.util.List;
-import java.util.regex.Pattern;
+import javax.servlet.http.HttpServletRequest;
 
+import com.SafeWebDev.attempt.Models.Comment;
+import com.SafeWebDev.attempt.Models.Cupon;
+import com.SafeWebDev.attempt.Models.Item;
+import com.SafeWebDev.attempt.Models.User;
+import com.SafeWebDev.attempt.Models.Services.CommentService;
+import com.SafeWebDev.attempt.Models.Services.CuponService;
+import com.SafeWebDev.attempt.Models.Services.ItemService;
+import com.SafeWebDev.attempt.Models.Services.UserDetailsServiceImpl;
+import com.SafeWebDev.attempt.Models.Services.UserService;
+
+import org.checkerframework.checker.units.qual.A;
 import org.owasp.html.HtmlPolicyBuilder;
-import org.owasp.html.HtmlSanitizer;
+import org.owasp.html.PolicyFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 public class ControllerBasic {
 
     @Autowired
@@ -38,12 +54,16 @@ public class ControllerBasic {
     @Autowired
     private EntityManagerFactory entityManagerFactory;
 
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+
     User currentUser;
 
 
     @PostConstruct
     public void init(){
-        currentUser=new User("webo","webotes","webazos","webitos","weboncio");
+        //currentUser=new User("webo",null,null,null);
+        //userDetailsService.saveUser(new User("guest", "guest@guest", "1234", "guest"));
     }
 
 
@@ -77,9 +97,11 @@ public class ControllerBasic {
     }
 
     @GetMapping("/usr") //redirect to UsrPage.html with your usr info (right now just the admin user)
-    public String usrPage(Model model) {
+    public String usrPage(Model model, HttpServletRequest request) {
 
-        model.addAttribute("user", currentUser);
+        String name = request.getUserPrincipal().getName();
+        User user = userService.findByOnlyName(name);
+        model.addAttribute("user", user);
         return "UsrPage";
 
     }
@@ -127,18 +149,50 @@ public class ControllerBasic {
     }
 
     @GetMapping("/login")   //redirect to LogIn.html, where you'll be able to log in
-    public String logIn(){
+    public String logIn(Model model) {
+        model.addAttribute("aviso", "");
         return "LogIn";
     }
 
-    @GetMapping("/createAccount")   //redirect to CreateAccount.html, to sign up
-    public String createAccount(){
-        return "CreateAccount";
+    /*@PostMapping("/login/user")   //logs the user in and displays the user page with the user already swapped
+    public String logInPost(Model model, @RequestParam String userName, @RequestParam String password, HttpServletRequest request) {
+        request.getUserPrincipal()
+        if(userService.findByName(userName.replaceAll(".*([';]+|(--)+).*", " "),password.hashCode()) !=null){  //Sanitize the fields so that we dont suffer and sql injection
+            log.info("Encontrado");
+            currentUser=userService.findByName(userName,password.hashCode());
+            model.addAttribute("user",currentUser);
+            return "UsrPage";
+        }else{
+            model.addAttribute("aviso", "El nombre de usuario no correponde con ninguno registrado en nuestra base de datos u ocurrió otro error inesperado");
+            log.error("No");
+            return "LogIn";
+        }
+    }*/
 
+    /*@GetMapping("/logout")
+    public String logout(){
+        currentUser=new User("webo",null,1,null);   //Here the password is irrelevant as we wont use it
+        return "StartPage";
+    }*/
+
+    @PostMapping("/account/created")
+    public String createdAccount(Model model, User user){
+        if(userService.findByOnlyName(user.getUserName().replaceAll(".*([';]+|(--)+).*", " ")) ==  null){
+            userDetailsService.saveUser(user);
+            currentUser=userService.findByOnlyName(user.getUserName().replaceAll(".*([';]+|(--)+).*", " "));
+            return "AccountCreated";
+        }else{
+            model.addAttribute("aviso", "Este usuario ya esta registrado, inicie sesión con sus credenciales");
+            return "LogIn";
+        }
+        
     }
 
     @GetMapping("/comments")    //see every comment in our database
-    public String comments(Model model){
+    public String comments(Model model, HttpServletRequest request){
+        String name = request.getUserPrincipal().getName();
+        User user = userService.findByOnlyName(name);
+        log.info("Casi");
         model.addAttribute("comment",commentService.getAll());
         return "comments";
     }
@@ -192,11 +246,13 @@ public class ControllerBasic {
         }
         else */if(!cuponService.exists(cupon)){
             model.addAttribute("precioFinal", currentUser.getPrice());
+            currentUser.emptyCart();
+
             return "SuccessfulPurchase";
         } else {
             Cupon cupone = cuponService.findById(cupon);
-
             model.addAttribute("precioFinal", currentUser.priceCupon(cupone));
+            currentUser.emptyCart();
 
             return "SuccessfulPurchase";
         }

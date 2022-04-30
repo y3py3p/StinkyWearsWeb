@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Nuevo item</title>
-    <link rel="stylesheet" href="http://localhost:8080/cursor.css"/>
-    <link rel="stylesheet" href="http://localhost:8080/main.css">
+    <link rel="stylesheet" href="http://localhost:8080/res/cursor.css"/>
+    <link rel="stylesheet" href="http://localhost:8080/res/main.css">
     <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
     <audio src="img/todountemazo.mp3" autoplay loop></audio>
 </head>
@@ -37,7 +37,7 @@
 
     <section class="form-register">
         <h2>Rellene los campos para añadir un nuevo item:</h2>        <!-- will collect all the info needed in order to create/add a new item -->
-        <form action="item/new" method="post">
+        <form action="http://localhost:8080/item/new" method="post">
             <h4> Nombre:<br/>
                 <input type="text" name="name" placeholder="Nombre"></h4>     <!-- type its name (txt)-->
             <h4> Talla:<br/>
@@ -52,7 +52,7 @@
             <h4> Estado<br/>                                                <!-- type its condition (txt) -->
                 <input type="text" name="condition" placeholder="-"></h4>
             <h4> Precio:<br/>
-                <input type="number" name="price" min="0" placeholder="-"></h4>        <!-- type its price (number) -->
+                <input type="number" step="0.01" name="price" min="0" placeholder="-"></h4>        <!-- type its price (number) -->
             <h2><button class="buttons" type="submit">Enviar</button></h2>              <!-- click to submit the info -->
         </form>
     </section>
@@ -64,7 +64,7 @@
     </footer>
 
     <div class="cursor"></div>
-    <script src="http://localhost:8080/cursor.js"></script>
-    <script src="lateralBar.js"></script>
+    <script src="http://localhost:8080/res/cursor.js"></script>
+    <script src="res/lateralBar.js"></script>
 </body>
 </html>

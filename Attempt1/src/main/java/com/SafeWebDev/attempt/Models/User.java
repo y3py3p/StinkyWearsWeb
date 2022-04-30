@@ -1,12 +1,16 @@
 package com.SafeWebDev.attempt.Models;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.management.relation.Role;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "usertable")
-public class User {
+public class User{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,9 +21,7 @@ public class User {
     private String email;
     private String userPass;
     private String personalName;
-    private boolean premium;
     private String address;
-    private String bankData;
 
     @ManyToMany
     private List<Cupon> cupones=new ArrayList<Cupon>();
@@ -27,15 +29,66 @@ public class User {
     @OneToMany
     private List<Item> cart = new ArrayList<Item>();
 
+    @Enumerated(EnumType.STRING)
+    private RoleName role;
 
 
-
-    public User(String userName, String correo, String userPass, String address, String personalName) {
+    public User(String userName, String correo, String userPass, String address/*, String personalName*/) {
         this.userName = userName;
         this.email = correo;
         this.userPass = userPass;
         this.address = address;
-        this.personalName = personalName;
+        //this.personalName = personalName;
+    }
+
+
+
+    public User(String userName){
+        this.userName = userName;
+    }
+
+    public User(){
+
+    }
+
+    public RoleName getRole() {
+        return role;
+    }
+
+    public String getPersonalName() {
+        return personalName;
+    }
+
+    public String getEmail(){
+        return email;
+    }
+
+    /*public String getUserPass() {
+        return userPass;
+    }*/
+
+    public String getUserName(){
+        return this.userName;
+    }
+
+    public String getUserPass(){
+        return this.userPass;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setUserPass(String userPass) {
+        this.userPass = userPass;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public void addCupon(Cupon cupon){
@@ -46,13 +99,10 @@ public class User {
         return cupones;
     }
 
-    public User(String userName){
-        this.userName = userName;
+    public void emptyCart(){
+        this.cart.clear();
     }
 
-    public User(){
-
-    }
 
     public List<Item> getCart() {
         return cart;
@@ -84,37 +134,11 @@ public class User {
         }
     }
 
+
     public boolean sameUser(User userName){
         return this.userName.equals(userName.userName);
     }
 
-    public boolean samePassword(User user){
-        return this.userPass.equals(user.userPass);
-    }
-
-    public String getUser() {
-        return userName;
-    }
-
-    public void setUser(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return userPass;
-    }
-
-    public void setPassword(String userPass) {
-        this.userPass = userPass;
-    }
-
-    /*public boolean cartContains(Item item){
-        if(cart.contains(item)){
-            return true;
-        }else{
-            return false;
-        }
-    }*/
 
     @Override
     public String toString() {
@@ -129,12 +153,9 @@ public class User {
         this.cart.remove(id);
     }
 
-    /*public long getId() {
-        return id;
+    public void addRole(RoleName role){
+        this.role = role;
     }
 
-    public void setId(long id){
-        this.id=id;
-    }*/
 
 }

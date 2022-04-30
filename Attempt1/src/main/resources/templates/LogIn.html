@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Log in</title>
-    <link rel="stylesheet" href="http://localhost:8080/cursor.css"/>
-    <link rel="stylesheet" href="http://localhost:8080/main.css">
+    <link rel="stylesheet" href="http://localhost:8080/res/cursor.css"/>
+    <link rel="stylesheet" href="http://localhost:8080/res/main.css">
     <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
 </head>
 
@@ -12,16 +12,19 @@
     <br/><br/><br/><br/><br/><br/><br/>
 <section class="register-form">                         <!-- login form -->
     <h2>Inicia sesion</h2>
-    <p><input class="controls" type="email" name="email" id="email" placeholder="Introduce tu correo"></p>
+    <form action="/login" method="post">
+    <p><input class="controls" type="text" name="username" id="userName" placeholder="Introduce tu nombre de usuario"></p>
+    <br><p style="color:red">{{aviso}}</p><br>
     <p><input class="controls" type="password" name="password" id="password" placeholder="Introduce tu contraseña"></p><br/>
-    <p><button class="buttons" type="submit"><a href="/usr">Sign in</a></button></p>
-    <br>
-    <p><a href="/createAccount">¿No tienes cuenta? Registrate</a><!-- link in case you don't have an account --> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <p><button class="buttons" type="submit">Sign in</button></p>
+    <br><p><a href="http://localhost:8080/res/CreateAccount.html">¿No tienes cuenta? Registrate</a><!-- link in case you don't have an account --> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <a href="/">Volver a la página principal</a></p><!-- redirects you back to the main page -->
     <br/><br/>
+    </form>
 </section>
+
 <br/>
     <div class="cursor"></div>
-    <script src="http://localhost:8080/cursor.js"></script>
+    <script src="http://localhost:8080/res/cursor.js"></script>
 </body>
 </html>

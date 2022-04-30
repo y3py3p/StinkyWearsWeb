@@ -3,9 +3,12 @@ package com.SafeWebDev.attempt.Controllers;
 
 import com.SafeWebDev.attempt.Models.*;
 import com.SafeWebDev.attempt.Models.Services.*;
+
+import org.hibernate.bytecode.internal.bytebuddy.PassThroughInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +22,8 @@ import java.util.List;
 @RequestMapping("/api")
 public class ItemRESTController {
 
-
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
     @Autowired
     private ItemService itemService;
     @Autowired
@@ -83,14 +87,20 @@ public class ItemRESTController {
 
     }
 
-    /*@PostMapping("/newUser")
+    @PostMapping("/newUser")
     public ResponseEntity<User> newUser(@RequestBody User user){
 
-        userService.saveUser(user);
+        userDetailsService.saveUser(user);
 
         currentUser=user;
 
         return new ResponseEntity<>(user, HttpStatus.CREATED);
+    }
+
+    /*@PostMapping("/login")
+    public ResponseEntity<User> login(@RequestParam String username, @RequestParam String password){
+
+
     }*/
 
     @GetMapping("/addCart/{id}")    //add item to cart

@@ -1,24 +1,41 @@
 package com.SafeWebDev.attempt.Models.Services;
 
-import com.SafeWebDev.attempt.Models.Item;
 import com.SafeWebDev.attempt.Models.User;
 import com.SafeWebDev.attempt.Models.Respositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import javax.transaction.Transactional;
 
 @Service
-@Component
-public class UserService {
+@Transactional
+public class UserService{
 
     @Autowired
     UserRepository userRepository;
 
+
     public void saveUser(User user){
         userRepository.save(user);
     }
+
+    public User findByName(String name,int pass){
+
+
+
+        return userRepository.findByName(name,pass);
+    }
+
+
+    public User findByOnlyName(String name){
+        return userRepository.findyByOnlyName(name);
+    }
+
+
+
+
+
+
 
     /*public boolean logedIn(){
 

@@ -1,28 +1,27 @@
 package com.SafeWebDev.attempt.Controllers;
 
-import com.SafeWebDev.attempt.Models.Services.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
-    private final UserDetailsService userDetailsService;
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
@@ -33,22 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception{
 
-        /*
-        http.authorizeRequests().antMatchers("/img/**").permitAll();
-        http.authorizeRequests().antMatchers("/res/**").permitAll();
-        http.authorizeRequests().antMatchers("/").permitAll(); 
-        http.authorizeRequests().antMatchers("/items").permitAll();
-        http.authorizeRequests().antMatchers("/item/new").permitAll();
-        http.authorizeRequests().antMatchers("/item/**").permitAll();
-        http.authorizeRequests().antMatchers("/login").permitAll();
-        http.authorizeRequests().antMatchers("/logout").permitAll();
-        http.authorizeRequests().antMatchers("/account/created").permitAll();
-        http.authorizeRequests().antMatchers("/comments").permitAll();
-        http.authorizeRequests().antMatchers("/coupons").permitAll();
-        http.authorizeRequests().antMatchers("/search").permitAll();
-        http.authorizeRequests().antMatchers("/res/CreateAccount.html").permitAll();*/
-
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        //http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         //Setting public places
         http.authorizeRequests()
@@ -56,24 +40,36 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .antMatchers("/res/**").permitAll()
                 .antMatchers("/").permitAll()
                 .antMatchers("/items").permitAll()
-                .antMatchers("/item/new").permitAll()
-                .antMatchers("/item/**").permitAll()
+                .antMatchers("/item/new").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/item/edit/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/editting/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/item/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/usr").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/item/del/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/cart").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/cart/**").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/login").permitAll()
-                .antMatchers("/logout").permitAll()
+                .antMatchers("/logout").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/account/created").permitAll()
                 .antMatchers("/comments").permitAll()
-                .antMatchers("/coupons").permitAll()
-                .antMatchers("/search").permitAll()
-                .antMatchers("/login/user").permitAll()
-                .antMatchers("/api/**").permitAll();
+                .antMatchers("/NewComment").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/createComment").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/payments").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/pay").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/price/final").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/coupons").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/coupons").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/coupon/new").hasAnyRole("ADMIN")
+                .antMatchers("/searchsi").permitAll();
 
-        http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
+
+        //http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
 
         //Setting the rest of the pages as authenticated
         http.authorizeRequests().anyRequest().authenticated();
 
         //Setting the login page variables
-        http.formLogin().loginPage("/login");
+        http.formLogin().loginPage("/login").usernameParameter("username").passwordParameter("password").defaultSuccessUrl("/usr").failureUrl("/login");
 
         http.csrf().disable();
 

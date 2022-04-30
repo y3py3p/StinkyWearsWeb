@@ -4,6 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.management.relation.Role;
 import javax.persistence.*;
 import java.util.*;
 
@@ -20,9 +21,7 @@ public class User{
     private String email;
     private String userPass;
     private String personalName;
-    private boolean premium;
     private String address;
-    private String bankData;
 
     @ManyToMany
     private List<Cupon> cupones=new ArrayList<Cupon>();
@@ -30,12 +29,8 @@ public class User{
     @OneToMany
     private List<Item> cart = new ArrayList<Item>();
 
-    @ManyToMany
-    private Set<Role> roles = new HashSet<>();
-
-
-
-
+    @Enumerated(EnumType.STRING)
+    private RoleName role;
 
 
     public User(String userName, String correo, String userPass, String address/*, String personalName*/) {
@@ -56,8 +51,8 @@ public class User{
 
     }
 
-    public Set<Role> getRole() {
-        return roles;
+    public RoleName getRole() {
+        return role;
     }
 
     public String getPersonalName() {
@@ -68,12 +63,16 @@ public class User{
         return email;
     }
 
-    public String getUserPass() {
+    /*public String getUserPass() {
         return userPass;
-    }
+    }*/
 
     public String getUserName(){
         return this.userName;
+    }
+
+    public String getUserPass(){
+        return this.userPass;
     }
 
     public void setUserName(String userName) {
@@ -140,10 +139,6 @@ public class User{
         return this.userName.equals(userName.userName);
     }
 
-    public boolean samePassword(User user){
-        return this.userPass.equals(user.userPass);
-    }
-
 
     @Override
     public String toString() {
@@ -158,6 +153,9 @@ public class User{
         this.cart.remove(id);
     }
 
+    public void addRole(RoleName role){
+        this.role = role;
+    }
 
 
 }

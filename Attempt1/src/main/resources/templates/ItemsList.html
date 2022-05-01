@@ -9,23 +9,23 @@
 </head>
 
 <body>
-    <section class="header">                        <!-- side nav bar -->
-        <div id="sidebar">
-            <div class="toggle-btn">
-                <span>&#9776</span>
-            </div>
-            <ul>
-                <img src="http://localhost:8080/img/ouuushrek.png" alt="Logo Fazt" class="logo"> <br/>
-                <li><a href="/">MainPage</a></li>
-                <li><a href="/items">Items</a></li>
-                <li><a href="/usr">MyUser</a></li>
-                <li><a href="/login">login</a></li>
-                <li><a href="/cart"> Carrito </a></li>
-                <li><a href="/comments"> Comentarios </a></li>
-                <li><a href="/coupons">Cupones</a></li>
-            </ul>
+<section class="header">
+    <div id="sidebar">                          <!-- side nav bar -->
+        <div class="toggle-btn">
+            <span>&#9776</span>
         </div>
-    </section>
+        <ul>
+            <img src="http://localhost:8080/img/ouuushrek.png" alt="Logo Fazt" class="logo"> <br/>
+            <li><a href="/">MainPage</a></li>
+            <li><a href="/usr">MyUser</a></li>
+            {{#not}}<li><a href="/login">Login</a></li>{{/not}}
+            {{#user}}<li><a href="/logout">Logout</a> </li>{{/user}}
+            <li><a href="/cart"> Carrito </a></li>
+            <li><a href="/comments"> Comentarios </a></li>
+            <li><a href="/coupons">Cupones</a></li>
+        </ul>
+    </div>
+</section>
 
 <div class="clearfix"></div>
 
@@ -38,9 +38,9 @@
             {{/admin}}
         {{/items}}
         <br/>
-        {{#user}}
+        {{#normal}}
         <p>Te gustaría subir tu propia ropa? Haz click <a href="res/NewItem.html">AQUÍ</a> para añadir un nuevo item </p>  <!-- it'll redirect you to /newItem, where you can add your own item-->
-        {{/user}}
+        {{/normal}}
         <form action="/search" method="post">
 
             <br/><br/>

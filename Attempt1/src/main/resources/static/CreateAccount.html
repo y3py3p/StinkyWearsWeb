@@ -4,58 +4,63 @@
     <meta charset="UTF-8">
     <title>Register</title>
     <link rel="stylesheet" href="http://localhost:8080/res/cursor.css"/>
-    <link rel="stylesheet" href="http://localhost:8080/res/main.css">
+    <link rel="stylesheet" href="http://localhost:8080/res/login.css">
     <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
 </head>
 
 <body>
-    <section class="header">                                <!-- side nav bar -->
-        <div id="sidebar">
-            <div class="toggle-btn">
-                <span>&#9776</span>
-            </div>
-            <ul>
-                <img src="http://localhost:8080/img/ouuushrek.png" alt="Logo Fazt" class="logo"> <br/>
-                <li><a href="/">MainPage</a></li>
-                <li><a href="/items">Items</a></li>
-                <li><a href="/usr">MyUser</a></li>
-                <li><a href="/login">login</a></li>
-                <li><a href="/cart"> Carrito </a></li>
-                <li><a href="/comments"> Comentarios </a></li>
-                <li><a href="/coupons">Cupones</a></li>
-            </ul>
+<div class="otros">
+    <h1><a href="/">⌂</a></h1>
+</div>
+
+<div class="clearfix"></div>
+<div class="login-box">
+    <h2>Create Account</h2>
+    <form action="/login" method="post">
+        <div class="user-box">
+            <input input class="controls" type="text" name="username" id="userName" required="">
+            <label>Username</label>
         </div>
-    </section>
+        <div class="user-box">
+            <input input class="controls" type="email" name="email" id="email" required="">
+            <label>Correo</label>
+        </div>
+        <div class="user-box">
+            <input input class="controls" type="password" name="password" id="password" required="">
+            <label>Password</label>
+        </div>
+        <div class="user-box">
+            <input input class="controls" type="text" name="address" id="direcion" required="">
+            <label>Direccion</label>
+        </div>
+        <a href="#">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <input type="submit" value="Create">
+        </a>
+    </form>
+</div>
+<!--<section class="form-register">
+    <form action="http://localhost:8080/account/created" method="post">
+    <h2>Rellene los campos para crear su cuenta</h2>
+    <h4> User name:<br/>
+        <input class="controls" type="text" name="userName" id="user" placeholder="-"></h4>
+    <h4>Correo:<br/>
+        <input class="controls" type="email" name="email" id="email" placeholder="-"></h4>
+    <h4>Contraseña:<br/>
+        <input class="controls" type="password" name="userPass" id="password" placeholder="********"></h4>
+    <h4>Dirección:<br/>
+        <input class="controls" type="text" name="address" id="direccion" placeholder="-"></h4>
+    <br/>
+        <h2><button class="buttons" type="submit">Enviar</button></h2>
+    </form>
+</section>-->
 
 <div class="clearfix"></div>
-
-    <section class="form-register">        <!-- registration form -->
-        <form action="http://localhost:8080/account/created" method="post">
-        <h2>Rellene los campos para crear su cuenta</h2>
-        <h4> User name:<br/>
-            <input class="controls" type="text" name="userName" id="user" placeholder="-"></h4>
-        <h4>Nombre:<br/>
-            <input class="controls" type="text" name="personalName" id="name" placeholder="-"></h4>
-        </h4>
-        <h4>Correo:<br/>
-            <input class="controls" type="email" name="email" id="email" placeholder="-"></h4>
-        <h4>Contraseña:<br/>
-            <input class="controls" type="password" name="userPass" id="password" placeholder="********"></h4>
-        <h4>Dirección:<br/>
-            <input class="controls" type="text" name="address" id="direccion" placeholder="-"></h4>
-        <br/>
-            <h2><button class="buttons" type="submit">Enviar</button></h2>
-        </form>
-    </section>
-
-<div class="clearfix"></div>
-
-    <footer>
-        StinkyWear &copy; 2022
-    </footer>
-
-    <div class="cursor"></div>
-    <script src="http://localhost:8080/res/cursor.js"></script>
-    <script src="http://localhost:8080/res/lateralBar.js"></script>
+<div class="cursor"></div>
+<script src="http://localhost:8080/res/cursor.js"></script>
+<script src="http://localhost:8080/res/lateralBar.js"></script>
 </body>
 </html>

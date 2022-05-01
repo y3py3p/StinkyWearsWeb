@@ -62,6 +62,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .antMatchers("/NewItem.html").authenticated()
                 .antMatchers("/NewCoupon.html").hasRole("ADMIN");
 
+        http.authorizeRequests()
+                .antMatchers("/api/**").permitAll();
 
         //http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
 

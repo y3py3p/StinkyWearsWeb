@@ -69,9 +69,6 @@ public class User{
         return email;
     }
 
-    /*public String getUserPass() {
-        return userPass;
-    }*/
 
     public String getUserName(){
         return this.userName;
@@ -145,18 +142,11 @@ public class User{
         return this.userName.equals(userName.userName);
     }
 
-
-    /*@Override
-    public String toString() {
-        return "userName=" + userName;
-    }*/
-
     @Override
     public String toString() {
         return "User{" +
                 "userName='" + userName + '\'' +
                 ", email='" + email + '\'' +
-                ", userPass='" + userPass + '\'' +
                 ", personalName='" + personalName + '\'' +
                 ", address='" + address + '\'' +
                 '}';

@@ -67,9 +67,11 @@ public class ControllerBasic {
     @GetMapping("")     //redirect to StartPage.html, the main page
     public String homePage(Model model, HttpServletRequest request) {
 
+
         if(request.getUserPrincipal() == null){
             model.addAttribute("user", false);
             model.addAttribute("not", true);
+            log.info("User: {}",  "No iniciado sesion");
         }else{
 
             User user = userService.findByOnlyName(request.getUserPrincipal().getName());
@@ -80,6 +82,7 @@ public class ControllerBasic {
                 model.addAttribute("user", true);
                 model.addAttribute("not", false);
             }
+            log.info("User: {}",  request.getUserPrincipal().getName());
         }
 
         return "StartPage";

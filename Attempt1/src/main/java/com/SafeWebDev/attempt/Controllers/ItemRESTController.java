@@ -92,7 +92,7 @@ public class ItemRESTController {
 
         userDetailsService.saveUser(user);
 
-        currentUser=user;
+        //currentUser=user;
 
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }

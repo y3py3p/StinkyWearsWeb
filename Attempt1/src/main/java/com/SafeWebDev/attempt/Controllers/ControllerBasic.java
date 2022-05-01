@@ -229,6 +229,7 @@ public class ControllerBasic {
         if(userService.findByOnlyName(user.getUserName().replaceAll(".*([';]+|(--)+).*", " ")) ==  null){
 
             user.setUserPass(encoder.encode(user.getUserPass()));
+            user.addRole(RoleName.GUEST);
             userDetailsService.saveUser(user);
             currentUser=userService.findByOnlyName(user.getUserName().replaceAll(".*([';]+|(--)+).*", " "));
             return "AccountCreated";

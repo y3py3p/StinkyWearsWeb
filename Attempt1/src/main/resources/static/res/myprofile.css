@@ -102,12 +102,13 @@ a {
 }
 
 #Profile input:hover {
-    background: #b0c400;
-    color: #fff;
+    background: #795a2d;
+    color: #d3cca5;
     border-radius: 5px;
-    box-shadow: 0 0 5px #b0c400,
-    0 0 10px #b0c400,
-    0 0 15px #795a2d,
-    0 0 20px #795a2d;
+    box-shadow: 0 0 5px #795a2d,
+    0 0 10px #795a2d,
+    0 0 15px #b0c400,
+    0 0 20px #B0C400,
+    0 0 25px #b0c400;
     cursor: none;
 }

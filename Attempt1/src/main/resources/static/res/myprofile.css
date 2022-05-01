@@ -1,0 +1,113 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background: #d3cca5;
+    font-family: comic sans MS;
+    text-align: center;
+    content-align: center;
+}
+
+#Profile {
+    position: absolute;
+    margin: auto;
+    top: 0; right: 0; bottom: 0; left: 0;
+    width: 150px; height: 150px;
+    border-radius: 150px;
+}
+
+#Profile:before {
+    content: '';
+    position: absolute;
+    top: -8px; left: -8px;
+    width: 162px; height: 162px;
+    border-radius: 162px;
+    border: 2px solid #795a2d;
+}
+
+#Profile:after {
+    content: '';
+    position: absolute;
+    top: -13px; left: -13px;
+    width: 172px; height: 172px;
+    border-radius: 172px;
+    border: 3px solid #b0c400;
+}
+
+#Profile img {
+    border-radius: 150px;
+}
+
+#Profile p {
+    position: absolute;
+    bottom: -60px;
+    display: block;
+    width: 150px;
+    /*text-align: center;
+    font-family: comis sans MS*/
+    color: #523213;
+    font-size: 20px;
+    background: #d3cca5;
+    background-blend-mode: lighten;
+}
+.otros{
+    padding-left: 70px;
+    font-size: 25px;
+    text-align: left;
+}
+
+/*
+a {
+  position: absolute;
+  right: 0; top: 0; left: 0;
+  text-align: center;
+  font-family: comic sans MS;
+  background: #7ECEFD;
+  padding: 6px;
+  color: #b0c400;
+  text-decoration: none;
+  font-size: 20px;
+}
+*/
+#Profile form{
+    padding-left:20px;
+}
+#Profile input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+    text-align: center;
+}
+
+
+#Profile form input{
+    font-family: comic sans MS;
+    position: relative;
+    display: inline-block;
+    border: 3px;
+    padding: 10px 20px ;
+    background: #523213;
+    color: #d3cca5;
+    font-size: 15px;
+    /*overflow: hidden;*/
+    transition: .5s;
+    margin-top: 40px;
+    border-radius: 5px;
+
+}
+
+#Profile input:hover {
+    background: #b0c400;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #b0c400,
+    0 0 10px #b0c400,
+    0 0 15px #795a2d,
+    0 0 20px #795a2d;
+    cursor: none;
+}

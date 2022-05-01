@@ -2,50 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>UsrPage</title>
+    <title>My Profile</title>
     <link rel="stylesheet" href="http://localhost:8080/res/cursor.css"/>
     <link rel="stylesheet" href="http://localhost:8080/res/main.css"/>
     <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
+    <link rel="stylesheet" href="http://localhost:8080/res/myprofile.css">
 </head>
 
 <body>
-    <section class="header">                        <!-- side nav bar -->
+    <section class="header">
         <div id="sidebar">
             <div class="toggle-btn">
                 <span>&#9776</span>
             </div>
             <ul>
                 <img src="http://localhost:8080/img/ouuushrek.png" alt="Logo Fazt" class="logo"> <br/>
-                <li><a href="/">MainPage</a></li>
+                <li><a href="http://localhost:8080/">MainPage</a></li>
                 <li><a href="/items">Items</a></li>
-                <li><a href="/usr">MyUser</a></li>
-                <li><a href="/login">login</a></li>
-                <li><a href="/cart"> Carrito </a></li>
-                <li><a href="/comments"> Comentarios </a></li>
-                <li><a href="/coupons">Cupones</a></li>
+                <li><a href="http://localhost:8080/usr">MyUser</a></li>
+                <li><a href="http://localhost:8080/login">login</a></li>
+                <li><a href="http://localhost:8080/cart"> Carrito </a></li>
+                <li><a href="http://localhost:8080/comments"> Comentarios </a></li>
+                <li><a href="http://localhost:8080/coupons">Cupones</a></li>
             </ul>
         </div>
     </section>
+    <canvas></canvas>
+
+    <div id="Profile">
+        <img width=150px; height=150px; src="https://i.etsystatic.com/9472017/r/il/1a14e3/3106925163/il_1140xN.3106925163_5ald.jpg"> <!--"https://i1.sndcdn.com/avatars-000498976506-rdaciu-t500x500.jpg"/>-->
+        <p>{{user.userName}}</p>
+        <br/><br/>
+        <form action="/logout" method="post">
+            <input type="submit" value="Log Out"/>
+        </form>
+    </div>
+
 
 <div class="clearfix"></div>
 
-    <section id="usrimg">
-        <img alt="UsrImg" width="200" src="http://localhost:8080/img/ShrekUsr.png"/>        <!-- beautiful Shreks' portrait -->
-    </section>
-
-    <section id="usrinfo">
-        <h2>Tu perfil:</h2>
-        <p>Usuario: {{user.userName}}</p>   <!-- will print out the users' info (right now it'll only show their name)-->
-    </section>
-    <form action="/logout" method="post">
-        <input type="submit" value="Cerrar sesion"/>
-    </form>
-
-<div class="clearfix"></div>
-
-    <footer>
-        StinkyWear &copy; 2022
-    </footer>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://localhost:8080/res/myprofile.js"></script>
     <div class="cursor"></div>
     <script src="http://localhost:8080/res/cursor.js"></script>
     <script src="http://localhost:8080/res/lateralBar.js"></script>

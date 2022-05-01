@@ -16,8 +16,5 @@ public class AttemptApplication {
 
 	}
 
-	@Bean
-	PasswordEncoder passwordEncoder(){
-		return new BCryptPasswordEncoder();
-	}
+
 }

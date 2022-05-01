@@ -1,4 +1,4 @@
-package com.SafeWebDev.attempt.Controllers;
+package com.SafeWebDev.attempt.Controllers.Security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

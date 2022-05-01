@@ -24,18 +24,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     UserService userService;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+    /*@Autowired
+    PasswordEncoder passwordEncoder;*/
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         User user = userService.findByOnlyName(username);
 
-        if(user == null){
+        if (user == null) {
             log.error("User not found");
             throw new UsernameNotFoundException("User not found");
-        }else{
+        } else {
             log.info("User found: {}", username);
         }
 
@@ -45,21 +45,21 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getUserPass(), authorities);
     }
 
-    public void saveUser(User user){
+    public void saveUser(User user) {
         log.info("Saving new user {} to the database", user.getUserName());
-        user.addRole(RoleName.USER);              //We assign the roles so that every user created through the app is a common user
-        user.setUserPass(passwordEncoder.encode(user.getUserPass()));
+        /*user.addRole(RoleName.USER);              //We assign the roles so that every user created through the app is a common user
+        user.setUserPass(passwordEncoder.encode(user.getUserPass()));*/
         userService.saveUser(user);
     }
 
-    public void saveUserGuest(User user){
+    public void saveUserGuest(User user) {
         log.info("Saving new user {} to the database", user.getUserName());
         user.addRole(RoleName.GUEST);              //We assign the roles so that every user created through the app is a common user
-        user.setUserPass(passwordEncoder.encode(user.getUserPass()));
+        //user.setUserPass(passwordEncoder.encode(user.getUserPass()));
         userService.saveUser(user);
     }
 
-    public String login(String password){
+    public String login(String password) {
 
         return password;
     }

@@ -1,27 +1,50 @@
 package com.SafeWebDev.attempt.Controllers;
 
 
+import com.SafeWebDev.attempt.Controllers.Payloads.LoginRequest;
+import com.SafeWebDev.attempt.Controllers.Payloads.MessageResponse;
+import com.SafeWebDev.attempt.Controllers.Payloads.SignupRequest;
+import com.SafeWebDev.attempt.Controllers.Payloads.UserInfoResponse;
+import com.SafeWebDev.attempt.Controllers.Security.JwtUtils;
 import com.SafeWebDev.attempt.Models.*;
 import com.SafeWebDev.attempt.Models.Services.*;
 
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.bytecode.internal.bytebuddy.PassThroughInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
 import javax.annotation.PostConstruct;
+import javax.management.relation.Role;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/api")
 public class ItemRESTController {
 
+    @Autowired
+    AuthenticationManager authenticationManager;
+    @Autowired
+    PasswordEncoder passwordEncoder;
+    @Autowired
+    JwtUtils jwtUtils;
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
     @Autowired
@@ -34,6 +57,8 @@ public class ItemRESTController {
     private CuponService cuponService;
     @Autowired
     private EntityManagerFactory entityManagerFactory;
+    @Autowired
+    private PasswordEncoder encoder;
 
     private User currentUser;
 
@@ -97,6 +122,47 @@ public class ItemRESTController {
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
+    @PostMapping("/signup")
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest){
+        if(userService.findByOnlyName(signupRequest.getUsername()) != null){
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: nombre de usuario ya usado"));
+        }
+
+        User user = new User(signupRequest.getUsername(), signupRequest.getEmail(), signupRequest.getPassword(), signupRequest.getAddress(), signupRequest.getPersonalName());
+        user.setUserPass(encoder.encode(user.getUserPass()));
+        userDetailsService.saveUser(user);
+        return ResponseEntity.ok(new MessageResponse("Usuario registrado"));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> loginRe(@Valid @RequestBody LoginRequest loginRequest){
+
+        log.info("Esto llega");
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+        log.info("Esto llega 2");
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        log.info("Esto llega 3");
+        UserDetailsEntityImpl userDetails = (UserDetailsEntityImpl) authentication.getPrincipal();
+        log.info("Esto llega4");
+        ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+
+        log.info("Esto llega 5");
+
+
+        String role = userDetails.getAuthorities().toString();
+        RoleName roleName;
+        if(role == RoleName.ADMIN.toString()){
+            roleName = RoleName.ADMIN;
+        }else {
+            roleName = RoleName.USER;
+        }
+
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+                .body(new UserInfoResponse(userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roleName));
+
+
+    }
+
     /*@PostMapping("/login")
     public ResponseEntity<User> login(@RequestParam String username, @RequestParam String password){
 
@@ -129,11 +195,18 @@ public class ItemRESTController {
     }
 
     @GetMapping("/usr") //see your user
-    public User seeUser(){
+    public User seeUser(HttpServletRequest request){
 
-        if(currentUser!=null){    //check if you're loged in
+        /*if(currentUser!=null){    //check if you're loged in
             return currentUser;
         }else{
+            return null;
+        }*/
+        if(request.getUserPrincipal() != null){
+
+            User user = userService.findByOnlyName(request.getUserPrincipal().getName());
+            return user;
+        }else {
             return null;
         }
 

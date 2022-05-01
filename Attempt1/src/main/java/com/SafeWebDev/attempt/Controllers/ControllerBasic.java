@@ -54,6 +54,10 @@ public class ControllerBasic {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
+
     User currentUser;
 
 
@@ -223,6 +227,8 @@ public class ControllerBasic {
     @PostMapping("/account/created")
     public String createdAccount(Model model, User user){
         if(userService.findByOnlyName(user.getUserName().replaceAll(".*([';]+|(--)+).*", " ")) ==  null){
+
+            user.setUserPass(encoder.encode(user.getUserPass()));
             userDetailsService.saveUser(user);
             currentUser=userService.findByOnlyName(user.getUserName().replaceAll(".*([';]+|(--)+).*", " "));
             return "AccountCreated";
@@ -366,4 +372,11 @@ public class ControllerBasic {
         }
         return "ItemsList";
     }
+
+    @GetMapping("/adminpage")
+    public String adminPage(){
+        //pagina para admin que hay q implementar
+        return null;
+    }
+
 }

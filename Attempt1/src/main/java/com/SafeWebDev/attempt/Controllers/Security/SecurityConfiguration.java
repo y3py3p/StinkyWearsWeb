@@ -1,5 +1,6 @@
-package com.SafeWebDev.attempt.Controllers;
+package com.SafeWebDev.attempt.Controllers.Security;
 
+import com.SafeWebDev.attempt.Models.Services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -20,13 +23,27 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
+    @Autowired
+    private AuthEntryPointJwt unauthorized;
 
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    //private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
+
+    @Bean
+    PasswordEncoder passwordEncoder(){
+
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthTokenFilter authTokenFilter(){
+        return new AuthTokenFilter();
     }
 
     @Override
@@ -60,12 +77,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .antMatchers("/coupons").permitAll()
                 .antMatchers("/search").permitAll()
                 .antMatchers("/NewItem.html").authenticated()
-                .antMatchers("/NewCoupon.html").hasRole("ADMIN");
+                .antMatchers("/NewCoupon.html").hasRole("ADMIN")
+                .antMatchers("/CreateAccount.html").permitAll()
+                .antMatchers("/api/**").permitAll()
+                .antMatchers("/api/login").permitAll();
 
-        http.authorizeRequests()
-                .antMatchers("/api/**").permitAll();
-
-        //http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
+        http.addFilterBefore(authTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
         //Setting the rest of the pages as authenticated
         http.authorizeRequests().anyRequest().authenticated();

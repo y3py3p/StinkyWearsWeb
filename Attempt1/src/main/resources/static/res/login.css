@@ -89,7 +89,7 @@ body {
     position: relative;
     display: inline-block;
     border: 0px;
-    padding: 10px 20px;
+    padding: 10px 20px ;
     background: none;
     color: #b0c400;
     font-size: 16px;
@@ -219,3 +219,57 @@ a:hover {
 
 }
 
+.reg a{
+    content-align: center;
+    color: #fff;
+}
+
+/*sidebar*/
+
+
+#sidebar {
+    position: fixed;
+    width: 200px;
+    height: 506px;
+    background: #D3CCA5;
+    left: -200px;
+    transition: all 350ms linear;
+    border-bottom: 1px solid #795A2D;
+}
+#sidebar.active {
+    left: 0;
+}
+#sidebar ul li {
+    color: rgba(230, 230, 230, .9);
+    list-style: none;
+    padding: 15px 10px;
+    border-top: 1px solid #795A2D;
+    text-align: center;
+}
+#sidebar ul li:hover{
+    background: #9e8b61;
+    color: #B0C400;
+}
+.logo {
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+    max-width: 150px;
+}
+#sidebar .toggle-btn {
+    position: absolute;
+    left: 230px;
+    top: 20px;
+    cursor: pointer;
+}
+#sidebar .toggle-btn span:hover{
+    color: #B0C400;
+}
+#sidebar .toggle-btn span {
+    display: block;
+    width: 40px;
+    text-align: center;
+    font-size: 30px;
+    border: 3px solid #D3CCA5;
+    color: #795A2D;
+}

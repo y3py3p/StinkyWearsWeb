@@ -31,7 +31,10 @@
 
     <div id="Profile">
         <img width=150px; height=150px; src="https://i.etsystatic.com/9472017/r/il/1a14e3/3106925163/il_1140xN.3106925163_5ald.jpg"> <!--"https://i1.sndcdn.com/avatars-000498976506-rdaciu-t500x500.jpg"/>-->
-        <p>{{user.userName}}</p>
+        <p>{{user.userName}}</p><br>
+        <p>Usuario: {{user.userName}}</p><br>  <!-- will print out the users' info (right now it'll only show their name)-->
+        <p>Nombre: {{user.personalName}}</p><br>
+        <p>Email: {{user.email}}</p>
         <br/><br/>
         <form action="/logout" method="post">
             <input type="submit" value="Log Out"/>

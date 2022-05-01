@@ -10,10 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
 
-import com.SafeWebDev.attempt.Models.Comment;
-import com.SafeWebDev.attempt.Models.Cupon;
-import com.SafeWebDev.attempt.Models.Item;
-import com.SafeWebDev.attempt.Models.User;
+import com.SafeWebDev.attempt.Models.*;
 import com.SafeWebDev.attempt.Models.Services.CommentService;
 import com.SafeWebDev.attempt.Models.Services.CuponService;
 import com.SafeWebDev.attempt.Models.Services.ItemService;
@@ -57,6 +54,10 @@ public class ControllerBasic {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
+
     User currentUser;
 
 
@@ -68,7 +69,26 @@ public class ControllerBasic {
 
 
     @GetMapping("")     //redirect to StartPage.html, the main page
-    public String homePage(Model model) {
+    public String homePage(Model model, HttpServletRequest request) {
+
+
+        if(request.getUserPrincipal() == null){
+            model.addAttribute("user", false);
+            model.addAttribute("not", true);
+            log.info("User: {}",  "No iniciado sesion");
+        }else{
+
+            User user = userService.findByOnlyName(request.getUserPrincipal().getName());
+            if(user.getRole() == RoleName.ADMIN){
+                model.addAttribute("user", true);
+                model.addAttribute("not", true);
+            }else{
+                model.addAttribute("user", true);
+                model.addAttribute("not", false);
+            }
+            log.info("User: {}",  request.getUserPrincipal().getName());
+        }
+
         return "StartPage";
     }
 
@@ -107,14 +127,43 @@ public class ControllerBasic {
     }
 
     @PostMapping("/item/new")   //redirect to ItemAdded.html after adding an item to our general List
-    public String addItem(Model model,Item item){
+    public String addItem(Model model,Item item, HttpServletRequest request){
+        String name = request.getUserPrincipal().getName();
+        User user = userService.findByOnlyName(name);
         itemService.add(item);
         return "ItemAdded";
     }
 
     @GetMapping("/items")   //redirect to ItemsList.html, where you can see every product aviable
-    public String listaItems(Model model){
+    public String listaItems(Model model, HttpServletRequest request){
         model.addAttribute("items", itemService.getAll());
+        if(request.getUserPrincipal() == null){
+            model.addAttribute("normal", false);
+        }else{
+            model.addAttribute("normal", true);
+            User user = userService.findByOnlyName(request.getUserPrincipal().getName());
+            if(user.getRole() == RoleName.ADMIN){
+                model.addAttribute("admin", true);
+            }else{
+                model.addAttribute("admin", false);
+            }
+        }
+
+        if(request.getUserPrincipal() == null){
+            model.addAttribute("user", false);
+            model.addAttribute("not", true);
+        }else{
+
+            User user = userService.findByOnlyName(request.getUserPrincipal().getName());
+            if(user.getRole() == RoleName.ADMIN){
+                model.addAttribute("user", true);
+                model.addAttribute("not", true);
+            }else{
+                model.addAttribute("user", true);
+                model.addAttribute("not", false);
+            }
+        }
+
         return "ItemsList";
     }
 
@@ -178,6 +227,8 @@ public class ControllerBasic {
     @PostMapping("/account/created")
     public String createdAccount(Model model, User user){
         if(userService.findByOnlyName(user.getUserName().replaceAll(".*([';]+|(--)+).*", " ")) ==  null){
+
+            user.setUserPass(encoder.encode(user.getUserPass()));
             userDetailsService.saveUser(user);
             currentUser=userService.findByOnlyName(user.getUserName().replaceAll(".*([';]+|(--)+).*", " "));
             return "AccountCreated";
@@ -190,9 +241,8 @@ public class ControllerBasic {
 
     @GetMapping("/comments")    //see every comment in our database
     public String comments(Model model, HttpServletRequest request){
-        String name = request.getUserPrincipal().getName();
-        User user = userService.findByOnlyName(name);
-        log.info("Casi");
+        /*String name = request.getUserPrincipal().getName();
+        User user = userService.findByOnlyName(name);*/
         model.addAttribute("comment",commentService.getAll());
         return "comments";
     }
@@ -262,8 +312,33 @@ public class ControllerBasic {
 
 
     @GetMapping("/coupons") //see the created coupuns
-    public String coupons(Model model){
+    public String coupons(Model model, HttpServletRequest request){
         model.addAttribute("coupons",cuponService.getAll());
+
+        if(request.getUserPrincipal() == null){
+            model.addAttribute("user", false);
+            model.addAttribute("not", true);
+        }else{
+
+            User user = userService.findByOnlyName(request.getUserPrincipal().getName());
+            if(user.getRole() == RoleName.ADMIN){
+                model.addAttribute("user", true);
+                model.addAttribute("not", true);
+            }else{
+                model.addAttribute("user", true);
+                model.addAttribute("not", false);
+            }
+        }
+
+        if(request.getUserPrincipal() != null) {
+            User user = userService.findByOnlyName(request.getUserPrincipal().getName());
+            if (user.getRole() == RoleName.ADMIN) {
+                model.addAttribute("admin", true);
+            } else {
+                model.addAttribute("admin", false);
+            }
+        }
+
         return "CouponList";
     }
 
@@ -274,7 +349,7 @@ public class ControllerBasic {
     }
 
     @PostMapping("/search") //search an item by it's name
-    public String searchByName(Model model, @RequestParam String name){
+    public String searchByName(Model model, @RequestParam String name, HttpServletRequest request){
 
         String webo = name.replaceAll(".*([';]+|(--)+).*", " ");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -284,6 +359,24 @@ public class ControllerBasic {
         entityManager.getTransaction().commit();
         entityManager.close();
         model.addAttribute("items",items);
+        if(request.getUserPrincipal() == null){
+            model.addAttribute("user", false);
+        }else{
+            model.addAttribute("user", true);
+            User user = userService.findByOnlyName(request.getUserPrincipal().getName());
+            if(user.getRole() == RoleName.ADMIN){
+                model.addAttribute("admin", true);
+            }else{
+                model.addAttribute("admin", false);
+            }
+        }
         return "ItemsList";
     }
+
+    @GetMapping("/adminpage")
+    public String adminPage(){
+        //pagina para admin que hay q implementar
+        return null;
+    }
+
 }

@@ -149,7 +149,7 @@ a:hover {
     padding-left: 80px;
     border-top: 2px solid #795A2D;
     background: #D3CCA5;
-    height: calc(100vh - 200px);
+    /*height: calc(100vh - 200px);*/
     text-align: center;
 }
 #ShrekIsWatching{

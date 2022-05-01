@@ -35,7 +35,11 @@
 
     <section id="usrinfo">
         <h2>Tu perfil:</h2>
-        <p>Usuario: {{user.userName}}</p>   <!-- will print out the users' info (right now it'll only show their name)-->
+        <p>Usuario: {{user.userName}}</p><br>  <!-- will print out the users' info (right now it'll only show their name)-->
+        <p>Nombre: {{user.personalName}}</p><br>
+        <p>Email: {{user.email}}</p><br>
+        <p>Direccion: {{user.address}}</p><br>
+
     </section>
     <form action="/logout" method="post">
         <input type="submit" value="Cerrar sesion"/>

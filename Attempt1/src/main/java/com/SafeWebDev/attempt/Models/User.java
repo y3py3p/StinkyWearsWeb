@@ -33,15 +33,21 @@ public class User{
     private RoleName role;
 
 
-    public User(String userName, String correo, String userPass, String address/*, String personalName*/) {
+    public User(String userName, String correo, String userPass, String address, String personalName) {
         this.userName = userName;
         this.email = correo;
         this.userPass = userPass;
         this.address = address;
-        //this.personalName = personalName;
+        this.personalName = personalName;
     }
 
+    public String getAddress() {
+        return address;
+    }
 
+    public void setPersonalName(String personalName) {
+        this.personalName = personalName;
+    }
 
     public User(String userName){
         this.userName = userName;
@@ -59,13 +65,14 @@ public class User{
         return personalName;
     }
 
+    public long getUserID() {
+        return userID;
+    }
+
     public String getEmail(){
         return email;
     }
 
-    /*public String getUserPass() {
-        return userPass;
-    }*/
 
     public String getUserName(){
         return this.userName;
@@ -139,10 +146,14 @@ public class User{
         return this.userName.equals(userName.userName);
     }
 
-
     @Override
     public String toString() {
-        return "userName=" + userName;
+        return "User{" +
+                "userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", personalName='" + personalName + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 
     public void addCart(Item item){

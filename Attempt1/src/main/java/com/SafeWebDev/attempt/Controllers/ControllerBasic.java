@@ -67,9 +67,11 @@ public class ControllerBasic {
     @GetMapping("")     //redirect to StartPage.html, the main page
     public String homePage(Model model, HttpServletRequest request) {
 
+
         if(request.getUserPrincipal() == null){
             model.addAttribute("user", false);
             model.addAttribute("not", true);
+            log.info("User: {}",  "No iniciado sesion");
         }else{
 
             User user = userService.findByOnlyName(request.getUserPrincipal().getName());
@@ -80,6 +82,7 @@ public class ControllerBasic {
                 model.addAttribute("user", true);
                 model.addAttribute("not", false);
             }
+            log.info("User: {}",  request.getUserPrincipal().getName());
         }
 
         return "StartPage";
@@ -131,14 +134,29 @@ public class ControllerBasic {
     public String listaItems(Model model, HttpServletRequest request){
         model.addAttribute("items", itemService.getAll());
         if(request.getUserPrincipal() == null){
-            model.addAttribute("user", false);
+            model.addAttribute("normal", false);
         }else{
-            model.addAttribute("user", true);
+            model.addAttribute("normal", true);
             User user = userService.findByOnlyName(request.getUserPrincipal().getName());
             if(user.getRole() == RoleName.ADMIN){
                 model.addAttribute("admin", true);
             }else{
                 model.addAttribute("admin", false);
+            }
+        }
+
+        if(request.getUserPrincipal() == null){
+            model.addAttribute("user", false);
+            model.addAttribute("not", true);
+        }else{
+
+            User user = userService.findByOnlyName(request.getUserPrincipal().getName());
+            if(user.getRole() == RoleName.ADMIN){
+                model.addAttribute("user", true);
+                model.addAttribute("not", true);
+            }else{
+                model.addAttribute("user", true);
+                model.addAttribute("not", false);
             }
         }
 
@@ -217,8 +235,8 @@ public class ControllerBasic {
 
     @GetMapping("/comments")    //see every comment in our database
     public String comments(Model model, HttpServletRequest request){
-        String name = request.getUserPrincipal().getName();
-        User user = userService.findByOnlyName(name);
+        /*String name = request.getUserPrincipal().getName();
+        User user = userService.findByOnlyName(name);*/
         model.addAttribute("comment",commentService.getAll());
         return "comments";
     }
@@ -288,8 +306,33 @@ public class ControllerBasic {
 
 
     @GetMapping("/coupons") //see the created coupuns
-    public String coupons(Model model){
+    public String coupons(Model model, HttpServletRequest request){
         model.addAttribute("coupons",cuponService.getAll());
+
+        if(request.getUserPrincipal() == null){
+            model.addAttribute("user", false);
+            model.addAttribute("not", true);
+        }else{
+
+            User user = userService.findByOnlyName(request.getUserPrincipal().getName());
+            if(user.getRole() == RoleName.ADMIN){
+                model.addAttribute("user", true);
+                model.addAttribute("not", true);
+            }else{
+                model.addAttribute("user", true);
+                model.addAttribute("not", false);
+            }
+        }
+
+        if(request.getUserPrincipal() != null) {
+            User user = userService.findByOnlyName(request.getUserPrincipal().getName());
+            if (user.getRole() == RoleName.ADMIN) {
+                model.addAttribute("admin", true);
+            } else {
+                model.addAttribute("admin", false);
+            }
+        }
+
         return "CouponList";
     }
 

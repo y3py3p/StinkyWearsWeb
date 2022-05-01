@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Lista de items</title>
+    <title>Lista de cupones</title>
     <link rel="stylesheet" href="http://localhost:8080/res/cursor.css"/>
     <link rel="stylesheet" href="http://localhost:8080/res/main.css"/>
     <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
 </head>
 
 <body>
-<section class="header">                        <!-- side nav bar -->
-    <div id="sidebar">
+<section class="header">
+    <div id="sidebar">                          <!-- side nav bar -->
         <div class="toggle-btn">
             <span>&#9776</span>
         </div>
@@ -19,10 +19,10 @@
             <li><a href="/">MainPage</a></li>
             <li><a href="/items">Items</a></li>
             <li><a href="/usr">MyUser</a></li>
-            <li><a href="/login">login</a></li>
+            {{#not}}<li><a href="/login">Login</a></li>{{/not}}
+            {{#user}}<li><a href="/logout">Logout</a> </li>{{/user}}
             <li><a href="/cart"> Carrito </a></li>
             <li><a href="/comments"> Comentarios </a></li>
-            <li><a href="/coupons">Cupones</a></li>
         </ul>
     </div>
 </section>
@@ -30,12 +30,12 @@
 <div class="clearfix"></div>
 
 <section id="itemList">           <!-- will print out all the available items -->
-    <h2>Los items disponibles en nuestra tienda son:</h2>
+    <h2>Los cupones disponibles son:</h2>
     {{#coupons}}
         <p>Código del cupón: {{cuponID}}<br>Descuento aplicado: {{descuento}}%</p><br><br>
     {{/coupons}}
     <br/>
-    <p>Pulse <a href="res/NewCoupon.html">AQUI</a> para añadir otro cupón</p>
+    {{#admin}}<p>Pulse <a href="/NewCoupon.html">AQUI</a> para añadir otro cupón</p>{{/admin}}
 </section>
 
 <div class="clearfix"></div>

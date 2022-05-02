@@ -82,9 +82,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .antMatchers("/NewItem.html").authenticated()
                 .antMatchers("/NewCoupon.html").hasRole("ADMIN")
                 .antMatchers("/CreateAccount.html").permitAll()
-                .antMatchers("/api/**").permitAll()
                 .antMatchers("/api/login").permitAll()
-                .antMatchers("/adminpage").hasRole("ADMIN");
+                .antMatchers("/adminpage").hasRole("ADMIN")
+                .antMatchers("/api/del/**").authenticated()
+                .antMatchers("/api/addItem").authenticated()
+                .antMatchers("/api/editItem/**").authenticated()
+                .antMatchers("/api/addCart/**").authenticated()
+                .antMatchers("/api/seeCart").authenticated()
+                .antMatchers("/api/removeCart/**").authenticated()
+                .antMatchers("/api/usr").authenticated()
+                .antMatchers("/api/comments").permitAll()
+                .antMatchers("/api/NewComment").authenticated()
+                .antMatchers("/api/coupon/new").hasRole("ADMIN")
+                .antMatchers("/api/coupons").permitAll()
+                .antMatchers("/api/pay/**").authenticated()
+                .antMatchers("/api/search/**").permitAll();
 
         http.addFilterBefore(authTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 

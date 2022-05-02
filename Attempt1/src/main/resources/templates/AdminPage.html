@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pagina admin</title>
+    <link rel="stylesheet" href="http://localhost:8080/res/cursor.css"/>
+    <link rel="stylesheet" href="http://localhost:8080/res/main.css"/>
+    <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
+</head>
+
+<body>
+<section class="header">
+    <div id="sidebar">                          <!-- side nav bar -->
+        <div class="toggle-btn">
+            <span>&#9776</span>
+        </div>
+        <ul>
+            <img src="http://localhost:8080/img/ouuushrek.png" alt="Logo Fazt" class="logo"> <br/>
+            <li><a href="/">MainPage</a></li>
+            <li><a href="/usr">MyUser</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/logout">Logout</a> </li>
+            <li><a href="/cart"> Carrito </a></li>
+            <li><a href="/comments"> Comentarios </a></li>
+            <li><a href="/coupons">Cupones</a></li>
+        </ul>
+    </div>
+</section>
+
+<div class="clearfix"></div>
+
+<section id="itemList">           <!-- will print out all the available items -->
+
+    {{#users}}
+    <p>Id: {{userID}} Nombre de usuario: {{userName}} Email: {{email}} Nombre: {{personalName}} Direccion: {{address}}<br/><br>
+        <button class="buttons" type="submit"><a href="/user/del/{{userID}}">Eliminar</a></button></p><br>
+    {{/users}}
+
+    <form action="/searchUser" method="post">
+
+        <br/><br/>
+        <h4> Buscar por nombre:<br/>
+            <input type="text" name="name" placeholder="Nombre">  <!-- type its price (number) -->
+            <button class="buttons" type="submit">Enviar</button></h4><br>           <!-- click to submit the info -->
+        <p>Cuidado con lo que buscas, Shrek te vigila</p>
+        <img width="200px" src="img/ojos.png">
+    </form>
+</section>
+
+<div class="clearfix"></div>
+
+<section id="ShrekIsWatching">
+    <img width="200px" src="img/ShrekTeVigila.png">        <!--just Shrek watching you browse items-->
+</section>
+
+<footer>
+    StinkyWear &copy; 2022
+</footer>
+
+<div class="cursor"></div>
+<script src="http://localhost:8080/res/cursor.js"></script>
+<script src="res/lateralBar.js"></script>
+</body>
+</html>

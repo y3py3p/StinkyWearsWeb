@@ -2,56 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>UsrPage</title>
+    <title>My Profile</title>
     <link rel="stylesheet" href="http://localhost:8080/res/cursor.css"/>
-    <link rel="stylesheet" href="http://localhost:8080/res/main.css"/>
+    <link rel="stylesheet" href="http://localhost:8080/res/myprofile.css">
     <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
+    </script>
 </head>
 
 <body>
-    <section class="header">                        <!-- side nav bar -->
-        <div id="sidebar">
-            <div class="toggle-btn">
-                <span>&#9776</span>
-            </div>
-            <ul>
-                <img src="http://localhost:8080/img/ouuushrek.png" alt="Logo Fazt" class="logo"> <br/>
-                <li><a href="/">MainPage</a></li>
-                <li><a href="/items">Items</a></li>
-                <li><a href="/usr">MyUser</a></li>
-                <li><a href="/login">login</a></li>
-                <li><a href="/cart"> Carrito </a></li>
-                <li><a href="/comments"> Comentarios </a></li>
-                <li><a href="/coupons">Cupones</a></li>
-            </ul>
+<div class="container">
+    <div id="logo">
+        <h1 class="logo">hulu</h1>
+        <div class="CTA">
+            <h1> <form action="/logout" method="post">
+                <input type="submit" value="Log Out"/>
+            </form></h1>
         </div>
-    </section>
-
-<div class="clearfix"></div>
-
-    <section id="usrimg">
-        <img alt="UsrImg" width="200" src="http://localhost:8080/img/ShrekUsr.png"/>        <!-- beautiful Shreks' portrait -->
-    </section>
-
-    <section id="usrinfo">
-        <h2>Tu perfil:</h2>
-        <p>Usuario: {{user.userName}}</p><br>  <!-- will print out the users' info (right now it'll only show their name)-->
-        <p>Nombre: {{user.personalName}}</p><br>
-        <p>Email: {{user.email}}</p><br>
-        <p>Direccion: {{user.address}}</p><br>
-
-    </section>
-    <form action="/logout" method="post">
-        <input type="submit" value="Cerrar sesion"/>
-    </form>
-
-<div class="clearfix"></div>
-
-    <footer>
-        StinkyWear &copy; 2022
-    </footer>
+    </div>
+    <div class="leftbox">
+        <nav>
+            <a id="profile" class="active" href="/">⌂</a>
+        </nav>
+    </div>
+    <div class="rightbox">
+        <div class="profile">
+            <h1>Datos del usuario:</h1>
+            <h2>Usuario:</h2>
+            <p>{{user.userName}}</p>
+            <h2>Nombre:</h2>
+            <p>{{user.personalName}}</p>
+            <h2>Email</h2>
+            <p>{{user.email}}</p>
+            <h2>Direccion:</h2>
+            <p>{{user.address}}</p>
+        </div>
+    </div>
+        <footer><img src="http://localhost:8080/img/shrek_PNG1.png" width="500px"></footer>
+</body>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://localhost:8080/res/myprofile.js"></script>
     <div class="cursor"></div>
     <script src="http://localhost:8080/res/cursor.js"></script>
     <script src="http://localhost:8080/res/lateralBar.js"></script>
-</body>
 </html>

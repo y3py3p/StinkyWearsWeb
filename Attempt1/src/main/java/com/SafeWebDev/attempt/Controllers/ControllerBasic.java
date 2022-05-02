@@ -110,9 +110,10 @@ public class ControllerBasic {
     }
 
     @GetMapping("/item/{id}")   //redirect to ItemPage.html, where you can see the info of one item
-    public String itemPage(Model model, @PathVariable long id) {
+    public String itemPage(Model model, @PathVariable long id, HttpServletRequest request) {
 
         model.addAttribute("item", itemService.findById(id));
+        model.addAttribute("edit", itemService.findById(id).canEdit(request.getUserPrincipal().getName()));
         return "ItemPage";
     }
 
@@ -128,8 +129,7 @@ public class ControllerBasic {
 
     @PostMapping("/item/new")   //redirect to ItemAdded.html after adding an item to our general List
     public String addItem(Model model,Item item, HttpServletRequest request){
-        String name = request.getUserPrincipal().getName();
-        User user = userService.findByOnlyName(name);
+        item.setOwner(request.getUserPrincipal().getName());
         itemService.add(item);
         return "ItemAdded";
     }
@@ -175,24 +175,24 @@ public class ControllerBasic {
     }
 
     @GetMapping("/cart")    //redirect to Cart.html, with your cart info
-    public String carrito(Model model){
-        model.addAttribute("cart", currentUser.getCart());
+    public String carrito(Model model,HttpServletRequest request){
+        model.addAttribute("cart", userService.findByOnlyName(request.getUserPrincipal().getName()).getCart());
         return "Cart";
     }
 
     @GetMapping("/cart/{id}")   //redirect to CartAdded.html or CartAlreadyContains.html
-    public String addCarrito(Model model, @PathVariable long id){
-        if(currentUser.getCart().contains(itemService.findById(id))){
+    public String addCarrito(Model model, @PathVariable long id,HttpServletRequest request){
+        if(userService.findByOnlyName(request.getUserPrincipal().getName()).getCart().contains(itemService.findById(id))){
             return "CartAlreadyContains";
         }else{
-            currentUser.addCart(itemService.findById(id));
+            userService.findByOnlyName(request.getUserPrincipal().getName()).addCart(itemService.findById(id));
             return "CartAdded";
         }
     }
 
     @GetMapping("/cart/del/{id}")   //redirect to ItemDeleted.html, to confirm the item was deleted
-    public String deleteItem(@PathVariable int id){
-        currentUser.delCart(id-1);
+    public String deleteItem(@PathVariable int id,HttpServletRequest request){
+        userService.findByOnlyName(request.getUserPrincipal().getName()).delCart(id-1);
         return "ItemDeleted";
 
     }
@@ -231,7 +231,6 @@ public class ControllerBasic {
             user.setUserPass(encoder.encode(user.getUserPass()));
             user.addRole(RoleName.GUEST);
             userDetailsService.saveUser(user);
-            currentUser=userService.findByOnlyName(user.getUserName().replaceAll(".*([';]+|(--)+).*", " "));
             return "AccountCreated";
         }else{
             model.addAttribute("aviso", "Este usuario ya esta registrado, inicie sesión con sus credenciales");
@@ -278,32 +277,32 @@ public class ControllerBasic {
     }
 
     @GetMapping("/payments")    //see what you have to pay
-    public String payment(Model model){
-        model.addAttribute("cart",currentUser.getCart());
+    public String payment(Model model,HttpServletRequest request){
+        model.addAttribute("cart",userService.findByOnlyName(request.getUserPrincipal().getName()).getCart());
         return "Payments";
     }
 
     @GetMapping("/pay") //pay
-    public String pay(Model model){
-        model.addAttribute("precio",currentUser.getPrice());
+    public String pay(Model model,HttpServletRequest request){
+        model.addAttribute("precio",userService.findByOnlyName(request.getUserPrincipal().getName()).getPrice());
         return "PayForm";
     }
 
     @PostMapping("/price/final")        //final price
-    public String finalPrice(Model model, @RequestParam long cupon){
+    public String finalPrice(Model model, @RequestParam long cupon,HttpServletRequest request){
         /*if(cupon==null){
             model.addAttribute("precioFinal", currentUser.getPrice());
             return "SuccessfulPurchase";
         }
         else */if(!cuponService.exists(cupon)){
-            model.addAttribute("precioFinal", currentUser.getPrice());
-            currentUser.emptyCart();
+            model.addAttribute("precioFinal", userService.findByOnlyName(request.getUserPrincipal().getName()).getPrice());
+            userService.findByOnlyName(request.getUserPrincipal().getName()).emptyCart();
 
             return "SuccessfulPurchase";
         } else {
             Cupon cupone = cuponService.findById(cupon);
-            model.addAttribute("precioFinal", currentUser.priceCupon(cupone));
-            currentUser.emptyCart();
+            model.addAttribute("precioFinal", userService.findByOnlyName(request.getUserPrincipal().getName()).priceCupon(cupone));
+            userService.findByOnlyName(request.getUserPrincipal().getName()).emptyCart();
 
             return "SuccessfulPurchase";
         }

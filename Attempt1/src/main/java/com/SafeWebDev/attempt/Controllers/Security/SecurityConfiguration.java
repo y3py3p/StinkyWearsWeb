@@ -50,7 +50,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception{
 
         //http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
+        http.cors().and().csrf().disable()
+                .exceptionHandling().authenticationEntryPoint(unauthorized).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         //Setting public places
         http.authorizeRequests()
                 .antMatchers("/img/**").permitAll()
@@ -90,7 +92,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         //Setting the login page variables
         http.formLogin().loginPage("/login").usernameParameter("username").passwordParameter("password").defaultSuccessUrl("/usr").failureUrl("/login");
 
-        http.csrf().disable();
+
 
 
     }

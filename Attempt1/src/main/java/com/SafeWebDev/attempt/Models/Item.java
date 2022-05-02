@@ -17,6 +17,7 @@ public class Item{
     private String productSize="desconocido";
     private String productCondition="desconocido";
     private float productPrice=0;
+    private String productOwner;
     private int productStock=0;
 
     public Item(String productName, String productSize, String state,float productPrice) {
@@ -44,6 +45,18 @@ public class Item{
 
     public void setId(long productID){
         this.productID=productID;
+    }
+
+    public void setOwner(String owner){
+        this.productOwner=owner;
+    }
+
+    public String getOwner(){
+        return this.productOwner;
+    }
+
+    public boolean canEdit(String user){
+        return this.productOwner.equals(user);
     }
 
     public String getname() {

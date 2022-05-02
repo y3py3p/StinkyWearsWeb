@@ -86,9 +86,24 @@ public class ItemRESTController {
     }
 
     @GetMapping("/del/{id}")    //delete an item
-    public ResponseEntity<Item> deleteItem(@PathVariable long id){
-        itemService.delete(itemService.findById(id));
-        return new ResponseEntity<>(itemService.findById(id),HttpStatus.ACCEPTED);
+    public ResponseEntity<?> deleteItem(@PathVariable long id, HttpServletRequest request){
+
+
+        if(itemService.exists(id)){
+            Item item = itemService.findById(id);
+            if(item.getOwner().equals(request.getUserPrincipal().getName())){
+
+                itemService.delete(itemService.findById(id));
+                return new ResponseEntity<>(HttpStatus.ACCEPTED);
+            }else{
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+
+
     }
 
     @PostMapping("/addItem")    //add item to stock
@@ -100,26 +115,22 @@ public class ItemRESTController {
     }
 
     @PostMapping("/editItem/{id}")  //edit item info
-    public ResponseEntity<Item> edit(@RequestBody Item item, @PathVariable long id){
+    public ResponseEntity<Item> edit(@RequestBody Item item, @PathVariable long id, HttpServletRequest request){
 
         if(itemService.exists(id)){
-            itemService.updateItem(id, item);
-            return new ResponseEntity<>(itemService.findById(id), HttpStatus.CREATED);
+
+            if(itemService.findById(id).getOwner().equals(request.getUserPrincipal().getName())){
+
+                itemService.updateItem(id, item);
+                return new ResponseEntity<>(HttpStatus.ACCEPTED);
+            }else{
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
 
-    }
-
-    @PostMapping("/newUser")
-    public ResponseEntity<User> newUser(@RequestBody User user){
-
-        userDetailsService.saveUser(user);
-
-        //currentUser=user;
-
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     @PostMapping("/signup")
@@ -167,53 +178,52 @@ public class ItemRESTController {
 
     }
 
-    /*@PostMapping("/login")
-    public ResponseEntity<User> login(@RequestParam String username, @RequestParam String password){
-
-
-    }*/
-
     @GetMapping("/addCart/{id}")    //add item to cart
-    public ResponseEntity<List<Item>> addCart(@PathVariable long id){
+    public ResponseEntity<List<Item>> addCart(@PathVariable long id, HttpServletRequest request){
 
-        if(currentUser.getCart().contains(itemService.findById(id))){
-            return new ResponseEntity<>( HttpStatus.NOT_ACCEPTABLE);
+        if(itemService.exists(id)){
+            User user = userService.findByOnlyName(request.getUserPrincipal().getName());
+            if(user.getCart().contains(itemService.findById(id))){
+                return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+            }else{
+                //currentUser.addCart(itemService.findById(id));
+                user.addCart(itemService.findById(id));
+                return new ResponseEntity<>(user.getCart(), HttpStatus.ACCEPTED);
+            }
         }else{
-            currentUser.addCart(itemService.findById(id));
-            return new ResponseEntity<>(currentUser.getCart(), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
+
+
+
 
     }
 
     @GetMapping("/seeCart") //see the cart
-    public List<Item> seeCart(){
+    public List<Item> seeCart(HttpServletRequest request){
 
-        return currentUser.getCart();
+        return userService.findByOnlyName(request.getUserPrincipal().getName()).getCart();
 
     }
 
     @GetMapping("/removeCart/{id}") //remove item from cart
-    public ResponseEntity<List<Item>> removeCart(@PathVariable int id){
-        currentUser.getCart().remove(itemService.findById(id));
+    public ResponseEntity<List<Item>> removeCart(@PathVariable int id, HttpServletRequest request){
+
+        User user = userService.findByOnlyName(request.getUserPrincipal().getName());
         return new ResponseEntity<>(currentUser.getCart(),HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/usr") //see your user
     public User seeUser(HttpServletRequest request){
 
-        /*if(currentUser!=null){    //check if you're loged in
-            return currentUser;
-        }else{
-            return null;
-        }*/
-        if(request.getUserPrincipal() != null){
+        /*if(request.getUserPrincipal() != null){
 
             User user = userService.findByOnlyName(request.getUserPrincipal().getName());
             return user;
         }else {
             return null;
-        }
-
+        }*/
+        return userService.findByOnlyName(request.getUserPrincipal().getName());
     }
     @GetMapping("/comments")    //see every comment in our database
     public ResponseEntity<List<Comment>> comments(Model model){
@@ -229,13 +239,13 @@ public class ItemRESTController {
     @PostMapping("/coupon/new") //create a coupon
     public ResponseEntity<Cupon> createCoupon(@RequestBody Cupon coupon){
         cuponService.addCupon(coupon);
-        currentUser.addCupon(coupon);
         return new ResponseEntity<>(coupon, HttpStatus.CREATED);
     }
 
     @GetMapping("/coupons") //see the coupons
     public ResponseEntity<List<Cupon>> getCupons(){
-        return new ResponseEntity<>(currentUser.getCupones(), HttpStatus.ACCEPTED);
+
+        return new ResponseEntity<>(cuponService.getAll(), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/pay") //pay

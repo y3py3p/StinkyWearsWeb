@@ -119,7 +119,7 @@ public class ControllerBasic {
 
     @GetMapping("/usr") //redirect to UsrPage.html with your usr info (right now just the admin user)
     public String usrPage(Model model, HttpServletRequest request) {
-
+        log.info("User: {}", request.getUserPrincipal().getName());
         String name = request.getUserPrincipal().getName();
         User user = userService.findByOnlyName(name);
         model.addAttribute("user", user);
@@ -202,27 +202,6 @@ public class ControllerBasic {
         model.addAttribute("aviso", "");
         return "LogIn";
     }
-
-    /*@PostMapping("/login/user")   //logs the user in and displays the user page with the user already swapped
-    public String logInPost(Model model, @RequestParam String userName, @RequestParam String password, HttpServletRequest request) {
-        request.getUserPrincipal()
-        if(userService.findByName(userName.replaceAll(".*([';]+|(--)+).*", " "),password.hashCode()) !=null){  //Sanitize the fields so that we dont suffer and sql injection
-            log.info("Encontrado");
-            currentUser=userService.findByName(userName,password.hashCode());
-            model.addAttribute("user",currentUser);
-            return "UsrPage";
-        }else{
-            model.addAttribute("aviso", "El nombre de usuario no correponde con ninguno registrado en nuestra base de datos u ocurrió otro error inesperado");
-            log.error("No");
-            return "LogIn";
-        }
-    }*/
-
-    /*@GetMapping("/logout")
-    public String logout(){
-        currentUser=new User("webo",null,1,null);   //Here the password is irrelevant as we wont use it
-        return "StartPage";
-    }*/
 
     @PostMapping("/account/created")
     public String createdAccount(Model model, User user){
@@ -374,9 +353,37 @@ public class ControllerBasic {
     }
 
     @GetMapping("/adminpage")
-    public String adminPage(){
-        //pagina para admin que hay q implementar
-        return null;
+    public String adminPage(Model model, HttpServletRequest request){
+
+        model.addAttribute("users", userService.getAll());
+
+
+
+        return "AdminPage";
+    }
+
+    @GetMapping("/user/del/{id}")   //delete an item
+    public String delUser(@PathVariable int id){
+
+        userService.delete(userService.findById(id));
+
+        return "AdminPage";
+
+    }
+
+    @PostMapping("/searchUser") //search an item by it's name
+    public String searchUser(Model model, @RequestParam String name, HttpServletRequest request){
+
+        String webo = name.replaceAll(".*([';]+|(--)+).*", " ");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        TypedQuery<User> q1=entityManager.createQuery("SELECT c FROM User c WHERE c.userName like concat('%',:webo,'%')",User.class).setParameter("webo",webo);
+        List<User> users=q1.getResultList();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        model.addAttribute("users",users);
+
+        return "AdminPage";
     }
 
 }

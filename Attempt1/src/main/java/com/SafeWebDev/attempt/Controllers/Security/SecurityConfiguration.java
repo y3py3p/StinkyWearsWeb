@@ -50,9 +50,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception{
 
         //http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.cors().and().csrf().disable()
+        /*http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorized).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);*/
+        http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         //Setting public places
         http.authorizeRequests()
                 .antMatchers("/img/**").permitAll()
@@ -82,7 +83,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .antMatchers("/NewCoupon.html").hasRole("ADMIN")
                 .antMatchers("/CreateAccount.html").permitAll()
                 .antMatchers("/api/**").permitAll()
-                .antMatchers("/api/login").permitAll();
+                .antMatchers("/api/login").permitAll()
+                .antMatchers("/adminpage").hasRole("ADMIN");
 
         http.addFilterBefore(authTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 

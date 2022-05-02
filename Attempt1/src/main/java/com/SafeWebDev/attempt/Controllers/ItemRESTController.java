@@ -134,7 +134,7 @@ public class ItemRESTController {
         return ResponseEntity.ok(new MessageResponse("Usuario registrado"));
     }
 
-    @PostMapping("/login")
+    @PostMapping("/signin")
     public ResponseEntity<?> loginRe(@Valid @RequestBody LoginRequest loginRequest){
 
         log.info("Esto llega");
@@ -142,7 +142,10 @@ public class ItemRESTController {
         log.info("Esto llega 2");
         SecurityContextHolder.getContext().setAuthentication(authentication);
         log.info("Esto llega 3");
-        UserDetailsEntityImpl userDetails = (UserDetailsEntityImpl) authentication.getPrincipal();
+        log.info("User: {}", authentication.getPrincipal());
+        UserDetailsEntityImpl userDetails = UserDetailsEntityImpl.build(userService.findByOnlyName(authentication.getName()));
+        /*log.info("Mira: {}", userDetails.equals(authentication.getPrincipal()));*/
+
         log.info("Esto llega4");
         ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
 
@@ -156,6 +159,7 @@ public class ItemRESTController {
         }else {
             roleName = RoleName.USER;
         }
+        //RoleName roleName = userDetails.getRole();
 
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
                 .body(new UserInfoResponse(userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roleName));

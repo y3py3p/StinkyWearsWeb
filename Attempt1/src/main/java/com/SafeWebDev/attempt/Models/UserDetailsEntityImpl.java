@@ -1,14 +1,18 @@
 package com.SafeWebDev.attempt.Models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
+@Slf4j
 public class UserDetailsEntityImpl implements UserDetails {
 
     private static final long serialVersionUID = 1L;
@@ -32,6 +36,7 @@ public class UserDetailsEntityImpl implements UserDetails {
     public static UserDetailsEntityImpl build(User user) {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
+        log.info("Funciona (build)");
         authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole().toString()));
         return new UserDetailsEntityImpl(
                 user.getUserID(),
@@ -56,31 +61,43 @@ public class UserDetailsEntityImpl implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return username;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        log.info("Esto funciona");
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        UserDetailsEntityImpl user = (UserDetailsEntityImpl)  o;
+        log.info("Esto tambien funciona");
+        return Objects.equals(id, user.id);
     }
 }

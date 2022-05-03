@@ -19,7 +19,8 @@
             <li><a href="/">MainPage</a></li>
             <li><a href="/items">Items</a></li>
             <li><a href="/usr">MyUser</a></li>
-            <li><a href="/login">login</a></li>
+            {{#not}}<li><a href="/login">Login</a></li>{{/not}}
+            {{#user}}<li><a href="/logout">Logout</a> </li>{{/user}}
             <li><a href="/cart"> Carrito </a></li>
             <li><a href="/comments"> Comentarios </a></li>
             <li><a href="/coupons">Cupones</a></li>

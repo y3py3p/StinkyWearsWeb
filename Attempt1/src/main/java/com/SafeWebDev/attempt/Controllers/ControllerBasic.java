@@ -9,6 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.SafeWebDev.attempt.Models.*;
 import com.SafeWebDev.attempt.Models.Services.CommentService;
@@ -21,6 +23,7 @@ import org.checkerframework.checker.units.qual.A;
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -58,11 +61,11 @@ public class ControllerBasic {
     User currentUser;
 
 
-    @PostConstruct
+    /*@PostConstruct
     public void init(){
         //currentUser=new User("webo",null,null,null);
         //userDetailsService.saveUser(new User("guest", "guest@guest", "1234", "guest"));
-    }
+    }*/
 
 
     @GetMapping("")     //redirect to StartPage.html, the main page
@@ -72,7 +75,7 @@ public class ControllerBasic {
         if(request.getUserPrincipal() == null){
             model.addAttribute("user", false);
             model.addAttribute("not", true);
-            log.info("User: {}",  "No iniciado sesion");
+            log.info("No iniciado sesion");
         }else{
 
             User user = userService.findByOnlyName(request.getUserPrincipal().getName());
@@ -217,11 +220,23 @@ public class ControllerBasic {
         return "LogIn";
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response){
+
+        HttpSession session = request.getSession(false);
+        SecurityContextHolder.clearContext();
+        session = request.getSession(false);
+        if(session != null){
+            session.invalidate();
+        }
+        return "StartPage";
+    }
+
     @PostMapping("/account/created")
     public String createdAccount(Model model, User user){
         if(userService.findByOnlyName(user.getUserName().replaceAll(".*([';]+|(--)+).*", " ")) ==  null){
             user.setUserPass(encoder.encode(user.getUserPass()));
-            user.addRole(RoleName.GUEST);
+            user.addRole(RoleName.USER);
             userService.saveUser(user);
             return "AccountCreated";
         }else{
@@ -233,8 +248,24 @@ public class ControllerBasic {
 
     @GetMapping("/comments")    //see every comment in our database
     public String comments(Model model, HttpServletRequest request){
-        /*String name = request.getUserPrincipal().getName();
-        User user = userService.findByOnlyName(name);*/
+
+        if(request.getUserPrincipal() == null){
+            model.addAttribute("user", false);
+            model.addAttribute("not", true);
+            log.info("No iniciado sesion");
+        }else{
+
+            User user = userService.findByOnlyName(request.getUserPrincipal().getName());
+            if(user.getRole() == RoleName.ADMIN){
+                model.addAttribute("user", true);
+                model.addAttribute("not", true);
+            }else{
+                model.addAttribute("user", true);
+                model.addAttribute("not", false);
+            }
+            log.info("User: {}",  request.getUserPrincipal().getName());
+        }
+
         model.addAttribute("comment",commentService.getAll());
         return "comments";
     }

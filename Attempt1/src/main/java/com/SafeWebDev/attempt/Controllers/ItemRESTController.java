@@ -143,20 +143,10 @@ public class ItemRESTController {
     @PostMapping("/signin")
     public ResponseEntity<?> loginRe(@Valid @RequestBody LoginRequest loginRequest){
 
-        log.info("Esto llega");
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-        log.info("Esto llega 2");
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        log.info("Esto llega 3");
-        log.info("User: {}", authentication.getPrincipal());
         UserDetailsEntityImpl userDetails = UserDetailsEntityImpl.build(userService.findByOnlyName(authentication.getName()));
-        /*log.info("Mira: {}", userDetails.equals(authentication.getPrincipal()));*/
-
-        log.info("Esto llega4");
         ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
-
-        log.info("Esto llega 5");
-
 
         String role = userDetails.getAuthorities().toString();
         RoleName roleName;

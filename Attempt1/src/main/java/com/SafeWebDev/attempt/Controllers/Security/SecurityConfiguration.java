@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -65,7 +66,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .antMatchers("/editting/**").hasAnyRole("ADMIN")
                 .antMatchers("/item/**").authenticated()
                 .antMatchers("/usr").authenticated()
-                .antMatchers("/item/del/**").hasRole("ADMIN")
+                .antMatchers("/item/del/**").authenticated()
                 .antMatchers("/cart").authenticated()
                 .antMatchers("/cart/**").authenticated()
                 .antMatchers("/login").permitAll()
@@ -92,6 +93,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         //Setting the login page variables
         http.formLogin().loginPage("/login").usernameParameter("username").passwordParameter("password").defaultSuccessUrl("/usr").failureUrl("/login");
 
+        http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login");
 
 
 

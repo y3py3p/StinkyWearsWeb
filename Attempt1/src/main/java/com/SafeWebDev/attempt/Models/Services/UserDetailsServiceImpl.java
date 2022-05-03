@@ -24,9 +24,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     UserService userService;
 
-    /*@Autowired
-    PasswordEncoder passwordEncoder;*/
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -41,7 +38,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole().toString()));
-        log.info("Devuelto");
         return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getUserPass(), authorities);
     }
 

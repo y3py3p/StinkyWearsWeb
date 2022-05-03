@@ -39,7 +39,7 @@
         {{/items}}
         <br/>
         {{#normal}}
-        <p>Te gustaría subir tu propia ropa? Haz click <a href="/NewItem.html">AQUÍ</a> para añadir un nuevo item </p>  <!-- it'll redirect you to /newItem, where you can add your own item-->
+        <p>Te gustaría subir tu propia ropa? Haz click <a href="/item_form">AQUÍ</a> para añadir un nuevo item </p>  <!-- it'll redirect you to /newItem, where you can add your own item-->
         {{/normal}}
         <form action="/search" method="post">
 
@@ -49,6 +49,7 @@
             <button class="buttons" type="submit">Enviar</button></h4><br>           <!-- click to submit the info -->
             <p>Cuidado con lo que buscas, Shrek te vigila</p>
             <img width="200px" src="img/ojos.png">
+            <input type="hidden" name="_csrf" value="{{token}}"/>
         </form>
     </section>
 

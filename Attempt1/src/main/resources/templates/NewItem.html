@@ -10,7 +10,6 @@
 </head>
 
 <body>
-    <%= Encode.forHtml(text) %>
     <section class="header">
         <div id="sidebar">                          <!-- side nav bar -->
             <div class="toggle-btn">
@@ -21,7 +20,7 @@
                 <li><a href="/">MainPage</a></li>
                 <li><a href="/items">Items</a></li>
                 <li><a href="/usr">MyUser</a></li>
-                <li><a href="/login">Login</a></li>{{/not}}
+                {{#not}}<li><a href="/login">Login</a></li>{{/not}}
                 <li><a href="/cart"> Carrito </a></li>
                 <li><a href="/comments"> Comentarios </a></li>
                 <li><a href="/coupons">Cupones</a></li>
@@ -49,7 +48,8 @@
                 <input type="text" name="condition" placeholder="-"></h4>
             <h4> Precio:<br/>
                 <input type="number" step="0.01" name="price" min="0" placeholder="-"></h4>        <!-- type its price (number) -->
-            <h2><button class="buttons" type="submit">Enviar</button></h2>              <!-- click to submit the info -->
+            <h2><button class="buttons" type="submit">Enviar</button></h2>   
+            <input type="hidden" name="_csrf" value="{{token}}"/>           <!-- click to submit the info -->
         </form>
     </section>
 

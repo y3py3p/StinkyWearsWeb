@@ -60,12 +60,7 @@ public class ItemRESTController {
     @Autowired
     private PasswordEncoder encoder;
 
-    private User currentUser;
 
-    @PostConstruct
-    public void init(){
-        currentUser=new User("Default");
-    }
 
     @GetMapping("/see") //to see every item on stock
     public List<Item> getItems(){
@@ -210,7 +205,8 @@ public class ItemRESTController {
     public ResponseEntity<List<Item>> removeCart(@PathVariable int id, HttpServletRequest request){
 
         User user = userService.findByOnlyName(request.getUserPrincipal().getName());
-        return new ResponseEntity<>(currentUser.getCart(),HttpStatus.ACCEPTED);
+        user.getCart().remove(itemService.findById(id));
+        return new ResponseEntity<>(user.getCart(),HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/usr") //see your user
@@ -249,15 +245,15 @@ public class ItemRESTController {
     }
 
     @GetMapping("/pay") //pay
-    public ResponseEntity<Float> pay(){
+    public ResponseEntity<Float> pay(HttpServletRequest request){
 
-        return new ResponseEntity<>(currentUser.getPrice(), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(userService.findByOnlyName(request.getUserPrincipal().getName()).getPrice(), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("pay/cupon/{id}")   //pay with coupons
-    public ResponseEntity<Float> payCupons(@PathVariable long id){
+    public ResponseEntity<Float> payCupons(@PathVariable long id,HttpServletRequest request){
 
-        return new ResponseEntity<>(currentUser.priceCupon(cuponService.findById(id)), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(userService.findByOnlyName(request.getUserPrincipal().getName()).priceCupon(cuponService.findById(id)), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/search/{name}")   //search by name

@@ -17,9 +17,9 @@ public class RestSecurityConfig extends WebSecurityConfigurerAdapter {
         http.antMatcher("/api/**");
         // Private endpoints
         http.authorizeRequests()
-        .antMatchers("/api/see").authenticated()
-        .antMatchers("/api/del/**").authenticated()
-        .antMatchers("/api/addItem").authenticated()
+        .antMatchers("/api/see").permitAll()
+        .antMatchers("/api/del/**").hasRole("ADMIN")
+        .antMatchers("/api/addItem").hasRole("ADMIN")
         .antMatchers("/api/editItem/**").authenticated()
         .antMatchers("/api/addCart/**").authenticated()
         .antMatchers("/api/seeCart").authenticated()

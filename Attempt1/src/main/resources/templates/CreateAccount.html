@@ -30,9 +30,14 @@
             <label>Password</label>
         </div>
         <div class="user-box">
+            <input class="controls" type="text" name="personalName" id="personalName" required="">
+            <label>Nombre</label>
+        </div>
+        <div class="user-box">
             <input class="controls" type="text" name="address" id="direcion" required="">
             <label>Direccion</label>
         </div>
+        <input type="hidden" name="_csrf" value="{{token}}"/>
         <a href="#">
             <span></span>
             <span></span>

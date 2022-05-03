@@ -40,7 +40,8 @@
     <form action="http://localhost:8080/coupon/new" method="post">
                 <h4> Descuento del nuevo cupón:<br/>
             <input type="number" name="descuento" min="1" max="99" placeholder="Descuento"></h4><br/>        <!-- type its price (number) -->
-        <p><button class="buttons" type="submit">Crear</button></p>              <!-- click to submit the info -->
+        <p><button class="buttons" type="submit">Crear</button></p>   
+        <input type="hidden" name="_csrf" value="{{token}}"/>           <!-- click to submit the info -->
     </form><br/>
     <p>El código de cupón se genera de manera automática, para verlo diríjase a la página de cupones</p><br/>
 </section>

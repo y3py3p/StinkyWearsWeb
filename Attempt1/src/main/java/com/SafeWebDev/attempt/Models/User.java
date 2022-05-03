@@ -6,6 +6,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.management.relation.Role;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.*;
 
 @Entity
@@ -19,6 +22,8 @@ public class User{
     @Column
     private String userName;
     private String email;
+
+    @JsonIgnore
     private String userPass;
     private String personalName;
     private String address;
@@ -26,7 +31,7 @@ public class User{
     @ManyToMany
     private List<Cupon> cupones=new ArrayList<Cupon>();
 
-    @OneToMany
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<Item> cart = new ArrayList<Item>();
 
     @Enumerated(EnumType.STRING)

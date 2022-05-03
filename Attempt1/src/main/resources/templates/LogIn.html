@@ -13,13 +13,14 @@
     <h2>Login</h2>
     <form action="/login" method="post">
         <div class="user-box">
-            <input class="controls" type="text" name="username" id="userName" required="">
+            <input class="controls" type="text" name="username" id="username" required="">
             <label>Username</label>
         </div>
         <div class="user-box">
             <input class="controls" type="password" name="password" id="password" required="">
             <label>Password</label>
         </div>
+        <input type="hidden" name="_csrf" value="{{token}}"/>
         <a href="#">
             <span></span>
             <span></span>
@@ -30,7 +31,7 @@
         </a>
         <!--<button class="buttons" type="submit">submit</button>-->
         <div class="reg">
-            <center><a href="http://localhost:8080/res/CreateAccount.html">¿No tienes cuenta? Registrate</a></center>
+            <center><a href="http://localhost:8080/CreateAccount.html">¿No tienes cuenta? Registrate</a></center>
         </div>
     </form>
     <!--<p>{{aviso}}</p>ESTO DE AQUI TENEMOS QUE PONERLO BIEN-->

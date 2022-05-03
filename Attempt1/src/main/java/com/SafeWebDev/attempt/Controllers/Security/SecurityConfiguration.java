@@ -4,6 +4,7 @@ import com.SafeWebDev.attempt.Models.Services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,6 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@Order(2)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     @Autowired
@@ -53,7 +55,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         /*http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorized).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);*/
-        http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         //Setting public places
         http.authorizeRequests()
                 .antMatchers("/img/**").permitAll()
@@ -82,21 +83,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .antMatchers("/NewItem.html").authenticated()
                 .antMatchers("/NewCoupon.html").hasRole("ADMIN")
                 .antMatchers("/CreateAccount.html").permitAll()
-                .antMatchers("/api/login").permitAll()
-                .antMatchers("/adminpage").hasRole("ADMIN")
-                .antMatchers("/api/del/**").authenticated()
-                .antMatchers("/api/addItem").authenticated()
-                .antMatchers("/api/editItem/**").authenticated()
-                .antMatchers("/api/addCart/**").authenticated()
-                .antMatchers("/api/seeCart").authenticated()
-                .antMatchers("/api/removeCart/**").authenticated()
-                .antMatchers("/api/usr").authenticated()
-                .antMatchers("/api/comments").permitAll()
-                .antMatchers("/api/NewComment").authenticated()
-                .antMatchers("/api/coupon/new").hasRole("ADMIN")
-                .antMatchers("/api/coupons").permitAll()
-                .antMatchers("/api/pay/**").authenticated()
-                .antMatchers("/api/search/**").permitAll();
+                .antMatchers("/adminpage").hasRole("ADMIN");
 
         http.addFilterBefore(authTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 

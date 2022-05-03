@@ -53,7 +53,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         /*http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorized).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);*/
-        http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        //http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.csrf().disable();
         //Setting public places
         http.authorizeRequests()
                 .antMatchers("/img/**").permitAll()

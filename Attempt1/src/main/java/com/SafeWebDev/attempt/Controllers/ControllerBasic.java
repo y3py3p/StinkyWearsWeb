@@ -25,10 +25,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -205,10 +202,13 @@ public class ControllerBasic {
 
     @PostMapping("/account/created")
     public String createdAccount(Model model, User user){
-        if(userService.findByOnlyName(user.getUserName().replaceAll(".*([';]+|(--)+).*", " ")) ==  null){
 
+        log.info("Usuario {}", user);
+        if(userService.findByOnlyName(user.getUserName().replaceAll(".*([';]+|(--)+).*", " ")) ==  null){
+            log.info("pass {}", user.getUserPass());
             user.setUserPass(encoder.encode(user.getUserPass()));
             user.addRole(RoleName.GUEST);
+
             userDetailsService.saveUser(user);
             return "AccountCreated";
         }else{

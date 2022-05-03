@@ -52,7 +52,7 @@ public class ControllerBasic {
     private UserDetailsServiceImpl userDetailsService;
 
     @Autowired
-    private PasswordEncoder encoder;
+    PasswordEncoder encoder;
 
 
     User currentUser;
@@ -182,7 +182,9 @@ public class ControllerBasic {
         if(userService.findByOnlyName(request.getUserPrincipal().getName()).getCart().contains(itemService.findById(id))){
             return "CartAlreadyContains";
         }else{
-            userService.findByOnlyName(request.getUserPrincipal().getName()).addCart(itemService.findById(id));
+            User user=userService.findByOnlyName(request.getUserPrincipal().getName());
+            user.addCart(itemService.findById(id));
+            userService.saveUser(user);
             return "CartAdded";
         }
     }
@@ -202,14 +204,10 @@ public class ControllerBasic {
 
     @PostMapping("/account/created")
     public String createdAccount(Model model, User user){
-
-        log.info("Usuario {}", user);
         if(userService.findByOnlyName(user.getUserName().replaceAll(".*([';]+|(--)+).*", " ")) ==  null){
-            log.info("pass {}", user.getUserPass());
             user.setUserPass(encoder.encode(user.getUserPass()));
             user.addRole(RoleName.GUEST);
-
-            userDetailsService.saveUser(user);
+            userService.saveUser(user);
             return "AccountCreated";
         }else{
             model.addAttribute("aviso", "Este usuario ya esta registrado, inicie sesión con sus credenciales");

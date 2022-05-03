@@ -13,13 +13,14 @@
     <h2>Login</h2>
     <form action="/login" method="post">
         <div class="user-box">
-            <input class="controls" type="text" name="username" id="userName" required="">
+            <input class="controls" type="text" name="username" id="username" required="">
             <label>Username</label>
         </div>
         <div class="user-box">
             <input class="controls" type="password" name="password" id="password" required="">
             <label>Password</label>
         </div>
+        <input type="hidden" name="_csrf" value="{{token}}"/>
         <a href="#">
             <span></span>
             <span></span>

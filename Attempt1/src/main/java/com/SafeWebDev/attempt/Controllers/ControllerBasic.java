@@ -124,6 +124,21 @@ public class ControllerBasic {
 
     }
 
+    @GetMapping("/register_form")
+    public String registerForm(){
+        return "CreateAccount";
+    }
+
+    @GetMapping("/coupon_form")
+    public String couponForm(){
+        return "NewCoupon";
+    }
+
+    @GetMapping("/item_form")
+    public String itemForm(){
+        return "NewItem";
+    }
+
     @PostMapping("/item/new")   //redirect to ItemAdded.html after adding an item to our general List
     public String addItem(Model model,Item item, HttpServletRequest request){
         item.setOwner(request.getUserPrincipal().getName());
@@ -273,8 +288,9 @@ public class ControllerBasic {
         }
         else */if(!cuponService.exists(cupon)){
             model.addAttribute("precioFinal", userService.findByOnlyName(request.getUserPrincipal().getName()).getPrice());
-            userService.findByOnlyName(request.getUserPrincipal().getName()).emptyCart();
-
+            User user=userService.findByOnlyName(request.getUserPrincipal().getName());
+            user.emptyCart();
+            userService.saveUser(user);
             return "SuccessfulPurchase";
         } else {
             Cupon cupone = cuponService.findById(cupon);

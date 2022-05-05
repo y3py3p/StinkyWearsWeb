@@ -1,38 +1,39 @@
 package com.SafeWebDev.attempt.Controllers;
 
 
-import com.SafeWebDev.attempt.Controllers.Payloads.LoginRequest;
-import com.SafeWebDev.attempt.Controllers.Payloads.MessageResponse;
-import com.SafeWebDev.attempt.Controllers.Payloads.SignupRequest;
-import com.SafeWebDev.attempt.Controllers.Payloads.UserInfoResponse;
-import com.SafeWebDev.attempt.Controllers.Security.JwtUtils;
-import com.SafeWebDev.attempt.Models.*;
-import com.SafeWebDev.attempt.Models.Services.*;
+import java.util.List;
 
-import lombok.extern.slf4j.Slf4j;
-import org.hibernate.bytecode.internal.bytebuddy.PassThroughInterceptor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseCookie;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-
-import javax.annotation.PostConstruct;
-import javax.management.relation.Role;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import java.util.List;
+
+import com.SafeWebDev.attempt.Controllers.Security.JwtUtils;
+import com.SafeWebDev.attempt.Models.Comment;
+import com.SafeWebDev.attempt.Models.Cupon;
+import com.SafeWebDev.attempt.Models.Item;
+import com.SafeWebDev.attempt.Models.RoleName;
+import com.SafeWebDev.attempt.Models.User;
+import com.SafeWebDev.attempt.Models.Services.CommentService;
+import com.SafeWebDev.attempt.Models.Services.CuponService;
+import com.SafeWebDev.attempt.Models.Services.ItemService;
+import com.SafeWebDev.attempt.Models.Services.UserDetailsServiceImpl;
+import com.SafeWebDev.attempt.Models.Services.UserService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
@@ -60,12 +61,7 @@ public class ItemRESTController {
     @Autowired
     private PasswordEncoder encoder;
 
-    private User currentUser;
 
-    @PostConstruct
-    public void init(){
-        currentUser=new User("Default");
-    }
 
     @GetMapping("/see") //to see every item on stock
     public List<Item> getItems(){
@@ -134,6 +130,12 @@ public class ItemRESTController {
     }
 
     @PostMapping("/signup")
+    public ResponseEntity<?> registerUser(com.SafeWebDev.attempt.Models.User user){
+        user.addRole(RoleName.USER);
+        userService.saveUser(user);
+        return new ResponseEntity<>(user,HttpStatus.ACCEPTED);
+    }
+    /*@PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest){
         if(userService.findByOnlyName(signupRequest.getUsername()) != null){
             return ResponseEntity.badRequest().body(new MessageResponse("Error: nombre de usuario ya usado"));
@@ -148,20 +150,10 @@ public class ItemRESTController {
     @PostMapping("/signin")
     public ResponseEntity<?> loginRe(@Valid @RequestBody LoginRequest loginRequest){
 
-        log.info("Esto llega");
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-        log.info("Esto llega 2");
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        log.info("Esto llega 3");
-        log.info("User: {}", authentication.getPrincipal());
         UserDetailsEntityImpl userDetails = UserDetailsEntityImpl.build(userService.findByOnlyName(authentication.getName()));
-        /*log.info("Mira: {}", userDetails.equals(authentication.getPrincipal()));*/
-
-        log.info("Esto llega4");
         ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
-
-        log.info("Esto llega 5");
-
 
         String role = userDetails.getAuthorities().toString();
         RoleName roleName;
@@ -176,7 +168,7 @@ public class ItemRESTController {
                 .body(new UserInfoResponse(userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roleName));
 
 
-    }
+    }*/
 
     @GetMapping("/addCart/{id}")    //add item to cart
     public ResponseEntity<List<Item>> addCart(@PathVariable long id, HttpServletRequest request){
@@ -210,7 +202,8 @@ public class ItemRESTController {
     public ResponseEntity<List<Item>> removeCart(@PathVariable int id, HttpServletRequest request){
 
         User user = userService.findByOnlyName(request.getUserPrincipal().getName());
-        return new ResponseEntity<>(currentUser.getCart(),HttpStatus.ACCEPTED);
+        user.getCart().remove(itemService.findById(id));
+        return new ResponseEntity<>(user.getCart(),HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/usr") //see your user
@@ -249,15 +242,15 @@ public class ItemRESTController {
     }
 
     @GetMapping("/pay") //pay
-    public ResponseEntity<Float> pay(){
+    public ResponseEntity<Float> pay(HttpServletRequest request){
 
-        return new ResponseEntity<>(currentUser.getPrice(), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(userService.findByOnlyName(request.getUserPrincipal().getName()).getPrice(), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("pay/cupon/{id}")   //pay with coupons
-    public ResponseEntity<Float> payCupons(@PathVariable long id){
+    public ResponseEntity<Float> payCupons(@PathVariable long id,HttpServletRequest request){
 
-        return new ResponseEntity<>(currentUser.priceCupon(cuponService.findById(id)), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(userService.findByOnlyName(request.getUserPrincipal().getName()).priceCupon(cuponService.findById(id)), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/search/{name}")   //search by name

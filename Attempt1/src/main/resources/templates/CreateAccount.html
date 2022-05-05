@@ -26,18 +26,20 @@
             <label>Correo</label>
         </div>
         <div class="user-box">
-            <input class="controls" type="password" name="userPass" id="userPass" required="">
+            <input class="controls" type="password" name="userPass" id="password" required="">
             <label>Password</label>
         </div>
         <div class="user-box">
-            <input class="controls" type="text" name="address" id="address" required="">
+            <input class="controls" type="text" name="address" id="direcion" required="">
             <label>Direccion</label>
         </div>
         <div class="user-box">
             <input class="controls" type="text" name="personalName" id="personalName" required="">
             <label>Nombre</label>
         </div>
+        <input type="hidden" name="_csrf" value="{{token}}"/>
         <a href="#">
+        
             <span></span>
             <span></span>
             <span></span>
@@ -54,7 +56,7 @@
     <h4>Correo:<br/>
         <input class="controls" type="email" name="email" id="email" placeholder="-"></h4>
     <h4>Contraseña:<br/>
-        <input class="controls" type="password" name="userPass" id="password" placeholder="********"></h4>
+        <input class="controls" type="password" name="userPass" id="password" placeholder="****"></h4>
     <h4>Dirección:<br/>
         <input class="controls" type="text" name="address" id="direccion" placeholder="-"></h4>
     <br/>

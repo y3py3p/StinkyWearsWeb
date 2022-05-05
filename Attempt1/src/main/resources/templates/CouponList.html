@@ -23,6 +23,7 @@
             {{#user}}<li><a href="/logout">Logout</a> </li>{{/user}}
             <li><a href="/cart"> Carrito </a></li>
             <li><a href="/comments"> Comentarios </a></li>
+            <li><a href="/coupons"> Cupones </a></li>
         </ul>
     </div>
 </section>
@@ -32,10 +33,10 @@
 <section id="itemList">           <!-- will print out all the available items -->
     <h2>Los cupones disponibles son:</h2>
     {{#coupons}}
-        <p>Código del cupón: {{cuponID}}<br>Descuento aplicado: {{descuento}}%</p><br><br>
+        <p>Código del cupón: {{cuponID}}<br>Descuento aplicado: {{descuento}}%</p><br>{{#admin}}<button class="buttons" type="submit"><a href="/coupon/del/{{cuponID}}">Eliminar</a> </button>{{/admin}}<br><br>
     {{/coupons}}
     <br/>
-    {{#admin}}<p>Pulse <a href="/NewCoupon.html">AQUI</a> para añadir otro cupón</p>{{/admin}}
+    {{#admin}}<p>Pulse <a href="/coupon_form">AQUI</a> para añadir otro cupón</p>{{/admin}}
 </section>
 
 <div class="clearfix"></div>

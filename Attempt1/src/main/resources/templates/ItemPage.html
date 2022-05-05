@@ -9,23 +9,23 @@
 </head>
 
 <body>
-  <section class="header">                    <!-- side nav bar -->
-    <div id="sidebar">
-      <div class="toggle-btn">
-        <span>&#9776</span>
-      </div>
-      <ul>
-        <img src="http://localhost:8080/img/ouuushrek.png" alt="Logo Fazt" class="logo"><br/>
-        <li><a href="/">MainPage</a></li>
-        <li><a href="/items">Items</a></li>
-        <li><a href="/usr">MyUser</a></li>
-        <li><a href="/login">login</a></li>
-        <li><a href="/cart"> Carrito </a></li>
-        <li><a href="/comments"> Comentarios </a></li>
-        <li><a href="/coupons">Cupones</a></li>
-      </ul>
+<section class="header">
+  <div id="sidebar">                          <!-- side nav bar -->
+    <div class="toggle-btn">
+      <span>&#9776</span>
     </div>
-  </section>
+    <ul>
+      <img src="http://localhost:8080/img/ouuushrek.png" alt="Logo Fazt" class="logo"> <br/>
+      <li><a href="/">MainPage</a></li>
+      <li><a href="/items">Items</a></li>
+      <li><a href="/usr">MyUser</a></li>
+      <li><a href="/logout">Logout</a> </li>
+      <li><a href="/cart"> Carrito </a></li>
+      <li><a href="/comments"> Comentarios </a></li>
+      <li><a href="/coupons">Cupones</a></li>
+    </ul>
+  </div>
+</section>
 
 <div class="clearfix"></div>
 
@@ -35,6 +35,7 @@
     <p>Estado: {{productCondition}}<br>Talla: {{productSize}}<br>Precio: {{productPrice}}€</p><br/>
     <p><button class="buttons" type="submit"><a href="/cart/{{productID}}">Añadir</a></button></p> <!-- will add the item to the shopping cart. It'll also redirect you to the carts' page-->
     {{#edit}}<p><button class="buttons" type="submit"><a href="/item/edit/{{productID}}">Editar</a></button></p>{{/edit}}
+    {{#admin}}<p><button class="buttons" type="submit"><a href="/item/del/{{productID}}">Eliminar</a> </button> </p>{{/admin}}
     {{/item}}
   </section>
 

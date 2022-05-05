@@ -36,7 +36,6 @@ public class UserDetailsEntityImpl implements UserDetails {
     public static UserDetailsEntityImpl build(User user) {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        log.info("Funciona (build)");
         authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole().toString()));
         return new UserDetailsEntityImpl(
                 user.getUserID(),
@@ -91,13 +90,11 @@ public class UserDetailsEntityImpl implements UserDetails {
 
     @Override
     public boolean equals(Object o) {
-        log.info("Esto funciona");
         if (this == o)
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
         UserDetailsEntityImpl user = (UserDetailsEntityImpl)  o;
-        log.info("Esto tambien funciona");
         return Objects.equals(id, user.id);
     }
 }

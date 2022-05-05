@@ -9,6 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.SafeWebDev.attempt.Models.*;
 import com.SafeWebDev.attempt.Models.Services.CommentService;
@@ -21,6 +23,7 @@ import org.checkerframework.checker.units.qual.A;
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -58,27 +61,26 @@ public class ControllerBasic {
     User currentUser;
 
 
-    @PostConstruct
+    /*@PostConstruct
     public void init(){
         //currentUser=new User("webo",null,null,null);
         //userDetailsService.saveUser(new User("guest", "guest@guest", "1234", "guest"));
-    }
+    }*/
 
 
     @GetMapping("")     //redirect to StartPage.html, the main page
     public String homePage(Model model, HttpServletRequest request) {
 
-
         if(request.getUserPrincipal() == null){
             model.addAttribute("user", false);
             model.addAttribute("not", true);
-            log.info("User: {}",  "No iniciado sesion");
+            log.info("No iniciado sesion");
         }else{
 
             User user = userService.findByOnlyName(request.getUserPrincipal().getName());
             if(user.getRole() == RoleName.ADMIN){
                 model.addAttribute("user", true);
-                model.addAttribute("not", true);
+                model.addAttribute("not", false);
             }else{
                 model.addAttribute("user", true);
                 model.addAttribute("not", false);
@@ -90,20 +92,26 @@ public class ControllerBasic {
     }
 
     @GetMapping("/item/edit/{id}")  //edit an item
-    public String updateItem(Model model,@PathVariable long id){
-
-        model.addAttribute("item", itemService.findById(id));
-        return "ItemEdit";
+    public String updateItem(Model model,@PathVariable long id,HttpServletRequest request){
+        if(itemService.findById(id).canEdit(request.getUserPrincipal().getName())){
+            model.addAttribute("item", itemService.findById(id));
+            log.info("Item found, loading page");
+            return "ItemEdit";
+        }else{
+            log.info("User did not have permission to edit the item");
+            return "LogIn";
+        }
+        
     }
 
     @PostMapping("/editting/{id}")  //edit an item
-    public String updatingItem(Model model,@PathVariable long id, Item item){
-
-        Item aux = itemService.findById(id);
-        aux.update(item);
-        itemService.add(aux);
-
-        return "ItemEdited";
+    public String updatingItem(Model model,@PathVariable long id, Item item,HttpServletRequest request){
+        if(itemService.findById(id).canEdit(request.getUserPrincipal().getName())){
+            itemService.add(item);
+            return "ItemEdited";
+        }else{
+            return "LogIn";   
+        }
     }
 
     @GetMapping("/item/{id}")   //redirect to ItemPage.html, where you can see the info of one item
@@ -111,6 +119,7 @@ public class ControllerBasic {
 
         model.addAttribute("item", itemService.findById(id));
         model.addAttribute("edit", itemService.findById(id).canEdit(request.getUserPrincipal().getName()));
+        model.addAttribute("admin", userService.findByOnlyName(request.getUserPrincipal().getName()).getRole()==RoleName.ADMIN);
         return "ItemPage";
     }
 
@@ -122,6 +131,21 @@ public class ControllerBasic {
         model.addAttribute("user", user);
         return "UsrPage";
 
+    }
+
+    @GetMapping("/register_form")
+    public String registerForm(){
+        return "CreateAccount";
+    }
+
+    @GetMapping("/coupon_form")
+    public String couponForm(){
+        return "NewCoupon";
+    }
+
+    @GetMapping("/item_form")
+    public String itemForm(){
+        return "NewItem";
     }
 
     @PostMapping("/item/new")   //redirect to ItemAdded.html after adding an item to our general List
@@ -136,31 +160,21 @@ public class ControllerBasic {
         model.addAttribute("items", itemService.getAll());
         if(request.getUserPrincipal() == null){
             model.addAttribute("normal", false);
+            model.addAttribute("user", false);
+            model.addAttribute("not", true);
         }else{
             model.addAttribute("normal", true);
             User user = userService.findByOnlyName(request.getUserPrincipal().getName());
             if(user.getRole() == RoleName.ADMIN){
                 model.addAttribute("admin", true);
+                model.addAttribute("user", true);
+                model.addAttribute("not", false);
             }else{
                 model.addAttribute("admin", false);
-            }
-        }
-
-        if(request.getUserPrincipal() == null){
-            model.addAttribute("user", false);
-            model.addAttribute("not", true);
-        }else{
-
-            User user = userService.findByOnlyName(request.getUserPrincipal().getName());
-            if(user.getRole() == RoleName.ADMIN){
-                model.addAttribute("user", true);
-                model.addAttribute("not", true);
-            }else{
                 model.addAttribute("user", true);
                 model.addAttribute("not", false);
             }
         }
-
         return "ItemsList";
     }
 
@@ -173,6 +187,7 @@ public class ControllerBasic {
 
     @GetMapping("/cart")    //redirect to Cart.html, with your cart info
     public String carrito(Model model,HttpServletRequest request){
+        model.addAttribute("aviso", userService.findByOnlyName(request.getUserPrincipal().getName()).getCart().size()==0);
         model.addAttribute("cart", userService.findByOnlyName(request.getUserPrincipal().getName()).getCart());
         return "Cart";
     }
@@ -191,9 +206,10 @@ public class ControllerBasic {
 
     @GetMapping("/cart/del/{id}")   //redirect to ItemDeleted.html, to confirm the item was deleted
     public String deleteItem(@PathVariable int id,HttpServletRequest request){
-        userService.findByOnlyName(request.getUserPrincipal().getName()).delCart(id-1);
+        User user=userService.findByOnlyName(request.getUserPrincipal().getName());
+        user.delCart(id-1);
+        userService.saveUser(user);
         return "ItemDeleted";
-
     }
 
     @GetMapping("/login")   //redirect to LogIn.html, where you'll be able to log in
@@ -202,11 +218,23 @@ public class ControllerBasic {
         return "LogIn";
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response){
+
+        HttpSession session = request.getSession(false);
+        SecurityContextHolder.clearContext();
+        session = request.getSession(false);
+        if(session != null){
+            session.invalidate();
+        }
+        return "StartPage";
+    }
+
     @PostMapping("/account/created")
     public String createdAccount(Model model, User user){
         if(userService.findByOnlyName(user.getUserName().replaceAll(".*([';]+|(--)+).*", " ")) ==  null){
             user.setUserPass(encoder.encode(user.getUserPass()));
-            user.addRole(RoleName.GUEST);
+            user.addRole(RoleName.USER);
             userService.saveUser(user);
             return "AccountCreated";
         }else{
@@ -218,8 +246,24 @@ public class ControllerBasic {
 
     @GetMapping("/comments")    //see every comment in our database
     public String comments(Model model, HttpServletRequest request){
-        /*String name = request.getUserPrincipal().getName();
-        User user = userService.findByOnlyName(name);*/
+
+        if(request.getUserPrincipal() == null){
+            model.addAttribute("user", false);
+            model.addAttribute("not", true);
+            log.info("No iniciado sesion");
+        }else{
+
+            User user = userService.findByOnlyName(request.getUserPrincipal().getName());
+            if(user.getRole() == RoleName.ADMIN){
+                model.addAttribute("user", true);
+                model.addAttribute("not", false);
+            }else{
+                model.addAttribute("user", true);
+                model.addAttribute("not", false);
+            }
+            log.info("User: {}",  request.getUserPrincipal().getName());
+        }
+
         model.addAttribute("comment",commentService.getAll());
         return "comments";
     }
@@ -230,7 +274,7 @@ public class ControllerBasic {
     }
 
     @PostMapping("/createComment")
-    public String createComment(@RequestParam String content,@RequestParam String user){
+    public String createComment(@RequestParam String content,HttpServletRequest request){
        PolicyFactory sanitizer=new HtmlPolicyBuilder()
                 .allowStandardUrlProtocols()
                 .allowAttributes("title").globally() //We allow the title attribute wherever it is
@@ -244,11 +288,9 @@ public class ControllerBasic {
                         "br","ul","ol","li", "span") //List of all the elements that are allowed in our "String"
                 .toFactory(); //Make it be a factory so that the Policy Builder matches the PolicyFactory type
         String sanitized=sanitizer.sanitize(content);
-        String sanUser=sanitizer.sanitize(user);
         Comment comment=new Comment();
         comment.setContent(sanitized);
-        comment.setUser(sanUser);
-
+        comment.setUser(request.getUserPrincipal().getName());
         commentService.addComment(comment);
         return "CommentAdded";
     }
@@ -273,8 +315,9 @@ public class ControllerBasic {
         }
         else */if(!cuponService.exists(cupon)){
             model.addAttribute("precioFinal", userService.findByOnlyName(request.getUserPrincipal().getName()).getPrice());
-            userService.findByOnlyName(request.getUserPrincipal().getName()).emptyCart();
-
+            User user=userService.findByOnlyName(request.getUserPrincipal().getName());
+            user.emptyCart();
+            userService.saveUser(user);
             return "SuccessfulPurchase";
         } else {
             Cupon cupone = cuponService.findById(cupon);
@@ -300,22 +343,14 @@ public class ControllerBasic {
             User user = userService.findByOnlyName(request.getUserPrincipal().getName());
             if(user.getRole() == RoleName.ADMIN){
                 model.addAttribute("user", true);
-                model.addAttribute("not", true);
+                model.addAttribute("not", false);
+                model.addAttribute("admin", true);
             }else{
                 model.addAttribute("user", true);
                 model.addAttribute("not", false);
-            }
-        }
-
-        if(request.getUserPrincipal() != null) {
-            User user = userService.findByOnlyName(request.getUserPrincipal().getName());
-            if (user.getRole() == RoleName.ADMIN) {
-                model.addAttribute("admin", true);
-            } else {
                 model.addAttribute("admin", false);
             }
         }
-
         return "CouponList";
     }
 
@@ -323,6 +358,30 @@ public class ControllerBasic {
     public String createCoupon(Cupon coupon){
         cuponService.addCupon(coupon);
         return "CouponAdded";
+    }
+
+    @GetMapping("/coupon/del/{id}")
+    public String deleteCoupon(Model model,@PathVariable long id,HttpServletRequest request){
+        cuponService.obliterateCoupon(id);
+        model.addAttribute("coupons",cuponService.getAll());
+
+        if(request.getUserPrincipal() == null){
+            model.addAttribute("user", false);
+            model.addAttribute("not", true);
+        }else{
+
+            User user = userService.findByOnlyName(request.getUserPrincipal().getName());
+            if(user.getRole() == RoleName.ADMIN){
+                model.addAttribute("user", true);
+                model.addAttribute("not", false);
+                model.addAttribute("admin", true);
+            }else{
+                model.addAttribute("user", true);
+                model.addAttribute("not", false);
+                model.addAttribute("admin", false);
+            }
+        }
+        return "CouponDeleted";
     }
 
     @PostMapping("/search") //search an item by it's name
@@ -369,7 +428,7 @@ public class ControllerBasic {
 
     }
 
-    @PostMapping("/searchUser") //search an item by it's name
+    /*@PostMapping("/searchUser") //search an item by it's name
     public String searchUser(Model model, @RequestParam String name, HttpServletRequest request){
 
         String webo = name.replaceAll(".*([';]+|(--)+).*", " ");
@@ -382,6 +441,6 @@ public class ControllerBasic {
         model.addAttribute("users",users);
 
         return "AdminPage";
-    }
+    }*/
 
 }

@@ -1,38 +1,39 @@
 package com.SafeWebDev.attempt.Controllers;
 
 
-import com.SafeWebDev.attempt.Controllers.Payloads.LoginRequest;
-import com.SafeWebDev.attempt.Controllers.Payloads.MessageResponse;
-import com.SafeWebDev.attempt.Controllers.Payloads.SignupRequest;
-import com.SafeWebDev.attempt.Controllers.Payloads.UserInfoResponse;
-import com.SafeWebDev.attempt.Controllers.Security.JwtUtils;
-import com.SafeWebDev.attempt.Models.*;
-import com.SafeWebDev.attempt.Models.Services.*;
+import java.util.List;
 
-import lombok.extern.slf4j.Slf4j;
-import org.hibernate.bytecode.internal.bytebuddy.PassThroughInterceptor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseCookie;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-
-import javax.annotation.PostConstruct;
-import javax.management.relation.Role;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import java.util.List;
+
+import com.SafeWebDev.attempt.Controllers.Security.JwtUtils;
+import com.SafeWebDev.attempt.Models.Comment;
+import com.SafeWebDev.attempt.Models.Cupon;
+import com.SafeWebDev.attempt.Models.Item;
+import com.SafeWebDev.attempt.Models.RoleName;
+import com.SafeWebDev.attempt.Models.User;
+import com.SafeWebDev.attempt.Models.Services.CommentService;
+import com.SafeWebDev.attempt.Models.Services.CuponService;
+import com.SafeWebDev.attempt.Models.Services.ItemService;
+import com.SafeWebDev.attempt.Models.Services.UserDetailsServiceImpl;
+import com.SafeWebDev.attempt.Models.Services.UserService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
@@ -129,6 +130,12 @@ public class ItemRESTController {
     }
 
     @PostMapping("/signup")
+    public ResponseEntity<?> registerUser(com.SafeWebDev.attempt.Models.User user){
+        user.addRole(RoleName.USER);
+        userService.saveUser(user);
+        return new ResponseEntity<>(user,HttpStatus.ACCEPTED);
+    }
+    /*@PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest){
         if(userService.findByOnlyName(signupRequest.getUsername()) != null){
             return ResponseEntity.badRequest().body(new MessageResponse("Error: nombre de usuario ya usado"));
@@ -161,7 +168,7 @@ public class ItemRESTController {
                 .body(new UserInfoResponse(userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roleName));
 
 
-    }
+    }*/
 
     @GetMapping("/addCart/{id}")    //add item to cart
     public ResponseEntity<List<Item>> addCart(@PathVariable long id, HttpServletRequest request){

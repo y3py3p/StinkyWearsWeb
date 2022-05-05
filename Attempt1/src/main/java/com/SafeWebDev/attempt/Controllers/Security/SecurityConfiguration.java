@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.util.AntPathMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -52,7 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception{
       
-        //Setting public places
+        //Setting permissions for every url
         http.authorizeRequests()
                 .antMatchers("/img/**").permitAll()
                 .antMatchers("/res/**").permitAll()
@@ -62,8 +63,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .antMatchers("/").permitAll()
                 .antMatchers("/items").permitAll()
                 .antMatchers("/item/new").authenticated()
-                .antMatchers("/item/edit/**").hasAnyRole("ADMIN")
-                .antMatchers("/editting/**").hasAnyRole("ADMIN")
+                .antMatchers("/item/edit/**").authenticated()
+                .antMatchers("/editting/**").authenticated()
                 .antMatchers("/item/**").authenticated()
                 .antMatchers("/usr").authenticated()
                 .antMatchers("/item/del/**").authenticated()
@@ -73,16 +74,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .antMatchers("/logout").authenticated()
                 .antMatchers("/account/created").permitAll()
                 .antMatchers("/comments").permitAll()
-                .antMatchers("/NewComment.html").authenticated()
+                .antMatchers("/NewComment").authenticated()
                 .antMatchers("/createComment").authenticated()
                 .antMatchers("/payments").authenticated()
                 .antMatchers("/pay").authenticated()
                 .antMatchers("/price/final").authenticated()
                 .antMatchers("/coupons").permitAll()
                 .antMatchers("/search").permitAll()
-                .antMatchers("/NewItem.html").authenticated()
-                .antMatchers("/NewCoupon.html").hasRole("ADMIN")
-                .antMatchers("/CreateAccount.html").permitAll()
+                .antMatchers("/item_form").authenticated()
+                .antMatchers("/coupon_form").hasRole("ADMIN")
+                .antMatchers("/register_form").permitAll()
                 .antMatchers("/adminpage").hasRole("ADMIN");
 
         http.addFilterBefore(authTokenFilter(), UsernamePasswordAuthenticationFilter.class);

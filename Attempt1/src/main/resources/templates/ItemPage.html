@@ -35,7 +35,7 @@
     <p>Estado: {{productCondition}}<br>Talla: {{productSize}}<br>Precio: {{productPrice}}€</p><br/>
     <p><button class="buttons" type="submit"><a href="/cart/{{productID}}">Añadir</a></button></p> <!-- will add the item to the shopping cart. It'll also redirect you to the carts' page-->
     {{#edit}}<p><button class="buttons" type="submit"><a href="/item/edit/{{productID}}">Editar</a></button></p>{{/edit}}
-    {{#admin}}<p><button class="buttons" type="submit"><a href="/item/del/{{productID}}">Eliminar</a> </button> </p>{{/admin}}
+    {{#edit}}<p><button class="buttons" type="submit"><a href="/item/del/{{productID}}">Eliminar</a> </button> </p>{{/edit}}
     {{/item}}
   </section>
 

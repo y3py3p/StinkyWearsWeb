@@ -13,14 +13,14 @@ public class Comment {
 
     @Column
     private String content;
-    private String owner;
+    private String user;
 
     public String getContent() {
         return content;
     }
 
     public String getUser() {
-        return owner;
+        return user;
     }
 
     public void setContent(String contenido) {
@@ -28,6 +28,6 @@ public class Comment {
     }
 
     public void setOwner(String usuario) {
-        this.owner = usuario;
+        this.user = usuario;
     }
 }

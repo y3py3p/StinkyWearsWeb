@@ -168,7 +168,7 @@ public class ItemRESTController {
                 .body(new UserInfoResponse(userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roleName));
 
 
-    }
+    }*/
 
     @GetMapping("/addCart/{id}")    //add item to cart
     public ResponseEntity<List<Item>> addCart(@PathVariable long id, HttpServletRequest request){
@@ -185,10 +185,6 @@ public class ItemRESTController {
         }else{
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-
-
-
-
     }
 
     @GetMapping("/seeCart") //see the cart
@@ -206,11 +202,11 @@ public class ItemRESTController {
         return new ResponseEntity<>(user.getCart(),HttpStatus.ACCEPTED);
     }
 
-    /*@GetMapping("/usr") //see your user
+    @GetMapping("/usr") //see your user
     public User seeUser(HttpServletRequest request){
 
         return userService.findByOnlyName(request.getUserPrincipal().getName());
-    }*/
+    }
 
     @GetMapping("/comments")    //see every comment in our database
     public ResponseEntity<List<Comment>> comments(Model model){
@@ -237,7 +233,7 @@ public class ItemRESTController {
         return new ResponseEntity<>(cuponService.getAll(), HttpStatus.ACCEPTED);
     }
 
-    /*@GetMapping("/pay") //pay
+    @GetMapping("/pay") //pay
     public ResponseEntity<Float> pay(HttpServletRequest request){
 
         return new ResponseEntity<>(userService.findByOnlyName(request.getUserPrincipal().getName()).getPrice(), HttpStatus.ACCEPTED);
@@ -247,7 +243,7 @@ public class ItemRESTController {
     public ResponseEntity<Float> payCupons(@PathVariable long id,HttpServletRequest request){
 
         return new ResponseEntity<>(userService.findByOnlyName(request.getUserPrincipal().getName()).priceCupon(cuponService.findById(id)), HttpStatus.ACCEPTED);
-    }*/
+    }
 
     @GetMapping("/search/{name}")   //search by name
     public ResponseEntity<List<Item>> searchByName(@PathVariable String name){

@@ -13,21 +13,21 @@ public class Comment {
 
     @Column
     private String content;
-    private String user="default";
+    private String owner;
 
     public String getContent() {
         return content;
     }
 
     public String getUser() {
-        return user;
+        return owner;
     }
 
     public void setContent(String contenido) {
         this.content = contenido;
     }
 
-    public void setUser(String usuario) {
-        this.user = usuario;
+    public void setOwner(String usuario) {
+        this.owner = usuario;
     }
 }

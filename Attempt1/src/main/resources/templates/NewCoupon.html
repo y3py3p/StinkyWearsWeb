@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Nuevo item</title>
-    <link rel="stylesheet" href="http://localhost:8080/res/cursor.css"/>
-    <link rel="stylesheet" href="http://localhost:8080/res/main.css">
-    <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
+    <link rel="stylesheet" href="/res/cursor.css"/>
+    <link rel="stylesheet" href="/res/main.css">
+    <link rel="icon" type="image/png" href="/img/ouuushrek.png">
 </head>
 
 <body>
 
 <section class="header">
     <!--<section id="homebutton">
-        <a href="http://localhost:8080/"><i style="font-size:24px" class="fa">&#xf015;</i></a>
+        <a href="/"><i style="font-size:24px" class="fa">&#xf015;</i></a>
     </section>-->
     <section id="side-bar">
         <div id="sidebar">              <!-- side nav bar -->
@@ -20,7 +20,7 @@
                 <span>&#9776</span>
             </div>
             <ul>
-                <img src="http://localhost:8080/img/ouuushrek.png" alt="Logo Fazt" class="logo"> <br/>
+                <img src="/img/ouuushrek.png" alt="Logo Fazt" class="logo"> <br/>
                 <li><a href="/">MainPage</a></li>
                 <li><a href="/items">Items</a></li>
                 <li><a href="/usr">MyUser</a></li>
@@ -37,7 +37,7 @@
 
 <section class="form-register">
     <h2>Rellene los campos para añadir un nuevo cupón:</h2>        <!-- will collect all the info needed in order to create/add a new item -->
-    <form action="http://localhost:8080/coupon/new" method="post">
+    <form action="/coupon/new" method="post">
                 <h4> Descuento del nuevo cupón:<br/>
             <input type="number" name="descuento" min="1" max="99" placeholder="Descuento"></h4><br/>        <!-- type its price (number) -->
         <p><button class="buttons" type="submit">Crear</button></p>   
@@ -53,7 +53,7 @@
 </footer>
 
 <div class="cursor"></div>
-<script src="http://localhost:8080/res/cursor.js"></script>
-<script src="res/lateralBar.js"></script>
+<script src="/res/cursor.js"></script>
+<script src="/res/lateralBar.js"></script>
 </body>
 </html>

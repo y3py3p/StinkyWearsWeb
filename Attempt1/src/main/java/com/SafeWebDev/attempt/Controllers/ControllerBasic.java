@@ -290,7 +290,7 @@ public class ControllerBasic {
         String sanitized=sanitizer.sanitize(content);
         Comment comment=new Comment();
         comment.setContent(sanitized);
-        comment.setUser(request.getUserPrincipal().getName());
+        comment.setOwner(request.getUserPrincipal().getName());
         commentService.addComment(comment);
         return "CommentAdded";
     }

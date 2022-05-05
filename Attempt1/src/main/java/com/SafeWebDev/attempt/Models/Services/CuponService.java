@@ -29,4 +29,8 @@ public class CuponService {
     public List<Cupon> getCupons(){
         return cuponRespository.findAll();
     }
+
+    public void obliterateCoupon(long id){
+        cuponRespository.delete(cuponRespository.findById(id)) ;
+    }
 }

@@ -208,7 +208,7 @@ body {
 }
 
 a:visited{
-    color: #795A2D;
+    color: #523213;
 }
 a:link{
     color: #795A2D;
@@ -219,3 +219,6 @@ a:hover {
 
 }
 
+.reg a{
+    color: #fff;
+}

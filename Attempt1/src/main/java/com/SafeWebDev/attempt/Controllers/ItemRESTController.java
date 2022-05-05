@@ -73,6 +73,7 @@ public class ItemRESTController {
     public ResponseEntity<Item> getById(@PathVariable long id){
 
         if(itemService.exists(id)){
+
             return new ResponseEntity<>(itemService.findById(id), HttpStatus.ACCEPTED);
         }
         else{
@@ -87,7 +88,8 @@ public class ItemRESTController {
 
         if(itemService.exists(id)){
             Item item = itemService.findById(id);
-            if(item.getOwner().equals(request.getUserPrincipal().getName())){
+            if(item.getOwner().equals(request.getUserPrincipal().getName()) ||
+                    userService.findByOnlyName(request.getUserPrincipal().getName()).getRole().toString().equals("ADMIN")){
 
                 itemService.delete(itemService.findById(id));
                 return new ResponseEntity<>(HttpStatus.ACCEPTED);
@@ -103,9 +105,12 @@ public class ItemRESTController {
     }
 
     @PostMapping("/addItem")    //add item to stock
-    public ResponseEntity<Item> add(@RequestBody Item item){
+    public ResponseEntity<Item> add(@RequestBody Item item, HttpServletRequest request){
 
+        String owner = request.getUserPrincipal().getName();
+        item.setOwner(owner);
         itemService.add(item);
+
 
         return new ResponseEntity<>(item, HttpStatus.CREATED);
     }
@@ -115,7 +120,8 @@ public class ItemRESTController {
 
         if(itemService.exists(id)){
 
-            if(itemService.findById(id).getOwner().equals(request.getUserPrincipal().getName())){
+            if(itemService.findById(id).getOwner().equals(request.getUserPrincipal().getName())
+            || userService.findByOnlyName(request.getUserPrincipal().getName()).getRole().toString().equals("ADMIN")){
 
                 itemService.updateItem(id, item);
                 return new ResponseEntity<>(HttpStatus.ACCEPTED);
@@ -130,8 +136,11 @@ public class ItemRESTController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(com.SafeWebDev.attempt.Models.User user){
+    public ResponseEntity<?> registerUser(@RequestBody User user){
+
         user.addRole(RoleName.USER);
+        log.info("{}", user.getUserPass());
+        user.setUserPass(encoder.encode(user.getUserPass()));
         userService.saveUser(user);
         return new ResponseEntity<>(user,HttpStatus.ACCEPTED);
     }
@@ -217,7 +226,9 @@ public class ItemRESTController {
     }
 
     @PostMapping("/NewComment")     //add a comment to our database
-    public ResponseEntity<Comment> addComment(Model model, @RequestBody Comment comment){
+    public ResponseEntity<Comment> addComment(Model model, @RequestBody Comment comment, HttpServletRequest request){
+        String user = request.getUserPrincipal().getName();
+        comment.setOwner(user);
         commentService.addComment(comment);
         return new ResponseEntity<>(comment,HttpStatus.ACCEPTED);
     }

@@ -2,11 +2,13 @@ package com.SafeWebDev.attempt.Models;
 
 import com.sun.istack.NotNull;
 import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "itemtable")
+@Slf4j
 public class Item{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,6 +43,8 @@ public class Item{
         this.productSize=item.productSize;
         this.productCondition=item.productCondition;
         this.productPrice=item.productPrice;
+        log.info("{}", productOwner);
+        this.productOwner= productOwner;
     }
 
     public void setId(long productID){

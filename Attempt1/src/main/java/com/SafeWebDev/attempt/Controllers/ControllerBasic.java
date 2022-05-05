@@ -61,11 +61,12 @@ public class ControllerBasic {
     User currentUser;
 
 
-    /*@PostConstruct
+    @PostConstruct
     public void init(){
-        //currentUser=new User("webo",null,null,null);
-        //userDetailsService.saveUser(new User("guest", "guest@guest", "1234", "guest"));
-    }*/
+
+
+        userDetailsService.saveAdmin(new User("admin", "admin@admin", encoder.encode("1234"), "admin", "admin"));
+    }
 
 
     @GetMapping("")     //redirect to StartPage.html, the main page
@@ -107,7 +108,9 @@ public class ControllerBasic {
     @PostMapping("/editting/{id}")  //edit an item
     public String updatingItem(Model model,@PathVariable long id, Item item,HttpServletRequest request){
         if(itemService.findById(id).canEdit(request.getUserPrincipal().getName())){
-            itemService.add(item);
+            Item aux = itemService.findById(id);
+            aux.update(item);
+            itemService.add(aux);
             return "ItemEdited";
         }else{
             return "LogIn";   
@@ -264,6 +267,7 @@ public class ControllerBasic {
             log.info("User: {}",  request.getUserPrincipal().getName());
         }
 
+
         model.addAttribute("comment",commentService.getAll());
         return "comments";
     }
@@ -290,7 +294,7 @@ public class ControllerBasic {
         String sanitized=sanitizer.sanitize(content);
         Comment comment=new Comment();
         comment.setContent(sanitized);
-        comment.setUser(request.getUserPrincipal().getName());
+        comment.setOwner(request.getUserPrincipal().getName());
         commentService.addComment(comment);
         return "CommentAdded";
     }
@@ -424,7 +428,7 @@ public class ControllerBasic {
 
         userService.delete(userService.findById(id));
 
-        return "AdminPage";
+        return "UserDeleted";
 
     }
 

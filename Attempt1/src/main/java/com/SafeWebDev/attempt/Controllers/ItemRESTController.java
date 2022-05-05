@@ -209,13 +209,6 @@ public class ItemRESTController {
     @GetMapping("/usr") //see your user
     public User seeUser(HttpServletRequest request){
 
-        /*if(request.getUserPrincipal() != null){
-
-            User user = userService.findByOnlyName(request.getUserPrincipal().getName());
-            return user;
-        }else {
-            return null;
-        }*/
         return userService.findByOnlyName(request.getUserPrincipal().getName());
     }
     @GetMapping("/comments")    //see every comment in our database

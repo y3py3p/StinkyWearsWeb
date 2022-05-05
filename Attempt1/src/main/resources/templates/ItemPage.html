@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>{{#item}}{{productName}}{{/item}}</title>
-  <link rel="stylesheet" href="http://localhost:8080/res/cursor.css"/>
-  <link rel="stylesheet" href="http://localhost:8080/res/main.css"/>
-  <link rel="icon" type="image/png" href="http://localhost:8080/img/ouuushrek.png">
+  <link rel="stylesheet" href="/res/cursor.css"/>
+  <link rel="stylesheet" href="/res/main.css"/>
+  <link rel="icon" type="image/png" href="/img/ouuushrek.png">
 </head>
 
 <body>
@@ -15,7 +15,7 @@
       <span>&#9776</span>
     </div>
     <ul>
-      <img src="http://localhost:8080/img/ouuushrek.png" alt="Logo Fazt" class="logo"> <br/>
+      <img src="/img/ouuushrek.png" alt="Logo Fazt" class="logo"> <br/>
       <li><a href="/">MainPage</a></li>
       <li><a href="/items">Items</a></li>
       <li><a href="/usr">MyUser</a></li>
@@ -35,7 +35,7 @@
     <p>Estado: {{productCondition}}<br>Talla: {{productSize}}<br>Precio: {{productPrice}}€</p><br/>
     <p><button class="buttons" type="submit"><a href="/cart/{{productID}}">Añadir</a></button></p> <!-- will add the item to the shopping cart. It'll also redirect you to the carts' page-->
     {{#edit}}<p><button class="buttons" type="submit"><a href="/item/edit/{{productID}}">Editar</a></button></p>{{/edit}}
-    {{#admin}}<p><button class="buttons" type="submit"><a href="/item/del/{{productID}}">Eliminar</a> </button> </p>{{/admin}}
+    {{#edit}}<p><button class="buttons" type="submit"><a href="/item/del/{{productID}}">Eliminar</a> </button> </p>{{/edit}}
     {{/item}}
   </section>
 
@@ -46,8 +46,8 @@
   </footer>
 
   <div class="cursor"></div>
-  <script src="http://localhost:8080/res/cursor.js"></script>
-  <script src="http://localhost:8080/res/lateralBar.js"></script>
+  <script src="/res/cursor.js"></script>
+  <script src="/res/lateralBar.js"></script>
 </body>
 
 </html>

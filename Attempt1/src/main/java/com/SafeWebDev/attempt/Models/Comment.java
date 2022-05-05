@@ -13,7 +13,7 @@ public class Comment {
 
     @Column
     private String content;
-    private String user="default";
+    private String user;
 
     public String getContent() {
         return content;
@@ -27,7 +27,7 @@ public class Comment {
         this.content = contenido;
     }
 
-    public void setUser(String usuario) {
+    public void setOwner(String usuario) {
         this.user = usuario;
     }
 }

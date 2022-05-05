@@ -137,26 +137,17 @@ public class ItemRESTController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody User user){
-
-        user.addRole(RoleName.USER);
-        log.info("{}", user.getUserPass());
-        user.setUserPass(encoder.encode(user.getUserPass()));
-        userService.saveUser(user);
-        return new ResponseEntity<>(user,HttpStatus.ACCEPTED);
-    }
-    /*@PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest){
-        if(userService.findByOnlyName(signupRequest.getUsername()) != null){
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: nombre de usuario ya usado"));
+        if(userService.findByOnlyName(user.getUserName().replaceAll(".*([';]+|(--)+).*", " ")) ==  null){
+            user.setUserPass(encoder.encode(user.getUserPass()));
+            user.addRole(RoleName.USER);
+            userService.saveUser(user);
+            return new ResponseEntity<>(user,HttpStatus.ACCEPTED);
+        }else{
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-
-        User user = new User(signupRequest.getUsername(), signupRequest.getEmail(), signupRequest.getPassword(), signupRequest.getAddress(), signupRequest.getPersonalName());
-        user.setUserPass(encoder.encode(user.getUserPass()));
-        userDetailsService.saveUser(user);
-        return ResponseEntity.ok(new MessageResponse("Usuario registrado"));
     }
 
-    @PostMapping("/signin")
+    /*@PostMapping("/signin")
     public ResponseEntity<?> loginRe(@Valid @RequestBody LoginRequest loginRequest){
 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -177,7 +168,7 @@ public class ItemRESTController {
                 .body(new UserInfoResponse(userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roleName));
 
 
-    }*/
+    }
 
     @GetMapping("/addCart/{id}")    //add item to cart
     public ResponseEntity<List<Item>> addCart(@PathVariable long id, HttpServletRequest request){
@@ -215,11 +206,12 @@ public class ItemRESTController {
         return new ResponseEntity<>(user.getCart(),HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/usr") //see your user
+    /*@GetMapping("/usr") //see your user
     public User seeUser(HttpServletRequest request){
 
         return userService.findByOnlyName(request.getUserPrincipal().getName());
-    }
+    }*/
+
     @GetMapping("/comments")    //see every comment in our database
     public ResponseEntity<List<Comment>> comments(Model model){
         return new ResponseEntity<>(commentService.getAll(),HttpStatus.ACCEPTED);
@@ -245,7 +237,7 @@ public class ItemRESTController {
         return new ResponseEntity<>(cuponService.getAll(), HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/pay") //pay
+    /*@GetMapping("/pay") //pay
     public ResponseEntity<Float> pay(HttpServletRequest request){
 
         return new ResponseEntity<>(userService.findByOnlyName(request.getUserPrincipal().getName()).getPrice(), HttpStatus.ACCEPTED);
@@ -255,7 +247,7 @@ public class ItemRESTController {
     public ResponseEntity<Float> payCupons(@PathVariable long id,HttpServletRequest request){
 
         return new ResponseEntity<>(userService.findByOnlyName(request.getUserPrincipal().getName()).priceCupon(cuponService.findById(id)), HttpStatus.ACCEPTED);
-    }
+    }*/
 
     @GetMapping("/search/{name}")   //search by name
     public ResponseEntity<List<Item>> searchByName(@PathVariable String name){

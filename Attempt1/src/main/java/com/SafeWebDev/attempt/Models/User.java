@@ -22,8 +22,6 @@ public class User{
     @Column
     private String userName;
     private String email;
-
-    @JsonIgnore
     private String userPass;
     private String personalName;
     private String address;

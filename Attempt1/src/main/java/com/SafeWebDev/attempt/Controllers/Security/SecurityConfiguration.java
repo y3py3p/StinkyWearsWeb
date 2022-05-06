@@ -52,7 +52,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-      
+
         //Setting permissions for every url
         http.authorizeRequests()
                 .antMatchers("/img/**").permitAll()
@@ -65,7 +65,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .antMatchers("/item/new").authenticated()
                 .antMatchers("/item/edit/**").authenticated()
                 .antMatchers("/editting/**").authenticated()
-                .antMatchers("/item/**").authenticated()
+                .antMatchers("/item/**").permitAll()
                 .antMatchers("/usr").authenticated()
                 .antMatchers("/item/del/**").authenticated()
                 .antMatchers("/cart").authenticated()
@@ -84,7 +84,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .antMatchers("/item_form").authenticated()
                 .antMatchers("/coupon_form").hasRole("ADMIN")
                 .antMatchers("/register_form").permitAll()
-                .antMatchers("/adminpage").hasRole("ADMIN");
+                .antMatchers("/adminpage").hasRole("ADMIN")
+                .antMatchers("/user/del/**").hasRole("ADMIN");
 
         http.addFilterBefore(authTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 

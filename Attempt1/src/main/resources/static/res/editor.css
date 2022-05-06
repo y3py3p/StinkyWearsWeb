@@ -7,12 +7,14 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 You should have received a copy of the GNU General Public License along with this library; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *
 */
-
+body{
+    background-image: url("http://localhost:8080/img/ShrekSwamp.png");
+}
 @charset "utf-8";
 /* base styles */
 .jumbotron {
     background-color: #67A754;
-    background-image: url(images/radial_bg.png);
+    /*background-image: url(images/radial_bg.png);*/
     background-position: center center;
     background-repeat: no-repeat;
     background: -webkit-gradient(radial, center center, 0, center center, 460, from(#B3ECFF), to(#7EDEFF)); /* Safari 4-5, Chrome 1-9 */ /* Can't specify a percentage size? Laaaaaame. */

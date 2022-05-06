@@ -102,7 +102,7 @@ public class ControllerBasic {
             log.info("User did not have permission to edit the item");
             return "LogIn";
         }
-        
+
     }
 
     @PostMapping("/editting/{id}")  //edit an item
@@ -113,16 +113,21 @@ public class ControllerBasic {
             itemService.add(aux);
             return "ItemEdited";
         }else{
-            return "LogIn";   
+            return "LogIn";
         }
     }
 
     @GetMapping("/item/{id}")   //redirect to ItemPage.html, where you can see the info of one item
     public String itemPage(Model model, @PathVariable long id, HttpServletRequest request) {
-
         model.addAttribute("item", itemService.findById(id));
-        model.addAttribute("edit", itemService.findById(id).canEdit(request.getUserPrincipal().getName()));
-        model.addAttribute("admin", userService.findByOnlyName(request.getUserPrincipal().getName()).getRole()==RoleName.ADMIN);
+        if(request.getUserPrincipal()==null){
+            model.addAttribute("not",false);
+        }else{
+            model.addAttribute("not",true);
+            model.addAttribute("edit", itemService.findById(id).canEdit(request.getUserPrincipal().getName())||userService.findByOnlyName(request.getUserPrincipal().getName()).getRole()==RoleName.ADMIN);
+        }
+
+
         return "ItemPage";
     }
 
@@ -182,9 +187,14 @@ public class ControllerBasic {
     }
 
     @GetMapping("/item/del/{id}")   //delete an item
-    public String delFromList(@PathVariable int id){
-        itemService.delete(itemService.findById(id));
-        return "ItemDeletedCompletely";
+    public String delFromList(@PathVariable int id,HttpServletRequest request){
+        if(itemService.findById(id).canEdit(request.getUserPrincipal().getName()) ||  userService.findByOnlyName(request.getUserPrincipal().getName()).getRole()==RoleName.ADMIN){
+            itemService.delete(itemService.findById(id));
+            return "ItemDeletedCompletely";
+        }else{
+            return "LogIn";
+        }
+
 
     }
 
@@ -244,7 +254,7 @@ public class ControllerBasic {
             model.addAttribute("aviso", "Este usuario ya esta registrado, inicie sesión con sus credenciales");
             return "LogIn";
         }
-        
+
     }
 
     @GetMapping("/comments")    //see every comment in our database
@@ -279,7 +289,7 @@ public class ControllerBasic {
 
     @PostMapping("/createComment")
     public String createComment(@RequestParam String content,HttpServletRequest request){
-       PolicyFactory sanitizer=new HtmlPolicyBuilder()
+        PolicyFactory sanitizer=new HtmlPolicyBuilder()
                 .allowStandardUrlProtocols()
                 .allowAttributes("title").globally() //We allow the title attribute wherever it is
                 .allowAttributes("href").onElements("a") //We allow the use of link in elements of type <a>
@@ -287,7 +297,7 @@ public class ControllerBasic {
                 .allowAttributes("lang").matching(Pattern.compile("[a-zA-Z]{2,20}")).globally() //Allow alphabetic values in lang attributes wherever it is
                 .allowAttributes("align").matching(true,"left","rigth","center",
                         "justify","char").onElements("p") //Allow alignment options in <p> elements
-               .allowAttributes("style").onElements("span")
+                .allowAttributes("style").onElements("span")
                 .allowElements("a","p","div","i","b","em","blockquote","tt","strong",
                         "br","ul","ol","li", "span") //List of all the elements that are allowed in our "String"
                 .toFactory(); //Make it be a factory so that the Policy Builder matches the PolicyFactory type

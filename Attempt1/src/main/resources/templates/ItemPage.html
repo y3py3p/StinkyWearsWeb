@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>{{#item}}{{productName}}{{/item}}</title>
+  <meta charset="UTF-8">
+  <title>{{#item}}{{productName}}{{/item}}</title>
   <link rel="stylesheet" href="/res/cursor.css"/>
   <link rel="stylesheet" href="/res/main.css"/>
   <link rel="icon" type="image/png" href="/img/ouuushrek.png">
@@ -29,25 +29,25 @@
 
 <div class="clearfix"></div>
 
-  <section id="infoitem">                 <!--will print the objects' available info-->
-    {{#item}}
-    <h1>{{productName}}</h1><br/>
-    <p>Estado: {{productCondition}}<br>Talla: {{productSize}}<br>Precio: {{productPrice}}€</p><br/>
-    <p><button class="buttons" type="submit"><a href="/cart/{{productID}}">Añadir</a></button></p> <!-- will add the item to the shopping cart. It'll also redirect you to the carts' page-->
-    {{#edit}}<p><button class="buttons" type="submit"><a href="/item/edit/{{productID}}">Editar</a></button></p>{{/edit}}
-    {{#edit}}<p><button class="buttons" type="submit"><a href="/item/del/{{productID}}">Eliminar</a> </button> </p>{{/edit}}
-    {{/item}}
-  </section>
+<section id="infoitem">                 <!--will print the objects' available info-->
+  {{#item}}
+  <h1>{{productName}}</h1><br/>
+  <p>Estado: {{productCondition}}<br>Talla: {{productSize}}<br>Precio: {{productPrice}}€</p><br/>
+  {{#not}}<p><button class="buttons" type="submit"><a href="/cart/{{productID}}">Añadir</a></button></p> <!-- will add the item to the shopping cart. It'll also redirect you to the carts' page-->
+  {{#edit}}<p><button class="buttons" type="submit"><a href="/item/edit/{{productID}}">Editar</a></button></p>
+  <p><button class="buttons" type="submit"><a href="/item/del/{{productID}}">Eliminar</a> </button> </p>{{/edit}}
+  {{/not}}{{/item}}
+</section>
 
 <div class="clearfix"></div>
 
-  <footer>
-    StinkyWear &copy; 2022
-  </footer>
+<footer>
+  StinkyWear &copy; 2022
+</footer>
 
-  <div class="cursor"></div>
-  <script src="/res/cursor.js"></script>
-  <script src="/res/lateralBar.js"></script>
+<div class="cursor"></div>
+<script src="/res/cursor.js"></script>
+<script src="/res/lateralBar.js"></script>
 </body>
 
 </html>

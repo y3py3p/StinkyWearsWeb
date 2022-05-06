@@ -103,7 +103,7 @@ body {
 
 .login-box a:hover {
     background: #b0c400;
-    /*color: #fff;*/
+    color: #fff;
     border-radius: 5px;
     box-shadow: 0 0 5px #b0c400,
     0 0 25px #b0c400,
@@ -219,3 +219,6 @@ a:hover {
 
 }
 
+.reg a{
+    color: #fff;
+}

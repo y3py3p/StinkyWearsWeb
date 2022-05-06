@@ -137,26 +137,17 @@ public class ItemRESTController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody User user){
-
-        user.addRole(RoleName.USER);
-        log.info("{}", user.getUserPass());
-        user.setUserPass(encoder.encode(user.getUserPass()));
-        userService.saveUser(user);
-        return new ResponseEntity<>(user,HttpStatus.ACCEPTED);
-    }
-    /*@PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest){
-        if(userService.findByOnlyName(signupRequest.getUsername()) != null){
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: nombre de usuario ya usado"));
+        if(userService.findByOnlyName(user.getUserName().replaceAll(".*([';]+|(--)+).*", " ")) ==  null){
+            user.setUserPass(encoder.encode(user.getUserPass()));
+            user.addRole(RoleName.USER);
+            userService.saveUser(user);
+            return new ResponseEntity<>(user,HttpStatus.ACCEPTED);
+        }else{
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-
-        User user = new User(signupRequest.getUsername(), signupRequest.getEmail(), signupRequest.getPassword(), signupRequest.getAddress(), signupRequest.getPersonalName());
-        user.setUserPass(encoder.encode(user.getUserPass()));
-        userDetailsService.saveUser(user);
-        return ResponseEntity.ok(new MessageResponse("Usuario registrado"));
     }
 
-    @PostMapping("/signin")
+    /*@PostMapping("/signin")
     public ResponseEntity<?> loginRe(@Valid @RequestBody LoginRequest loginRequest){
 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -194,10 +185,6 @@ public class ItemRESTController {
         }else{
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-
-
-
-
     }
 
     @GetMapping("/seeCart") //see the cart
@@ -220,6 +207,7 @@ public class ItemRESTController {
 
         return userService.findByOnlyName(request.getUserPrincipal().getName());
     }
+
     @GetMapping("/comments")    //see every comment in our database
     public ResponseEntity<List<Comment>> comments(Model model){
         return new ResponseEntity<>(commentService.getAll(),HttpStatus.ACCEPTED);

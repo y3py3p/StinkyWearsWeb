@@ -34,7 +34,7 @@ public class RestSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/api/signup").permitAll();
     		
         // Other endpoints are public
-        http.authorizeRequests().anyRequest().authenticated();
+        http.authorizeRequests().anyRequest().permitAll();
 
         // Disable CSRF protection (it is difficult to implement in REST APIs)
         http.csrf().disable();
